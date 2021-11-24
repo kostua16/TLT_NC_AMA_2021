@@ -3,3 +3,4 @@ Test project for students
 
 
 Hello world!
+Hello world!
