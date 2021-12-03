@@ -26,6 +26,7 @@
     <lombok.version>1.18.20</lombok.version>
     <servlet.api.version>4.0.1</servlet.api.version>
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
+    <pmd.plugin.version>3.14.0</pmd.plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -126,9 +127,35 @@
           <artifactId>tomcat7-maven-plugin</artifactId>
           <version>${tomcat.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${pmd.plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>pmd-execute</id>
+            <phase>test</phase>
+            <goals>
+              <goal>pmd</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <targetJdk>1.8</targetJdk>
+          <sourceEncoding>UTF-8</sourceEncoding>
+          <rulesets>
+            <!-- A rule set, that comes bundled with PMD -->
+            <ruleset>/category/java/bestpractices.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
