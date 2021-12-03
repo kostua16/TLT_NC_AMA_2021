@@ -4,25 +4,58 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-<!--  <parent>-->
-<!--    <groupId>org.springframework.boot</groupId>-->
-<!--    <artifactId>spring-boot-starter-parent</artifactId>-->
-<!--    <version>2.4.5</version>-->
-<!--    <relativePath/>-->
-<!--    &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-<!--  </parent>-->
+  <!--  <parent>-->
+  <!--    <groupId>org.springframework.boot</groupId>-->
+  <!--    <artifactId>spring-boot-starter-parent</artifactId>-->
+  <!--    <version>2.4.5</version>-->
+  <!--    <relativePath/>-->
+  <!--    &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+  <!--  </parent>-->
 
   <groupId>nc.unc.ama</groupId>
   <artifactId>Project2021</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Project</name>
+  <name>parent_pom</name>
   <description>Project for students</description>
   <packaging>pom</packaging>
 
   <properties>
     <java.version>1.8</java.version>
     <junit.version>4.13.1</junit.version>
+    <commons.io.version>2.11.0</commons.io.version>
+    <lombok.version>1.18.20</lombok.version>
+    <servlet.api.version>4.0.1</servlet.api.version>
+    <tomcat.plugin.version>2.2</tomcat.plugin.version>
+    <pmd.plugin.version>3.14.0</pmd.plugin.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+        <version>${lombok.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${servlet.api.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
 
 
   <!-- общие зависимости для всех модулей	-->
@@ -30,52 +63,99 @@
 
 
     <!-- дополнительные сервисы для ускорения разработки	-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-devtools</artifactId>-->
-<!--      <scope>runtime</scope>-->
-<!--      <optional>true</optional>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-devtools</artifactId>-->
+    <!--      <scope>runtime</scope>-->
+    <!--      <optional>true</optional>-->
+    <!--    </dependency>-->
 
     <!-- дополнительные сервисы для показа состояния сервиса	-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-actuator</artifactId>-->
+    <!--    </dependency>-->
 
     <!-- Подсказки для IDE во время редактирования application.yml \ bootstrap.yml	-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-configuration-processor</artifactId>-->
-<!--      <optional>true</optional>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-configuration-processor</artifactId>-->
+    <!--      <optional>true</optional>-->
+    <!--    </dependency>-->
 
 
     <!-- Автогенерация кода через простановку аннотаций	-->
-<!--    <dependency>-->
-<!--      <groupId>org.projectlombok</groupId>-->
-<!--      <artifactId>lombok</artifactId>-->
-<!--      <optional>true</optional>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.projectlombok</groupId>-->
+    <!--      <artifactId>lombok</artifactId>-->
+    <!--      <optional>true</optional>-->
+    <!--    </dependency>-->
 
     <!-- Модуль для написания тестов с использованием Spring	-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-starter-test</artifactId>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-test</artifactId>-->
+    <!--      <scope>test</scope>-->
+    <!--    </dependency>-->
 
     <!-- Зависимость для написания тестов (д/з)-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.api.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>${tomcat.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${pmd.plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>pmd-execute</id>
+            <phase>test</phase>
+            <goals>
+              <goal>pmd</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <targetJdk>1.8</targetJdk>
+          <sourceEncoding>UTF-8</sourceEncoding>
+          <rulesets>
+            <!-- A rule set, that comes bundled with PMD -->
+            <ruleset>/category/java/bestpractices.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
