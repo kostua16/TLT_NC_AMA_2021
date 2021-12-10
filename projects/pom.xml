@@ -13,9 +13,9 @@
 
   <artifactId>projects</artifactId>
 
-<!--  <modules>-->
-<!--    <module>test_servlet</module>-->
-<!--  </modules>-->
+  <modules>
+    <module>test_servlet</module>
+  </modules>
 
   <dependencies>
     <dependency>
