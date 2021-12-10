@@ -29,16 +29,6 @@ jobs:
         uses: JesseTG/rm@v1.0.2
         with:
           path: ./.github/workflows
-      #################################
-      # Cache Maven-repo between runs #
-      #################################
-      - name: Cache local Maven repository
-        uses: actions/cache@v2.1.6
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       ###############
       # Install JDK #
       ###############
@@ -54,7 +44,7 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
-        run: mvn -T 1 -B clean install --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
+        run: mvn -T 1 -B clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
       #######################################
       # Add 'build_failed' label if build failed #
       #######################################
@@ -77,15 +67,6 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
             await script({github, context})
-      ##############################################
-      # Upload SARIF data  #
-      ##############################################
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
-        if: ${{ success() }}
-        with:
-          # Path to SARIF file relative to the root of the repository
-          sarif_file: pmd.sarif
 
   Validate_commit_message:
     name: Lint Commit Message
@@ -95,3 +76,5 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v4.1.4
+        with:
+          helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD

@@ -1,6 +1,7 @@
 # TLT_NC_AMA_2021
-Test project for students
+Тестовый проект для обсучения студентов
 
-## How to build project
- * Developer should have Maven installed or if Idea IDE installed (has Maven bundled already)
- * Run following command ```mvn clean install``` in the project directory
+Правила для участников описаны в [CONTRIBUTING.MD][contrib]
+
+[contrib]: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
+
