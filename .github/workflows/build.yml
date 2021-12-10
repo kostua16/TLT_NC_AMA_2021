@@ -1,0 +1,80 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Build Project
+
+on:
+  # pull_request event is required only for autolabeler
+  pull_request:
+    # Only following types are handled by the action, but one can default to all as well
+    types: [ opened, edited, reopened, synchronize ]
+
+jobs:
+  Build:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TKN }}
+          fetch-depth: 0
+      ################################
+      # Remove workflow configs      #
+      ################################
+      - name: Remove workflow configs
+        uses: JesseTG/rm@v1.0.2
+        with:
+          path: ./.github/workflows
+      ###############
+      # Install JDK #
+      ###############
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2.4.0
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          cache: 'maven'
+      #################
+      # Build project #
+      #################
+      - name: Build with Maven
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
+        run: mvn -T 1 -B clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
+      #######################################
+      # Add 'build_failed' label if build failed #
+      #######################################
+      - name: Create issue if build fails
+        uses: actions/github-script@v5
+        if: ${{ failure() }}
+        with:
+          github-token: ${{secrets.GH_TKN}}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_fails.js`)
+            await script({github, context})
+      ##############################################
+      # Add 'build_passed' label if build success  #
+      ##############################################
+      - name: Add 'build_passed' label if build success
+        uses: actions/github-script@v5
+        if: ${{ success() }}
+        with:
+          github-token: ${{secrets.GH_TKN}}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
+            await script({github, context})
+
+  Validate_commit_message:
+    name: Lint Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4.1.4
+        with:
+          helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
