@@ -15,19 +15,36 @@
   <groupId>nc.unc.ama</groupId>
   <artifactId>Project2021</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
   <name>parent_pom</name>
   <description>Project for students</description>
   <packaging>pom</packaging>
 
+  <modules>
+    <module>code_quality</module>
+    <module>projects</module>
+  </modules>
+
   <properties>
     <java.version>1.8</java.version>
+    <json.version>20180130</json.version>
     <junit.version>4.13.1</junit.version>
     <commons.io.version>2.11.0</commons.io.version>
     <lombok.version>1.18.20</lombok.version>
-    <servlet.api.version>4.0.1</servlet.api.version>
+    <jquery.version>3.6.0</jquery.version>
+    <servlet.api.version>3.1.0</servlet.api.version> <!-- TOMCAT 8 uses 3.1 version -->
+    <servlet.jsp.version>2.3.1</servlet.jsp.version> <!-- TOMCAT 8 uses 2.3 version -->
+    <servlet.jstl.version>1.2</servlet.jstl.version> <!-- TOMCAT 8 uses 1.2 version -->
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
-    <pmd.plugin.version>3.14.0</pmd.plugin.version>
+    <pmd.version>6.41.0</pmd.version>
+    <pmd.plugin.version>3.15.0</pmd.plugin.version>
+    <war.plugin.version>2.2</war.plugin.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <pmd.report.format>xml</pmd.report.format>
   </properties>
+
+
 
   <dependencyManagement>
     <dependencies>
@@ -53,7 +70,21 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>${servlet.api.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>javax.servlet.jsp-api</artifactId>
+        <version>${servlet.jsp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>${servlet.jstl.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${json.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -115,7 +146,31 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>${servlet.api.version}</version>
+      <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>${servlet.jsp.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+    </dependency>
+
+<!--    <dependency>-->
+<!--      <groupId>org.webjars.npm</groupId>-->
+<!--      <artifactId>jquery</artifactId>-->
+<!--      <version>${jquery.version}</version>-->
+<!--    </dependency>-->
 
   </dependencies>
 
@@ -132,31 +187,13 @@
           <artifactId>maven-pmd-plugin</artifactId>
           <version>${pmd.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${war.plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>pmd-execute</id>
-            <phase>test</phase>
-            <goals>
-              <goal>pmd</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <targetJdk>1.8</targetJdk>
-          <sourceEncoding>UTF-8</sourceEncoding>
-          <rulesets>
-            <!-- A rule set, that comes bundled with PMD -->
-            <ruleset>/category/java/bestpractices.xml</ruleset>
-          </rulesets>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 
 </project>

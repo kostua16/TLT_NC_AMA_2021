@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>Project2021</artifactId>
+    <groupId>nc.unc.ama</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <artifactId>projects</artifactId>
+
+<!--  <modules>-->
+<!--    <module>test_servlet</module>-->
+<!--  </modules>-->
+
+  <dependencies>
+    <dependency>
+      <groupId>nc.unc.ama</groupId>
+      <artifactId>code_quality</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>pmd-execute</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>${project.basedir}/target/</outputDirectory>
+          <!--          <format>${pmd.report.format}</format>-->
+          <targetJdk>${java.version}</targetJdk>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <sourceEncoding>UTF-8</sourceEncoding>
+          <excludes>
+            <exclude>**/*Bean.java</exclude>
+            <exclude>**/generated/*.java</exclude>
+          </excludes>
+          <includes>
+            <include>**/*.jsp</include>
+            <include>**/*.java</include>
+          </includes>
+          <verbose>true</verbose>
+          <compileSourceRoots>
+            <compileSourceRoot>${project.basedir}/src/main/java</compileSourceRoot>
+            <compileSourceRoot>${project.basedir}/src/main/webapp</compileSourceRoot>
+          </compileSourceRoots>
+          <rulesets>
+            <ruleset>code_quality/pmd.ruleset.xml</ruleset>
+          </rulesets>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-java</artifactId>
+            <version>${pmd.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-jsp</artifactId>
+            <version>${pmd.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>nc.unc.ama</groupId>
+            <artifactId>code_quality</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
