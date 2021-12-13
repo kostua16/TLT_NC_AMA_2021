@@ -8,6 +8,7 @@
 <html lang="en" xml:lang="en">
 <% response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); %>
 <c:set var="returnTo" value='${param.getOrDefault("returnTo", "index.jsp")}' />
+
 <head>
     <%-- Обязательные метатеги --%>
     <meta charset="utf-8" content="text/html" http-equiv="Content-Type">

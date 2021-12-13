@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import nc.unc.ama.entities.UserInfo;
 import nc.unc.ama.services.UsersDatabase;
 
-@WebFilter(filterName = "UserFilter", urlPatterns = {"*"})
+//@WebFilter(filterName = "UserFilter", urlPatterns = {"*"})
 public class UserFilter implements Filter {
 
   @Override
