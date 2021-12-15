@@ -55,6 +55,7 @@ module.exports = async ({ github, context }) => {
         }
 
         for (let [path, data] of await tools.processSarifData(`${process.env.GITHUB_WORKSPACE}/`)) {
+            console.log(`Found SARIF Data in file '${path}'..`);
             await github.rest.codeScanning.uploadSarif({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -62,7 +63,7 @@ module.exports = async ({ github, context }) => {
                 ref: context.ref,
                 sarif: data,
             });
-            console.log(`Uploaded SARIF Data from file '${path}''`);
+            console.log(`Uploaded SARIF Data from file '${path}'.`);
         }
 
 
