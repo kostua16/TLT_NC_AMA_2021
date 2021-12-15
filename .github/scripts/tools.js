@@ -74,10 +74,7 @@ function strToBase64(input) {
 async function processSarifData(root) {
     const results= new Map();
     for (const sarifFile of await findFilesInDir(root, [".sarif", ".sarif.json"])) {
-
-        var data = strToBase64(await gzipFile(sarifFile, {}));
-        console.log(`[TEST]: ${sarifFile}: ${data}`)
-        results[sarifFile] = data;
+        results.set(sarifFile, strToBase64(await gzipFile(sarifFile, {})));
     }
     return results;
 }
