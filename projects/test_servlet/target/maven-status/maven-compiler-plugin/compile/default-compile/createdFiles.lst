@@ -1,7 +1,0 @@
-nc\unc\ama\entities\UserInfo.class
-nc\unc\ama\servlets\CountOpened.class
-nc\unc\ama\servlets\LoginServlet.class
-nc\unc\ama\servlets\LogoutServlet.class
-nc\unc\ama\filters\UserFilter.class
-nc\unc\ama\services\UsersDatabase.class
-nc\unc\ama\servlets\RegisterServlet.class

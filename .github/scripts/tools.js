@@ -18,16 +18,19 @@ async function findFilesInDir(startPath, filters){
     let results = [];
     const dirStats = await fsPromises.stat(startPath);
     if (dirStats.isDirectory()) {
+        console.log(`[Scan] Found directory: ${startPath}`)
         const files = await fsPromises.readdir(startPath);
         for (let file of files) {
             let filename=path.join(startPath, file);
             const fileStats = await fsPromises.stat(filename);
             if (fileStats.isDirectory()) {
+
                 for (let subFile of await findFilesInDir(filename, filters)) {
                     results.push(subFile);
                 }
             } else if (filters.filter((filter) => filename.indexOf(filter)>=0).length > 0) {
                 results.push(filename);
+                console.log(`[Scan] Found file matching filters (${filters}): ${filename}`)
             }
         }
     }
@@ -40,14 +43,8 @@ async function findFilesInDir(startPath, filters){
  * @param  {zlib.ZlibOptions} options    Options for GZIP
  * @return {Promise<String>}             GZIP-ed data
  */
-async function gzipData(input, options){
+function gzipData(input, options){
     return gzipAsync(input, options);
-    // return new Promise( (resolve, reject) => {
-    //     zlib.gzip(input, options, (error, result) => {
-    //         if (!error) resolve(result);
-    //         else reject(Error(error));
-    //     });
-    // });
 }
 
 /**
@@ -58,17 +55,6 @@ async function gzipData(input, options){
  */
 async function gzipFile(path, options) {
     return await gzipData(await fsPromises.readFile(path, {encoding: "utf8"}), options)
-    // return new Promise(((resolve, reject) => {
-    //     fs.readFile(path, (error, content) => {
-    //         if (!error) {
-    //             gzipData(content, {})
-    //                 .then((zipped) => { resolve(zipped); })
-    //                 .catch((failed) => { reject(failed); })
-    //         } else {
-    //             reject(error)
-    //         }
-    //     });
-    // }));
 }
 
 /**
@@ -88,7 +74,7 @@ function strToBase64(input) {
 async function processSarifData(root) {
     const results= new Map();
     for (const sarifFile of await findFilesInDir(root, [".sarif", ".sarif.json"])) {
-        results[sarifFile] = strToBase64(await gzipFile(sarifFile, {}));
+        results.set(sarifFile, strToBase64(await gzipFile(sarifFile, {})));
     }
     return results;
 }

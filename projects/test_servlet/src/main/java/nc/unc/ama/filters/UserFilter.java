@@ -7,12 +7,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import nc.unc.ama.entities.UserInfo;
 import nc.unc.ama.services.UsersDatabase;
 
-@WebFilter(filterName = "UserFilter", urlPatterns = {"*"})
+//@WebFilter(filterName = "UserFilter", urlPatterns = {"*"})
 public class UserFilter implements Filter {
 
   @Override

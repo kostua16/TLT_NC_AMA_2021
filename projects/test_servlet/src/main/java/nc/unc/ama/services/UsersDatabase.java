@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import nc.unc.ama.entities.UserInfo;
 
+/**
+ * Bean
+ */
 public final class UsersDatabase {
 
   private static final UsersDatabase INSTANCE = new UsersDatabase();
