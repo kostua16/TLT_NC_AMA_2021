@@ -44,12 +44,8 @@ local.properties
 
 
 # Maven
-log/
-target/
-**/target/
-**/log/
-/**/target/
-/**/log/
+log
 target
 **/target
-*/target
+**/log
+
