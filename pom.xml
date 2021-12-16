@@ -38,7 +38,7 @@
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
     <pmd.version>6.41.0</pmd.version>
     <pmd.plugin.version>3.15.0</pmd.plugin.version>
-    <war.plugin.version>2.2</war.plugin.version>
+    <war.plugin.version>3.3.2</war.plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <pmd.report.format>xml</pmd.report.format>
