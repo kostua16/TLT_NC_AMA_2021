@@ -2,7 +2,7 @@ module.exports = {
     extends: ['@commitlint/config-conventional'],
     rules: {
         'subject-case': [
-            2,
+            1,
             'always',
             ['sentence-case', 'start-case', 'lower-case'],
         ],
