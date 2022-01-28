@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model) {
+    public String registration(final Model model) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }

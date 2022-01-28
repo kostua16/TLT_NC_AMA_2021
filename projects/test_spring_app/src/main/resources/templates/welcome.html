@@ -11,16 +11,15 @@
         <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>
-            Welcome <span sec:authentication="name"></span> |
             <a
                 class="logout-btn"
-                style="cursor: pointer"
+                style="cursor: pointer; margin-top: 10px;"
                 onclick="document.forms['logoutForm'].submit()"
             >Logout</a>
-        </h2>
         <div>
-            <h2>Information: </h2>
+            <h2>Welcome <span sec:authentication="name"></span></h2>
+<!--            <h2>Information: </h2>-->
+<!--            <h3>Number of logins: <span sec:authentication="success"></span></h3>-->
         </div>
 
     </div>

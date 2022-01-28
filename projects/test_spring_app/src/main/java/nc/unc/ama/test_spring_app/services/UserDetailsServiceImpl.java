@@ -37,6 +37,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         log.info("Authorization user: {}", user);
 
+        user.setSuccess(user.getSuccess() + 1);
+        userInfoRepository.save(user);
+
         return new org.springframework.security.core.userdetails
             .User(user.getLogin(), user.getPassword(), grantedAuthorities);
     }
