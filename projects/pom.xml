@@ -15,6 +15,7 @@
 
   <modules>
     <module>test_servlet</module>
+    <module>BankServlet</module>
   </modules>
 
   <dependencies>
