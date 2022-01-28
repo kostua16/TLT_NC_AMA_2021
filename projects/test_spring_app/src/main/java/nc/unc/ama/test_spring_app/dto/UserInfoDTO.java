@@ -1,10 +1,12 @@
 package nc.unc.ama.test_spring_app.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class UserInfoDTO {
 
-    @NotBlank
+    @NotBlank(message = "Incorrect field")
+    @Size(min = 6, max = 12, message = "Логин должен быть от 6 до 12 символов!")
     private String login;
 
     @NotBlank
