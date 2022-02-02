@@ -43,16 +43,16 @@
                                                     <div class="row form-group">
                                                         <div class="col-sm-4">
                                                             <h:outputLabel id="loginLoginInfo" for="loginLogin" value="Enter your name" required="true" styleClass="form-label" />
-                                                            <h:inputText id="loginLogin" value="#{accountDetails.login}" styleClass="form-control #{accountDetails.loginStatus} #{component.valid ? 'success' : 'error'}" aria-describedby="loginLoginInfo loginLoginFeedback" />
+                                                            <h:inputText id="loginLogin" value="#{accountDetails.login}" styleClass="form-control form-control-sm #{accountDetails.loginStatus} #{component.valid ? 'success' : 'error'}" aria-describedby="loginLoginInfo loginLoginFeedback" />
                                                             <h:message id="loginLoginFeedback" for="loginLogin" styleClass="form-text" infoClass="valid-feedback" errorClass="invalid-feedback" />
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <h:outputLabel id="loginPasswordInfo" for="loginPassword" value="Enter your password" required="true" styleClass="form-label" />
-                                                            <h:inputText id="loginPassword" value="#{accountDetails.password}" styleClass="form-control #{accountDetails.passwordStatus}" aria-describedby="loginPasswordInfo loginPasswordFeedback" />
+                                                            <h:inputText id="loginPassword" value="#{accountDetails.password}" styleClass="form-control form-control-sm #{accountDetails.passwordStatus}" aria-describedby="loginPasswordInfo loginPasswordFeedback" />
                                                             <h:message id="loginPasswordFeedback" for="loginPassword" styleClass="form-text" infoClass="valid-feedback" errorClass="invalid-feedback"  />
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <h:commandButton value="Login" action="#{accountDetails.doLogin}" actionListener="onLoginClicked" styleClass="form-control">
+                                                            <h:commandButton value="Login" action="#{accountDetails.doLogin}" actionListener="onLoginClicked" styleClass="form-control form-control-sm">
                                                                 <f:ajax execute="@form" render="loginDetailsStatus" onevent="onLoginClicked" />
                                                             </h:commandButton>
                                                         </div>
@@ -81,7 +81,7 @@
                             <div class="row form-group">
                                 <div class="col-sm-4">
                                     <h:outputLabel id="newUsernameInfo" for="newUsername" value="Enter your name" required="true" styleClass="form-label" />
-                                    <h:inputText label="Login" id="newUsername" value="#{registrationDetails.login}" styleClass="form-control #{component.valid ? 'is-valid' : 'is-invalid'}" validatorMessage="Login must be 3-10 length" >
+                                    <h:inputText label="Login" id="newUsername" value="#{registrationDetails.login}" styleClass="form-control form-control-sm #{component.valid ? 'is-valid' : 'is-invalid'}" validatorMessage="Login must be 3-10 length" >
                                         <f:validateLength for="newUsername" minimum="3" maximum="10"/>
                                         <f:validateRequired for="newUsername" />
                                     </h:inputText>
@@ -89,14 +89,14 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <h:outputLabel id="newUserPasswordInfo" for="newUserPassword" value="Enter your password" required="true" styleClass="form-label" />
-                                    <h:inputSecret label="Password" id="newUserPassword" value="#{registrationDetails.password}" styleClass="form-control #{component.valid ? 'is-valid' : 'is-invalid'}" validatorMessage="Password must be 3-12 length" >
+                                    <h:inputSecret label="Password" id="newUserPassword" value="#{registrationDetails.password}" styleClass="form-control form-control-sm #{component.valid ? 'is-valid' : 'is-invalid'}" validatorMessage="Password must be 3-12 length" >
                                         <f:validateLength for="newUserPassword" maximum="12" minimum="3"/>
                                         <f:validateRequired for="newUserPassword" />
                                     </h:inputSecret>
                                     <h:message id="newUserPasswordFeedback" for="newUserPassword" styleClass="form-text" infoClass="valid-feedback" errorClass="invalid-feedback"  />
                                 </div>
                                 <div class="col-sm-4">
-                                    <h:commandButton value="Register" action="#{registrationDetails.doRegister}" styleClass="form-control">
+                                    <h:commandButton value="Register" action="#{registrationDetails.doRegister}" styleClass="form-control form-control-sm">
                                         <f:ajax execute="@form" render="@form" />
                                         <f:param name="redirect" value="#{requestScope['javax.servlet.forward.request_uri']}" />
                                         <f:param name="query_string" value="#{requestScope['javax.servlet.forward.query_string']}" />
