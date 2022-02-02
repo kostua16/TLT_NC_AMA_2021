@@ -15,6 +15,7 @@
 
   <modules>
     <module>test_servlet</module>
+    <module>test_jsf</module>
   </modules>
 
   <dependencies>
