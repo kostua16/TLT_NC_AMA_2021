@@ -18,17 +18,17 @@ jobs:
       # Send Start notification to Discord         #
       ##############################################
       - name: Send "start" notification to Discord
-          uses: appleboy/discord-action@master
-          with:
-            webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-            webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-            color: "#8b9b9c"
-            username: "GitHub Builder"
-            message: |
-              Build started by 👤 ${{ github.actor }}
-              From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-              Event `${{ github.event_name }}`
-              PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#8b9b9c"
+          username: "GitHub Builder"
+          message: |
+            Build started by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
       ##########################
       # Checkout the code base #
       ##########################
@@ -75,18 +75,18 @@ jobs:
       # Send Fail notification to Discord       #
       ##############################################
       - name: Send "Fail" notification to Discord
-          uses: appleboy/discord-action@master
-          if: ${{ failure() }}
-          with:
-            webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-            webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-            color: "#FF0000"
-            username: "GitHub Builder"
-            message: |
-              Build failed by 👤 ${{ github.actor }}
-              From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-              Event `${{ github.event_name }}`
-              PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+        uses: appleboy/discord-action@master
+        if: ${{ failure() }}
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#FF0000"
+          username: "GitHub Builder"
+          message: |
+            Build failed by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
       ##############################################
       # Add 'build_passed' label if build success  #
       ##############################################
@@ -102,18 +102,18 @@ jobs:
       # Send Success notification to Discord       #
       ##############################################
       - name: Send "Finish" notification to Discord
-          uses: appleboy/discord-action@master
-          if: ${{ success() }}
-          with:
-            webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-            webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-            color: "#00FF3E"
-            username: "GitHub Builder"
-            message: |
-              Build finished by 👤 ${{ github.actor }}
-              From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-              Event `${{ github.event_name }}`
-              PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+        uses: appleboy/discord-action@master
+        if: ${{ success() }}
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF3E"
+          username: "GitHub Builder"
+          message: |
+            Build finished by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
 
   Validate_commit_message:
     name: Lint Commit Message
