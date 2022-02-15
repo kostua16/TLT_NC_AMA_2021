@@ -1,0 +1,32 @@
+POST http://localhost:8080/bankomat
+Content-Type: application/json
+
+{
+  "id":123,
+  "password":123456
+}
+
+###
+POST http://localhost:8080/bankomat/check
+Content-Type: application/json
+
+{
+  "id":123,
+  "password":123456
+}
+###
+POST http://localhost:8080/bank/add/10000
+Content-Type: application/json
+
+{
+  "id":123,
+  "password":123456
+}
+###
+POST http://localhost:8080/bankomat/withdraw/5000
+Content-Type: application/json
+
+{
+  "id":123,
+  "password":123456
+}
