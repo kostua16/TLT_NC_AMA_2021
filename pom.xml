@@ -33,7 +33,7 @@
     <lombok.version>1.18.20</lombok.version>
     <sjf4j.version>1.7.32</sjf4j.version>
     <jquery.version>3.6.0</jquery.version>
-    <servlet.api.version>3.1.0</servlet.api.version> <!-- TOMCAT 8 uses 3.1 version -->
+    <servlet.api.version>4.0.1</servlet.api.version> <!-- TOMCAT 8 uses 3.1 version -->
     <servlet.jsp.version>2.3.3</servlet.jsp.version> <!-- TOMCAT 8 uses 2.3 version -->
     <servlet.jstl.version>1.2</servlet.jstl.version> <!-- TOMCAT 8 uses 1.2 version -->
     <servlet.jsf-api.version>2.3</servlet.jsf-api.version> <!-- TOMCAT 8 uses 1.2 version -->
