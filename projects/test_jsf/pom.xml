@@ -11,7 +11,12 @@
 
   <artifactId>test_jsf</artifactId>
   <packaging>war</packaging>
-
+  <properties>
+    <cpd.skip>true</cpd.skip>
+    <pmd.skip>true</pmd.skip>
+    <maven.pmd.enable>false</maven.pmd.enable>
+    <maven.pmd.cpd.enable>false</maven.pmd.cpd.enable>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
