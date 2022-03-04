@@ -64,7 +64,7 @@ jobs:
       # Add 'build_failed' label if build failed #
       #######################################
       - name: Create issue if build fails
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ failure() }}
         with:
           github-token: ${{secrets.GH_TKN}}
@@ -91,7 +91,7 @@ jobs:
       # Add 'build_passed' label if build success  #
       ##############################################
       - name: Add 'build_passed' label if build success
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ success() }}
         with:
           github-token: ${{secrets.GH_TKN}}
