@@ -27,7 +27,7 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <json.version>20180130</json.version>
+    <json.version>20211205</json.version>
     <junit.version>4.13.2</junit.version>
     <commons.io.version>2.11.0</commons.io.version>
     <lombok.version>1.18.20</lombok.version>
