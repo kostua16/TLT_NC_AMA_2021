@@ -12,8 +12,6 @@
     <artifactId>common</artifactId>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
 </project>
