@@ -41,7 +41,7 @@
     <servlet.cdi.version>3.0.0.Final</servlet.cdi.version> <!-- TOMCAT 8 uses 1.2 version -->
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
     <pmd.version>6.43.0</pmd.version>
-    <pmd.plugin.version>3.15.0</pmd.plugin.version>
+    <pmd.plugin.version>3.16.0</pmd.plugin.version>
     <war.plugin.version>3.3.2</war.plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
