@@ -1,4 +1,4 @@
-package project.Guest_Service;
+package nc.unc.ama.guest_service;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

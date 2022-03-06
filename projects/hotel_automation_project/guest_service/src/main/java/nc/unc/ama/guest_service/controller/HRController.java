@@ -1,14 +1,14 @@
-package project.Guest_Service.controller;
+package nc.unc.ama.guest_service.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("service")
-public class ServiceController {
+@RequestMapping("room")
+public class HRController {
     @GetMapping
-    public String list (){
-        return "Soon it will be possible to order services here";
+    public String list(){
+        return "Working with Numbers in Development";
     }
 }
