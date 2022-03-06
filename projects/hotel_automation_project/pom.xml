@@ -21,7 +21,7 @@
 	<modules>
 		<module>common</module>
 		<module>complaint_handling_service</module>
-		<module>Guest_Service</module>
+		<module>guest_service</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
