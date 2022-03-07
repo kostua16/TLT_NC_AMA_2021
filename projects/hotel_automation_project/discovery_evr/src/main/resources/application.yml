@@ -1,0 +1,23 @@
+server:
+  port: 8761
+  servlet:
+    context-path: /eureka
+eureka:
+  instance:
+    hostname: localhost
+    appname: eurekaServer
+  client:
+    #     e
+    register-with-eureka: false
+    # Single node EUREKASERVER, does not need to synchronize other EureKaserver nodes, so set to False
+    fetch-registry: false
+    service-url:
+      #      defaultZone: http://127.0.0.1:${server.port}/eureka/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/eureka/
+  server:
+    # Set to false, close self-protection, that is, Eureka Server will go to the cloud-hearted device to count whether the heartbeat failed in 15 minutes is less than 85%, if it is less than 85%, Eurekaserver
+    # #
+    # Instance, the call will fail, and the service consumer is required to wait for the consumer, such as retry, circuit breakers, etc. for this issue.
+    enable-self-preservation: true
+    #               (      60 * 1000), 60S
+    eviction-interval-timer-in-ms: 10000
