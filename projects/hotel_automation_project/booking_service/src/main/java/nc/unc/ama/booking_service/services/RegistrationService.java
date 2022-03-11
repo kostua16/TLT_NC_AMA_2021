@@ -3,13 +3,14 @@ package nc.unc.ama.booking_service.services;
 import nc.unc.ama.booking_service.entities.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import nc.unc.ama.booking_service.repositories.RegistrationRepo;
 
 @Service
 public class RegistrationService {
-    private final nc.unc.ama.booking_service.repositories.RegistrationRepo registrationRepo;
+    private final RegistrationRepo registrationRepo;
 
     @Autowired
-    public RegistrationService(nc.unc.ama.booking_service.repositories.RegistrationRepo registrationRepo)
+    public RegistrationService(RegistrationRepo registrationRepo)
     {
         this.registrationRepo = registrationRepo;
     }
