@@ -1,10 +1,10 @@
 server:
-  port: 8761
+  port: ${EUREKA_PORT:8761}
   servlet:
     context-path: /eureka
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_HOST:localhost}
     appname: eurekaServer
   client:
     #     e

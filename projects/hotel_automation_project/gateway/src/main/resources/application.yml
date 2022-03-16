@@ -1,5 +1,5 @@
 server:
-  port: 8765
+  port: ${GATEWAY_PORT:8765}
 spring:
   main:
     web-application-type: reactive
