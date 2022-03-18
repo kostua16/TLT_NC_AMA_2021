@@ -10,6 +10,11 @@ public class StaffService {
 
 
     @Autowired
+    public StaffService(StaffRepo staffrepo)
+    {
+        this.staffRepo = staffrepo;
+    }
+
     private StaffRepo staffRepo;
 
     public Iterable<Staff> getUsers() {
