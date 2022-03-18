@@ -21,6 +21,8 @@
 	<modules>
 		<module>common</module>
 		<module>complaint_handling_service</module>
+		<module>discovery_evr</module>
+		<module>gateway</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
@@ -42,19 +44,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
