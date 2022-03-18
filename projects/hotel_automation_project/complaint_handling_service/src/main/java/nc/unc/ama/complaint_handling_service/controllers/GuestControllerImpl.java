@@ -2,13 +2,13 @@ package nc.unc.ama.complaint_handling_service.controllers;
 
 import nc.unc.ama.complaint_handling_service.dto.GuestDTO;
 import nc.unc.ama.complaint_handling_service.dto.GuestREST;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class GuestControllerImpl implements GuestREST {
     @Override
-    @GetMapping("/getGuest")
+    @GetMapping("/get-guest")
     public GuestDTO getGuest(){
         return  new GuestDTO();
     }

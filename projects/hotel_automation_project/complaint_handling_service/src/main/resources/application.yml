@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  cloud:
+    loadbalancer:
+        enable: false
   main:
     banner-mode: off
   datasource:

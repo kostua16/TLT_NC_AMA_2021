@@ -4,14 +4,13 @@ import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RequestMapping(path = "/Complaint")
+@RestController
+@RequestMapping(path = "/complaint")
 public class ComplaintController {
 
     private final ComplaintService complaintService;
@@ -21,16 +20,16 @@ public class ComplaintController {
         this.complaintService = complaintService;
     }
 
-    @PostMapping(path = "/createComplaint")
+    @PostMapping(path = "/create-complaint")
     public void createComplaint(@RequestBody Complaint complaint){
         complaintService.createComplain(complaint);
     }
 
-    @GetMapping(path = "/viewComplaint/{complaintId}")
+    @GetMapping(path = "/view-complaint/{complaintId}")
     public Complaint viewComplaint(@PathVariable("complaintId") Long complaintId){
         return complaintService.getComplaint(complaintId);
     }
-    @GetMapping(path = "/viewAllComplaints")
+    @GetMapping(path = "/view-all-complaints")
     public List<Complaint> getAllComplaints(){
         return  complaintService.getAllComplaints();
     }
