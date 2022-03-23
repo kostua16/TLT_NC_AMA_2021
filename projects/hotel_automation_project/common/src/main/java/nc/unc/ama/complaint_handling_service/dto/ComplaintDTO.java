@@ -3,8 +3,8 @@ package nc.unc.ama.complaint_handling_service.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class ComplaintDTO {
 
     private Long complaintId;
@@ -14,6 +14,13 @@ public class ComplaintDTO {
     private Long roomId;
 
     public ComplaintDTO(String complaintText, Long guestId, Long staffMemberId, Long roomId) {
+        this.complaintText = complaintText;
+        this.guestId = guestId;
+        this.staffMemberId = staffMemberId;
+        this.roomId = roomId;
+    }
+    public ComplaintDTO(Long complaintId, String complaintText, Long guestId, Long staffMemberId, Long roomId) {
+        this.complaintId = complaintId;
         this.complaintText = complaintText;
         this.guestId = guestId;
         this.staffMemberId = staffMemberId;

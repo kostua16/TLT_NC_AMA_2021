@@ -20,3 +20,11 @@ eureka:
     register-with-eureka: true
     service-url:
      defaultZone: http://localhost:8761/eureka/eureka/
+eureka:
+  instance:
+    appname: complain_handling
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+     defaultZone: http://localhost:8761/eureka/eureka/
