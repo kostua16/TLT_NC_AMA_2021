@@ -23,6 +23,8 @@
 		<module>complaint_handling_service</module>
 		<module>guest_service</module>
 		<module>bank_service</module>
+		<module>discovery_evr</module>
+		<module>gateway</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
@@ -47,16 +49,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
