@@ -15,7 +15,7 @@ public class StaffService {
         this.staffRepo = staffrepo;
     }
 
-    private StaffRepo staffRepo;
+    private final  StaffRepo staffRepo;
 
     public Iterable<Staff> getUsers() {
         return staffRepo.findAll();

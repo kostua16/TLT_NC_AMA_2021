@@ -2,7 +2,6 @@ package com.example.staff_service.controller;
 
 
 import com.example.staff_service.entities.Staff;
-import com.example.staff_service.repositories.StaffRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,10 @@ public class StaffController
     {
         this.staffService = staffService;
     }
-    @Autowired
-    private StaffService staffService;
+
+
+
+    private final StaffService staffService;
 
 
 

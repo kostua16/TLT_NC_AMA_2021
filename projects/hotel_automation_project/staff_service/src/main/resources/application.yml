@@ -13,5 +13,14 @@ spring:
     password: postgres
 
 server:
-  port: ${STAFF_PORT:8080}
+  port: ${STAFF_PORT:0}
 
+eureka:
+  instance:
+    appname: complain_handling
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA:http://localhost:8761/eureka/eureka/}
+      
