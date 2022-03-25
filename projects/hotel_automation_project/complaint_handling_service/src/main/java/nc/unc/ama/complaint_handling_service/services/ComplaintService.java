@@ -11,11 +11,13 @@ public class ComplaintService {
 
     @Autowired
     public ComplaintService(ComplaintRepo complaintRepo) {
+
         this.complaintRepo = complaintRepo;
     }
 
 
     public Complaint getComplaint(Long complaintId) {
+
         return complaintRepo.findById(complaintId).get();
     }
 }

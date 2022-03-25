@@ -1,7 +1,7 @@
 package nc.unc.ama.guest_service.controller;
 
 import nc.unc.ama.guest_service.entity.Operation;
-import nc.unc.ama.guest_service.service.OperationService;
+import nc.unc.ama.guest_service.service.OperationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class OperationController {
 
+    private final OperationServiceImpl operationService;
+
     @Autowired
-    private OperationService operationService;
+    public OperationController(OperationServiceImpl operationService) {
+        this.operationService = operationService;
+    }
 
     @GetMapping("/operations")
     public List<Operation> showAllOperations(){

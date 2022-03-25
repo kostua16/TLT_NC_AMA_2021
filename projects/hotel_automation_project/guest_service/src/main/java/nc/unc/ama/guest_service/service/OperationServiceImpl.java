@@ -9,22 +9,26 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OperationServiceImpl implements OperationService{
+public class OperationServiceImpl{
+
+    private final OperationRepository operationRepo;
 
     @Autowired
-    private OperationRepository operationRepo;
+    public OperationServiceImpl(OperationRepository operationRepo) {
+        this.operationRepo = operationRepo;
+    }
 
-    @Override
+
     public List<Operation> getAllOperations() {
         return operationRepo.findAll();
     }
 
-    @Override
+
     public void saveOperation(Operation operation) {
         operationRepo.save(operation);
     }
 
-    @Override
+
     public Operation getOperation(int idOperation) {
         Operation operation = null;
         Optional<Operation> optional = operationRepo.findById(idOperation);
@@ -34,7 +38,7 @@ public class OperationServiceImpl implements OperationService{
         return operation;
     }
 
-    @Override
+
     public void deleteOperation(int idOperation) {
         operationRepo.deleteById(idOperation);
     }
