@@ -30,12 +30,8 @@ public class OperationServiceImpl{
 
 
     public Operation getOperation(int idOperation) {
-        Operation operation = null;
         Optional<Operation> optional = operationRepo.findById(idOperation);
-        if (optional.isPresent()){
-            operation = optional.get();
-        }
-        return operation;
+        return optional.get();
     }
 
 

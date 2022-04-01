@@ -4,8 +4,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 
-@FeignClient(name = "OPERATION", path = "guest_service")
+@FeignClient(name = "guest_service", path = "/api/operations")
 public interface OperationREST {
+
     List<OperationDTO> getAllOperations();
 
     void saveOperation(OperationDTO operation);
