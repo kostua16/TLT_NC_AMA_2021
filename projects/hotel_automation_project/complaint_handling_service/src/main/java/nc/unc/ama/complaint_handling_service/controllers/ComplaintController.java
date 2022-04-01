@@ -24,11 +24,14 @@ public class ComplaintController {
 
     @PostMapping(path = "/createComplaint")
     public void createComplaint(@RequestBody ComplaintDTO complaintDTO){
-        complaintService.createComplain(
-                complaintDTO.getComplaintText(),
-                complaintDTO.getGuestId(),
-                complaintDTO.getStaffMemberId(),
-                complaintDTO.getRoomId());
+        complaintService.createComplain(Complaint
+                .builder()
+                .complaintText(complaintDTO.getComplaintText())
+                .guestId(complaintDTO.getGuestId())
+                .staffMemberId(complaintDTO.getStaffMemberId())
+                .roomId(complaintDTO.getRoomId())
+                .build()
+        );
     }
 
     @GetMapping(path = "/viewComplaint/{complaintId}")
@@ -43,9 +46,9 @@ public class ComplaintController {
     }
     @GetMapping(path = "/viewAllComplaints")
     public List<ComplaintDTO> getAllComplaints(){
-        List<Complaint> complainList = new ArrayList<>(complaintService.getAllComplaints());
+      //  List<Complaint> complainList = new ArrayList<>(complaintService.getAllComplaints());
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
-        for(Complaint complaint:complainList){
+        for(Complaint complaint:complaintService.getAllComplaints()){
             complainDTOList.add(new ComplaintDTO(
                     complaint.getComplaintId(),
                     complaint.getComplaintText(),
@@ -57,9 +60,9 @@ public class ComplaintController {
     }
     @GetMapping
     public List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO){
-        List<Complaint> complainList = new ArrayList<>(complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId()));
+        //List<Complaint> complainList = new ArrayList<>(complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId()));
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
-        for(Complaint complaint:complainList){
+        for(Complaint complaint:complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId())){
             complainDTOList.add(new ComplaintDTO(
                     complaint.getComplaintId(),
                     complaint.getComplaintText(),
