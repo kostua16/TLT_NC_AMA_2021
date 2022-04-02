@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/Complaint")
+@RequestMapping(path = "/complaint")
 public class ComplaintController {
 
     private final ComplaintService complaintService;
@@ -22,7 +22,7 @@ public class ComplaintController {
         this.complaintService = complaintService;
     }
 
-    @PostMapping(path = "/createComplaint")
+    @PostMapping(path = "/")
     public void createComplaint(@RequestBody ComplaintDTO complaintDTO){
         complaintService.createComplain(Complaint
                 .builder()
@@ -34,7 +34,7 @@ public class ComplaintController {
         );
     }
 
-    @GetMapping(path = "/viewComplaint/{complaintId}")
+    @GetMapping(path = "/{complaintId}")
     public ComplaintDTO viewComplaint(@PathVariable("complaintId") Long complaintId){
         Complaint newComplaint = complaintService.getComplaint(complaintId);
         return new ComplaintDTO(
@@ -44,7 +44,7 @@ public class ComplaintController {
                 newComplaint.getStaffMemberId(),
                 newComplaint.getRoomId());
     }
-    @GetMapping(path = "/viewAllComplaints")
+    @GetMapping(path = "/")
     public List<ComplaintDTO> getAllComplaints(){
       //  List<Complaint> complainList = new ArrayList<>(complaintService.getAllComplaints());
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ComplaintController {
         }
         return complainDTOList;
     }
-    @GetMapping
+    @GetMapping(path = "/on-staff")
     public List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO){
         //List<Complaint> complainList = new ArrayList<>(complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId()));
         List<ComplaintDTO> complainDTOList = new ArrayList<>();

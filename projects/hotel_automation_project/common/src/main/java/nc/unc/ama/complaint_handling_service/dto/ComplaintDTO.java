@@ -13,21 +13,13 @@ public class ComplaintDTO {
     private Long staffMemberId;
     private Long roomId;
 
-    public ComplaintDTO(String complaintText, Long guestId, Long staffMemberId, Long roomId) {
-        this.complaintText = complaintText;
-        this.guestId = guestId;
-        this.staffMemberId = staffMemberId;
-        this.roomId = roomId;
-    }
+
     public ComplaintDTO(Long complaintId, String complaintText, Long guestId, Long staffMemberId, Long roomId) {
         this.complaintId = complaintId;
         this.complaintText = complaintText;
         this.guestId = guestId;
         this.staffMemberId = staffMemberId;
         this.roomId = roomId;
-    }
-
-    public ComplaintDTO() {
     }
 
 }
