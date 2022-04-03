@@ -1,0 +1,17 @@
+### Send POST request with json body
+POST http://localhost:8080/staff/create
+Content-Type: application/json
+
+{
+  "staffName": "Semyon",
+  "stafflastName": "Ivanov",
+  "dateOfReg" : "11.03.2022"
+}
+
+
+###GET
+GET http://localhost:8080/staff
+
+
+### Send DELETE request with json body
+DELETE http://localhost:8080/staff/delete/2
