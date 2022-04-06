@@ -23,11 +23,4 @@
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
         <feign.version>3.1.1</feign.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-openfeign-core</artifactId>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>
