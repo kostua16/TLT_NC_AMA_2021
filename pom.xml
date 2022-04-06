@@ -38,7 +38,7 @@
     <servlet.jstl.version>1.2</servlet.jstl.version> <!-- TOMCAT 8 uses 1.2 version -->
     <servlet.jsf-api.version>2.3-pfd</servlet.jsf-api.version> <!-- TOMCAT 8 uses 1.2 version -->
     <servlet.jsf-impl.version>3.0.2</servlet.jsf-impl.version> <!-- TOMCAT 8 uses 1.2 version -->
-    <servlet.cdi.version>3.0.0.Final</servlet.cdi.version> <!-- TOMCAT 8 uses 1.2 version -->
+    <servlet.cdi.version>4.0.3.Final</servlet.cdi.version> <!-- TOMCAT 8 uses 1.2 version -->
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
     <pmd.version>6.43.0</pmd.version>
     <pmd.plugin.version>3.15.0</pmd.plugin.version>
