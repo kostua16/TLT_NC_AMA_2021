@@ -10,9 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <version>${feign.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+        <feign.version>3.1.1</feign.version>
     </properties>
     <dependencies>
         <dependency>
