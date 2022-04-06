@@ -1,14 +1,12 @@
-package nc.unc.ama.gateway;
+package nc.unc.ama.bank_service;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@Disabled
 @SpringBootTest
-class GatewayApplicationTests {
+class BankServiceApplicationTests {
 
-    @Test
+
     void contextLoads() {
     }
 
