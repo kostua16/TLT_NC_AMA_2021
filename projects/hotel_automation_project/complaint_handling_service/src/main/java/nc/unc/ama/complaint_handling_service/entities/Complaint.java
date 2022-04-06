@@ -1,5 +1,6 @@
 package nc.unc.ama.complaint_handling_service.entities;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Complaint {
     private Long staffMemberId;
     private Long roomId;
 
+    @Builder
     public Complaint(String complaintText, Long guestId, Long staffMemberId, Long roomId) {
         this.complaintText = complaintText;
         this.guestId = guestId;

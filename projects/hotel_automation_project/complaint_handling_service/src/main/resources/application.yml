@@ -1,15 +1,23 @@
 server:
-  port: 8080
-
+  port: ${COMPLAINT_PORT:8085}
 spring:
-  main:
-    banner-mode: off
+main:
+  banner-mode: off
   datasource:
     url: jdbc:h2:mem:mydb
-    username: sa
+    username: admin
     password:
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console.enabled: true
+eureka:
+  instance:
+    appname: complain_handling
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+     defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/eureka/}
+
