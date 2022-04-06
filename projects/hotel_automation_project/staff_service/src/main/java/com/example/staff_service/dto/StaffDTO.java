@@ -1,8 +1,7 @@
-package com.example.staff_service.entities;
+package com.example.staff_service.dto;
 
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,12 +9,10 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@Entity
-@Table(name = "staff_info")
-public class Staff {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class StaffDTO {
+
+
     private int staffId;
     private String staffName;
     private String stafflastName;
@@ -23,7 +20,7 @@ public class Staff {
     private String typeOfStaff;
     private Integer staffRating;
 
-    public Staff(String staffName, String stafflastName, String dateOfReg, String typeOfStaff, Integer staffRating) {
+    public StaffDTO(String staffName, String stafflastName, String dateOfReg, String typeOfStaff, Integer staffRating) {
         this.staffName = staffName;
         this.stafflastName = stafflastName;
         this.dateOfReg = dateOfReg;

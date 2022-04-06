@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.staff_service.service.StaffService;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/staff")
 public class StaffController
@@ -19,14 +21,13 @@ public class StaffController
         this.staffService = staffService;
     }
 
-
-
     private final StaffService staffService;
-
-
 
     @GetMapping
     public ResponseEntity<Iterable<Staff>> getAllStaff() { return ResponseEntity.ok(staffService.getUsers());}
+
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<Staff>> getStaffById(@PathVariable ("id") int id) { return ResponseEntity.ok(staffService.getStaffById(id));}
 
     @PostMapping("/create")
     public ResponseEntity<Staff> createNewStaff(@RequestBody Staff staff) { return ResponseEntity.ok(staffService.createStaff(staff));}
