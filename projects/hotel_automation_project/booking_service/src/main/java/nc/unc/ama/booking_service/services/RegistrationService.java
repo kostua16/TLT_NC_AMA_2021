@@ -17,6 +17,6 @@ public class RegistrationService {
 
     public Registration getRegisteredUsers (String password, String username, Long registrationId)
     {
-        return registrationRepo.findById(registrationId).get();
+        return registrationRepo.findById(registrationId).orElseThrow(() -> new NullPointerException());
     }
 }
