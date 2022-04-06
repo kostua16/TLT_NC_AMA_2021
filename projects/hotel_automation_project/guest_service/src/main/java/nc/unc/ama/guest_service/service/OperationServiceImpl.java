@@ -4,6 +4,7 @@ import nc.unc.ama.guest_service.dao.OperationRepository;
 import nc.unc.ama.guest_service.entity.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class OperationServiceImpl{
         return operationRepo.findAll();
     }
 
-
+    @Transactional
     public void saveOperation(Operation operation) {
         operationRepo.save(operation);
     }
@@ -34,7 +35,7 @@ public class OperationServiceImpl{
         return optional.get();
     }
 
-
+    @Transactional
     public void deleteOperation(int idOperation) {
         operationRepo.deleteById(idOperation);
     }

@@ -1,11 +1,15 @@
 package nc.unc.ama.guest_service.entity;
 
-import lombok.Data;
+import lombok.*;
+
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "operations")
+
 public class Operation {
 
     @Id
@@ -21,4 +25,12 @@ public class Operation {
 
     @Column(name = "price")
     private int price;
+
+    @Builder
+    public Operation(int idOperation, String operationName, String description, int price) {
+        this.idOperation = idOperation;
+        this.operationName = operationName;
+        this.description = description;
+        this.price = price;
+    }
 }

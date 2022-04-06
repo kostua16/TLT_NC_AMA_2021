@@ -1,27 +1,23 @@
 package nc.unc.ama.complaint_handling_service.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 
-public class OperationDTO {
-    @Data
-    @Entity
-    @Table(name = "operations")
-    public class Operation {
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "id")
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    public class OperationDTO {
         private int idOperation;
-
-        @Column(name = "operationname")
         private String operationName;
-
-        @Column(name = "description")
         private String description;
-
-        @Column(name = "price")
         private int price;
+
+        public OperationDTO(int idOperation, String operationName, String description, int price) {
+            this.idOperation = idOperation;
+            this.operationName = operationName;
+            this.description = description;
+            this.price = price;
+        }
     }
-}

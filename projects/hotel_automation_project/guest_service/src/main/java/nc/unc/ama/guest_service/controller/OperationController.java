@@ -1,10 +1,12 @@
 package nc.unc.ama.guest_service.controller;
 
+import nc.unc.ama.complaint_handling_service.dto.OperationDTO;
 import nc.unc.ama.guest_service.entity.Operation;
 import nc.unc.ama.guest_service.service.OperationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,19 +21,38 @@ public class OperationController {
     }
 
     @GetMapping("/")
-    public List<Operation> showAllOperations(){
-        return operationService.getAllOperations();
+    public List<OperationDTO> showAllOperations(){
+        List<OperationDTO> operationDTO = new ArrayList<>();
+        for(Operation operation:operationService.getAllOperations()){
+            operationDTO.add(new OperationDTO(
+                    operation.getIdOperation(),
+                    operation.getOperationName(),
+                    operation.getDescription(),
+                    operation.getPrice()));
+        }
+        return operationDTO;
     }
 
     @GetMapping("/{idOperation}")
-    public Operation getOperation(@PathVariable int idOperation){
-        return operationService.getOperation(idOperation);
-    }
+    public OperationDTO getOperation(@PathVariable("idOperation") int idOperation){
+        Operation operation = operationService.getOperation(idOperation);
+        return new OperationDTO (
+            operation.getIdOperation(),
+            operation.getOperationName(),
+            operation.getDescription(),
+            operation.getPrice());
+        }
 
     @PostMapping("/")
-    public Operation addNewOperation(@RequestBody Operation operation){
-        operationService.saveOperation(operation);
-        return operation;
+    public void addNewOperation(@RequestBody OperationDTO operationDTO){
+        operationService.saveOperation(Operation
+                .builder()
+                .idOperation(operationDTO.getIdOperation())
+                .operationName(operationDTO.getOperationName())
+                .description(operationDTO.getDescription())
+                .price(operationDTO.getPrice())
+                .build()
+        );
     }
 
     @PutMapping("/")
