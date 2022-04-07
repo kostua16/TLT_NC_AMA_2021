@@ -16,6 +16,8 @@
   <modules>
     <module>test_servlet</module>
     <module>BankServlet</module>
+    <module>test_jsf</module>
+    <module>Web_Bank_tomcat</module>
   </modules>
 
   <dependencies>
