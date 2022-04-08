@@ -60,6 +60,10 @@
             <groupId>nc.unc.ama</groupId>
             <artifactId>common</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+		</dependency>
     </dependencies>
 
 
