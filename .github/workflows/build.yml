@@ -33,7 +33,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TKN }}
           fetch-depth: 0
@@ -48,7 +48,7 @@ jobs:
       # Install JDK #
       ###############
       - name: Set up JDK 11
-        uses: actions/setup-java@v2.4.0
+        uses: actions/setup-java@v3
         with:
           java-version: 11
           distribution: 'temurin'
@@ -64,7 +64,7 @@ jobs:
       # Add 'build_failed' label if build failed #
       #######################################
       - name: Create issue if build fails
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ failure() }}
         with:
           github-token: ${{secrets.GH_TKN}}
@@ -91,7 +91,7 @@ jobs:
       # Add 'build_passed' label if build success  #
       ##############################################
       - name: Add 'build_passed' label if build success
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ success() }}
         with:
           github-token: ${{secrets.GH_TKN}}
@@ -119,10 +119,10 @@ jobs:
     name: Lint Commit Message
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4.1.4
+      - uses: wagoid/commitlint-github-action@v4.1.11
         with:
           helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
           configFile: .github/commitlint.config.js
