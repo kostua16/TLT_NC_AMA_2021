@@ -14,10 +14,10 @@
   <artifactId>projects</artifactId>
 
   <modules>
-    <module>test_servlet</module>
-    <module>test_jsf</module>
+    <!--    <module>test_servlet</module>-->
+    <!--    <module>test_jsf</module>-->
+    <!--    <module>Web_Bank_tomcat</module>-->
     <module>hotel_automation_project</module>
-    <module>Web_Bank_tomcat</module>
   </modules>
 
   <dependencies>
