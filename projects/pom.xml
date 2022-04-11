@@ -21,7 +21,10 @@
   </modules>
 
   <properties>
-    <app.name>${project.name}-tlt-2021</app.name>
+    <app.name>${project.name}</app.name>
+    <app.main>nc.unc.ama.Main</app.main>
+    <app.repackage.skip>false</app.repackage.skip>
+    <app.layout>WAR</app.layout>
   </properties>
 
   <dependencies>
@@ -88,6 +91,24 @@
             <version>0.0.1-SNAPSHOT</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>${app.main}</mainClass>
+          <layout>${app.layout}</layout>
+          <skip>${app.repackage.skip}</skip>
+          <layers>
+            <enabled>true</enabled>
+          </layers>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
