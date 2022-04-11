@@ -20,6 +20,10 @@
     <module>hotel_automation_project</module>
   </modules>
 
+  <properties>
+    <app.name>${project.name}-tlt-2021</app.name>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>nc.unc.ama</groupId>
@@ -29,6 +33,7 @@
   </dependencies>
 
   <build>
+    <finalName>${app.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -86,5 +91,30 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>deploy-heroku</id>
+      <activation>
+        <file>
+          <missing>deploy.skip</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.heroku.sdk</groupId>
+            <artifactId>heroku-maven-plugin</artifactId>
+            <version>${heroku.plugin.version}</version>
+            <configuration>
+              <buildpacks>
+                <buildpack>heroku/jvm</buildpack>
+              </buildpacks>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
