@@ -31,6 +31,13 @@ jobs:
           message: |
             Deploy started by 👤 ${{ github.actor }}
             Changes: ${{ github.event.compare }}
+      ########################
+      # Cancel Previous Runs #
+      ########################
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.GH_TKN }}
       ##########################
       # Checkout the code base #
       ##########################
