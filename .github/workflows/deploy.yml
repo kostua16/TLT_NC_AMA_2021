@@ -12,6 +12,7 @@ on:
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  EUREKA_DEPL_PASSWORD: ${{ secrets.EUREKA_DEPL_PASSWORD }}
 
 jobs:
   Build:
