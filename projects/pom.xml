@@ -165,8 +165,8 @@
                 <web>java $JAVA_OPTS ${app.opts} -jar ${app.target.file} -cp ${app.classpath} ${app.main}</web>
               </processTypes>
               <configVars>
-                <EUREKA_URL>https://discovery-tlt-2021.herokuapp.com/eureka/</EUREKA_URL>
-                <GATEWAY_URL>https://gateway-tlt-2021.herokuapp.com/</GATEWAY_URL>
+                <EUREKA_URL>http://discovery-tlt-2021.herokuapp.com/eureka/</EUREKA_URL>
+                <GATEWAY_URL>http://gateway-tlt-2021.herokuapp.com/</GATEWAY_URL>
                 <DOMAIN_NAME>${app.name}-tlt-2021.herokuapp.com</DOMAIN_NAME>
               </configVars>
 <!--              <warFile>projects\hotel_automation_project\${project.name}\${app.target.file}</warFile>-->
