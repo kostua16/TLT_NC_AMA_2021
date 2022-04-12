@@ -14,7 +14,6 @@ spring:
   security:
     user:
       password: ${eureka.password}
-
 server:
   port: ${STAFF_PORT:57118}
 
@@ -27,9 +26,7 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
-  jpa:
-    hibernate:
-      ddl-auto: update
+
 ---
 server:
   port: ${PORT:8080}

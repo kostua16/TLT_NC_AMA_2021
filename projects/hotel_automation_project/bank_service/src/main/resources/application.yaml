@@ -16,6 +16,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    generate-ddl: true
 eureka:
   instance:
     appname: bank
