@@ -1,0 +1,110 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Build Project
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'master'
+      - 'heroku'
+
+jobs:
+  Build:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      ##############################################
+      # Send Start notification to Discord         #
+      ##############################################
+      - name: Send "start" notification to Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#8b9b9c"
+          username: "GitHub Deploy"
+          message: |
+            Deploy started by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TKN }}
+          fetch-depth: 0
+      ###############
+      # Install JDK #
+      ###############
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          cache: 'maven'
+      #################
+      # Build project #
+      #################
+      - name: Build with Maven
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
+        run: mvn -T 1 -B clean package pmd:pmd deploy --file pom.xml
+      #######################################
+      # Add 'build_failed' label if build failed #
+      #######################################
+      - name: Failure actions
+        uses: actions/github-script@v6
+        if: ${{ failure() }}
+        with:
+          github-token: ${{secrets.GH_TKN}}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_fails.js`)
+            await script({github, context})
+      ##############################################
+      # Send Fail notification to Discord       #
+      ##############################################
+      - name: Send "Fail" notification to Discord
+        uses: appleboy/discord-action@master
+        if: ${{ failure() }}
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#FF0000"
+          username: "GitHub Deploy"
+          message: |
+            Deploy failed by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+      ##############################################
+      # Add 'build_passed' label if build success  #
+      ##############################################
+      - name: Success actions
+        uses: actions/github-script@v6
+        if: ${{ success() }}
+        with:
+          github-token: ${{secrets.GH_TKN}}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
+            await script({github, context})
+      ##############################################
+      # Send Success notification to Discord       #
+      ##############################################
+      - name: Send "Finish" notification to Discord
+        uses: appleboy/discord-action@master
+        if: ${{ success() }}
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF3E"
+          username: "GitHub Deploy"
+          message: |
+            Deploy finished by 👤 ${{ github.actor }}
+            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
+            Event `${{ github.event_name }}`
+            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
