@@ -1,5 +1,5 @@
 server:
-  port: ${port:57117}
+  port: ${GUEST_PORT:57117}
 spring:
   main:
     banner-mode: off
@@ -10,8 +10,6 @@ spring:
     username: sa
     password:
     driverClassName: org.h2.Driver
-  jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 eureka:
   instance:
     appname: guest
@@ -19,4 +17,18 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${GUESTSERVICE_URL_DEFAULT_ZONE:http://localhost:8761/eureka/eureka/}
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+---
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: prod
+  h2:
+    console.enabled: false

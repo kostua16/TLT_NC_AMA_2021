@@ -24,7 +24,12 @@
     <app.name>${project.name}</app.name>
     <app.main>nc.unc.ama.Main</app.main>
     <app.repackage.skip>false</app.repackage.skip>
-    <app.layout>WAR</app.layout>
+    <app.layout>JAR</app.layout>
+    <app.target.file>target/${app.name}.jar</app.target.file>
+    <app.classpath>${app.target.file}:target/classes:target/dependency/*</app.classpath>
+<!--    <app.opts>-XX:+UseContainerSupport -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC</app.opts>-->
+    <app.opts>-XX:+UseContainerSupport -Dspring.profiles.active=prod</app.opts>
+    <app.profile>dev</app.profile>
   </properties>
 
   <dependencies>
@@ -96,6 +101,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
+          <profiles>
+            <profile>default</profile>
+            <profile>${app.profile}</profile>
+          </profiles>
+          <imageName>${app.name}</imageName>
           <mainClass>${app.main}</mainClass>
           <layout>${app.layout}</layout>
           <skip>${app.repackage.skip}</skip>
@@ -109,6 +119,15 @@
             </exclude>
           </excludes>
         </configuration>
+        <executions>
+          <execution>
+            <id>build-fat-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -127,10 +146,32 @@
             <groupId>com.heroku.sdk</groupId>
             <artifactId>heroku-maven-plugin</artifactId>
             <version>${heroku.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>heroku-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>deploy-only</goal>
+                </goals>
+              </execution>
+            </executions>
             <configuration>
+              <logProgress>true</logProgress>
+              <appName>${app.name}-tlt-2021</appName>
               <buildpacks>
                 <buildpack>heroku/jvm</buildpack>
               </buildpacks>
+              <processTypes>
+                <web>java $JAVA_OPTS ${app.opts} -jar ${app.target.file} -cp ${app.classpath} ${app.main}</web>
+              </processTypes>
+<!--              <warFile>projects\hotel_automation_project\${project.name}\${app.target.file}</warFile>-->
+              <jdkVersion>11</jdkVersion>
+              <includeTarget>false</includeTarget>
+              <includes>
+<!--                <include>target/dependency</include>-->
+<!--                <include>target/classes</include>-->
+                <include>${app.target.file}</include>
+              </includes>
             </configuration>
           </plugin>
         </plugins>

@@ -12,9 +12,9 @@
   <groupId>nc.unc.ama</groupId>
   <artifactId>guest_service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
   <name>guest_service</name>
   <description>Demo project for Spring Boot</description>
+  <packaging>jar</packaging>
   <properties>
     <app.name>guests</app.name>
     <app.main>nc.unc.ama.guest_service.GuestServiceApplication</app.main>
@@ -24,36 +24,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-tomcat</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>

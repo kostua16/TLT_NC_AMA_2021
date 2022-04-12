@@ -13,7 +13,7 @@ spring:
     password: postgres
 
 server:
-  port: ${STAFF_PORT:0}
+  port: ${STAFF_PORT:57118}
 
 eureka:
   instance:
@@ -22,5 +22,18 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${EUREKA:http://localhost:8761/eureka/eureka/}
-      
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+---
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: prod
+  h2:
+    console.enabled: false
