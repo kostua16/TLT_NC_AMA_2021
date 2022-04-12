@@ -11,13 +11,17 @@ spring:
     url: jdbc:postgresql://${JDBCadress:192.168.99.100:5432/postgres}
     username: postgres
     password: postgres
+  security:
+    user:
+      password: ${eureka.password}
 
 server:
   port: ${STAFF_PORT:57118}
 
 eureka:
   instance:
-    appname: complain_handling
+    appname: staff_service
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true

@@ -10,9 +10,13 @@ spring:
     username: sa
     password:
     driverClassName: org.h2.Driver
+  security:
+    user:
+      password: ${eureka.password}
 eureka:
   instance:
     appname: guest
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true

@@ -10,9 +10,13 @@ spring:
     password: test
   h2:
     console.enabled: true
+  security:
+    user:
+      password: ${eureka.password}
 eureka:
   instance:
     appname: complain_handling
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true
