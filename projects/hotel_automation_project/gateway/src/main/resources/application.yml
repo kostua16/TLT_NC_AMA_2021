@@ -29,6 +29,21 @@ spring:
   config:
     activate:
       on-profile: prod
+  cloud:
+    gateway:
+      routes:
+        - id: roomsApi
+          uri: lb://complain_handling/rooms
+          predicates:
+            - PrefixPath=/api/rooms
+        - id: complaintApi
+          uri: lb://complain_handling/complaint
+          predicates:
+            - PrefixPath=/api/complaint
+        - id: operationsApi
+          uri: lb://guest/api/operations
+          predicates:
+            - PrefixPath=/api/operations
 eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
