@@ -37,7 +37,7 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
-        run: mvn -T 1 -B clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
+        run: mvn -T 1 -B clean install pmd:pmd --file pom.xml -e -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
       #######################################
       # Add 'build_failed' label if build failed #
       #######################################
