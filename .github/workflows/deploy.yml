@@ -30,9 +30,7 @@ jobs:
           username: "GitHub Deploy"
           message: |
             Deploy started by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+            Changes: ${{ github.event.compare }}
       ##########################
       # Checkout the code base #
       ##########################
@@ -97,9 +95,7 @@ jobs:
           username: "GitHub Deploy"
           message: |
             Deploy failed by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+            Changes: ${{ github.event.compare }}
       ##############################################
       # Add 'build_passed' label if build success  #
       ##############################################
@@ -124,6 +120,4 @@ jobs:
           username: "GitHub Deploy"
           message: |
             Deploy finished by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+            Changes: ${{ github.event.compare }}
