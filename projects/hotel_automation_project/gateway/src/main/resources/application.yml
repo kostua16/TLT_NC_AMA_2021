@@ -25,3 +25,7 @@ spring:
   config:
     activate:
       on-profile: prod
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
+    nonSecurePort: ${PUBLIC_PORT:80}

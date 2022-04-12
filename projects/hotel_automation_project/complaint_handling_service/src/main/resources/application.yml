@@ -32,4 +32,7 @@ spring:
       on-profile: prod
   h2:
     console.enabled: false
-
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
+    nonSecurePort: ${PUBLIC_PORT:80}
