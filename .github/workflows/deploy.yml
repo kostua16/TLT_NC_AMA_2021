@@ -10,6 +10,9 @@ on:
       - 'master'
       - 'heroku'
 
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
 jobs:
   Build:
     name: Build project
