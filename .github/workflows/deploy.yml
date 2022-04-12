@@ -56,7 +56,7 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
-        run: mvn -T 1 -B clean package pmd:pmd deploy -e --file pom.xml
+        run: mvn -T 1 -B -e -ntp clean package pmd:pmd deploy --file pom.xml
       #######################################
       # Add 'build_failed' label if build failed #
       #######################################
