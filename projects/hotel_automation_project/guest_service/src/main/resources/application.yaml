@@ -13,6 +13,9 @@ spring:
   security:
     user:
       password: ${eureka.password}
+  jpa:
+    hibernate:
+      ddl-auto: update
 eureka:
   instance:
     appname: guest
