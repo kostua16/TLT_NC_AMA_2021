@@ -5,13 +5,13 @@ server:
 spring:
   security:
     user:
-      password: ${eureka.client.password}
+      password: ${eureka.password}
 eureka:
   instance:
     hostname: ${EUREKA_HOST:localhost}
     appname: eurekaServer
+  password: ${EUREKA_USER_PASSWORD:tlt2021}
   client:
-    password: ${EUREKA_USER_PASSWORD:tlt2021}
     register-with-eureka: false
     # Single node EUREKASERVER, does not need to synchronize other EureKaserver nodes, so set to False
     fetch-registry: false
@@ -34,6 +34,9 @@ spring:
     activate:
       on-profile: prod
 eureka:
+  password: ${EUREKA_USER_PASSWORD:tlt2021}
   instance:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
+  client:
+    service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/
