@@ -31,6 +31,22 @@ jobs:
           java-version: 11
           distribution: 'temurin'
           cache: 'maven'
+      #########################
+      # Check vulnerabilities #
+      #########################
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --sarif-file-output=snyk.sarif
+      #######################
+      # Upload scan results #
+      #######################
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk.sarif
       #################
       # Build project #
       #################
