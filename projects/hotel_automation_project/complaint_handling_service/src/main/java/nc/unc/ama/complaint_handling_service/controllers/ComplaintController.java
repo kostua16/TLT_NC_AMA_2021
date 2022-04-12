@@ -28,6 +28,7 @@ public class ComplaintController implements ComplaintREST {
     }
 
     @PostMapping(path = "/")
+    @Override
     public void createComplaint(@RequestBody ComplaintDTO complaintDTO) {
         complaintService.createComplain(Complaint
             .builder()
@@ -40,6 +41,7 @@ public class ComplaintController implements ComplaintREST {
     }
 
     @GetMapping(path = "/{complaintId}")
+    @Override
     public ComplaintDTO viewComplaint(@PathVariable("complaintId") Long complaintId) {
         Complaint newComplaint = complaintService.getComplaint(complaintId);
         return new ComplaintDTO(
@@ -51,6 +53,7 @@ public class ComplaintController implements ComplaintREST {
     }
 
     @GetMapping(path = "/")
+    @Override
     public List<ComplaintDTO> getAllComplaints() {
         //  List<Complaint> complainList = new ArrayList<>(complaintService.getAllComplaints());
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
@@ -66,6 +69,7 @@ public class ComplaintController implements ComplaintREST {
     }
 
     @GetMapping(path = "/on-staff")
+    @Override
     public List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO) {
         //List<Complaint> complainList = new ArrayList<>(complaintService.getComplaintByStaffId
         // (staffMemberDTO.getStaffMemberId()));
