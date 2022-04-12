@@ -10,13 +10,41 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+  security:
+    user:
+      password: ${eureka.password}
 eureka:
   instance:
     appname: gateway
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/eureka/}
-
-
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+---
+server:
+  port: ${PORT:8080}
+spring:
+  config:
+    activate:
+      on-profile: prod
+  cloud:
+    gateway:
+      routes:
+        - id: roomsApi
+          uri: lb://complain_handling/rooms
+          predicates:
+            - PrefixPath=/api/rooms
+        - id: complaintApi
+          uri: lb://complain_handling/complaint
+          predicates:
+            - PrefixPath=/api/complaint
+        - id: operationsApi
+          uri: lb://guest/api/operations
+          predicates:
+            - PrefixPath=/api/operations
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
+    nonSecurePort: ${PUBLIC_PORT:80}

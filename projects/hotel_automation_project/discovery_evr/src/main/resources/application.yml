@@ -2,12 +2,16 @@ server:
   port: ${EUREKA_PORT:8761}
   servlet:
     context-path: /eureka
+spring:
+  security:
+    user:
+      password: ${eureka.password}
 eureka:
   instance:
     hostname: ${EUREKA_HOST:localhost}
     appname: eurekaServer
+  password: ${EUREKA_USER_PASSWORD:tlt2021}
   client:
-    #     e
     register-with-eureka: false
     # Single node EUREKASERVER, does not need to synchronize other EureKaserver nodes, so set to False
     fetch-registry: false
@@ -21,3 +25,18 @@ eureka:
     enable-self-preservation: true
     #               (      60 * 1000), 60S
     eviction-interval-timer-in-ms: 10000
+
+---
+server:
+  port: ${PORT:8080}
+spring:
+  config:
+    activate:
+      on-profile: prod
+eureka:
+  password: ${EUREKA_USER_PASSWORD:tlt2021}
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
+    nonSecurePort: ${PUBLIC_PORT:80}
+  client:
+    service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/eureka/

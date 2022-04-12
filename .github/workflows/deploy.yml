@@ -1,19 +1,37 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Build Project
+name: Deploy Project
 
 on:
-  # pull_request event is required only for autolabeler
-  pull_request:
-    # Only following types are handled by the action, but one can default to all as well
-    types: [ opened, edited, reopened, synchronize ]
+  push:
+    branches:
+      - 'main'
+      - 'master'
+      - 'heroku'
+
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  EUREKA_DEPL_PASSWORD: ${{ secrets.EUREKA_DEPL_PASSWORD }}
 
 jobs:
   Build:
-    name: Build project
+    name: Deploy project
     runs-on: ubuntu-latest
     steps:
+      ##############################################
+      # Send Start notification to Discord         #
+      ##############################################
+      - name: Send "start" notification to Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#8b9b9c"
+          username: "GitHub Deploy"
+          message: |
+            Deploy started by 👤 ${{ github.actor }}
+            Changes: ${{ github.event.compare }}
       ########################
       # Cancel Previous Runs #
       ########################
@@ -44,7 +62,7 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
-        run: mvn -T 1 -B -e -ntp clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
+        run: mvn -T 1 -B -e -ntp clean package pmd:pmd deploy --file pom.xml
       #######################################
       # Add 'build_failed' label if build failed #
       #######################################
@@ -57,6 +75,20 @@ jobs:
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_fails.js`)
             await script({github, context})
       ##############################################
+      # Send Fail notification to Discord       #
+      ##############################################
+      - name: Send "Fail" notification to Discord
+        uses: appleboy/discord-action@master
+        if: ${{ failure() }}
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#FF0000"
+          username: "GitHub Deploy"
+          message: |
+            Deploy failed by 👤 ${{ github.actor }}
+            Changes: ${{ github.event.compare }}
+      ##############################################
       # Add 'build_passed' label if build success  #
       ##############################################
       - name: Success actions
@@ -67,16 +99,17 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
             await script({github, context})
-
-  Validate_commit_message:
-    name: Lint Commit Message
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+      ##############################################
+      # Send Success notification to Discord       #
+      ##############################################
+      - name: Send "Finish" notification to Discord
+        uses: appleboy/discord-action@master
+        if: ${{ success() }}
         with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4.1.11
-        with:
-          helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
-          configFile: .github/commitlint.config.js
-          firstParent: true
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#00FF3E"
+          username: "GitHub Deploy"
+          message: |
+            Deploy finished by 👤 ${{ github.actor }}
+            Changes: ${{ github.event.compare }}
