@@ -166,7 +166,7 @@
               </processTypes>
               <configVars>
                 <!--suppress UnresolvedMavenProperty -->
-                <EUREKA_URL>https://user:${env.EUREKA_DEPL_PASSWORD:tlt2021}@discovery-tlt-2021.herokuapp.com/eureka/</EUREKA_URL>
+                <EUREKA_URL>https://user:${env.EUREKA_DEPL_PASSWORD:tlt2021}@discovery-tlt-2021.herokuapp.com/eureka/eureka/</EUREKA_URL>
                 <!--suppress UnresolvedMavenProperty -->
                 <EUREKA_USER_PASSWORD>${env.EUREKA_DEPL_PASSWORD:tlt2021}</EUREKA_USER_PASSWORD>
                 <GATEWAY_URL>https://gateway-tlt-2021.herokuapp.com/</GATEWAY_URL>

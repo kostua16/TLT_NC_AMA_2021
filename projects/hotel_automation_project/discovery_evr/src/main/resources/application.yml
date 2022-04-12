@@ -39,4 +39,4 @@ eureka:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
   client:
-    service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/
+    service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/eureka/
