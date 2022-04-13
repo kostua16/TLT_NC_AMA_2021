@@ -16,7 +16,9 @@ spring:
       password: ${eureka.password}
 server:
   port: ${STAFF_PORT:57118}
-
+management:
+  server:
+    port: ${server.port}
 eureka:
   instance:
     appname: staff_service
@@ -45,3 +47,6 @@ eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}

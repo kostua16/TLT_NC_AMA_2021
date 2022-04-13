@@ -1,5 +1,8 @@
 server:
   port: ${COMPLAINT_PORT:8085}
+management:
+  server:
+    port: ${server.port}
 spring:
   main:
     banner-mode: off
@@ -45,3 +48,6 @@ eureka:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
     non-secure-port-enabled: true
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}

@@ -1,5 +1,8 @@
 server:
   port: ${GUEST_PORT:57117}
+management:
+  server:
+    port: ${server.port}
 spring:
   main:
     banner-mode: off
@@ -44,3 +47,6 @@ eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}

@@ -2,6 +2,9 @@ server:
   port: ${EUREKA_PORT:8761}
   servlet:
     context-path: /eureka
+management:
+  server:
+    port: ${server.port}
 spring:
   security:
     user:
@@ -40,3 +43,6 @@ eureka:
     nonSecurePort: ${PUBLIC_PORT:80}
   client:
     service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/eureka/
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}
