@@ -50,3 +50,17 @@ eureka:
 management:
   server:
     port: ${eureka.instance.nonSecurePort}
+---
+server:
+  port: 80
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: docker
+  h2:
+    console.enabled: false

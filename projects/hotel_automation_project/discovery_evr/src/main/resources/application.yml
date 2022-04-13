@@ -46,3 +46,10 @@ eureka:
 management:
   server:
     port: ${eureka.instance.nonSecurePort}
+---
+server:
+  port: 80
+spring:
+  config:
+    activate:
+      on-profile: docker
