@@ -30,22 +30,25 @@ services:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: discovery
 
-  gateway:
+  logger:
     build:
-      context: ./projects/hotel_automation_project/gateway
-      dockerfile: Gateway.Dockerfile
+      context: ./projects/hotel_automation_project/logger
+      dockerfile: Logger.Dockerfile
     ports:
-      - 3000:80
+      - 3011:80
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
-      DOMAIN_NAME: gateway
+      DOMAIN_NAME: logger
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
 
   complains:
     build:
       context: ./projects/hotel_automation_project/complaint_handling_service
       dockerfile: Complaints.Dockerfile
     ports:
-      - 3011:80
+      - 3012:80
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: complains
@@ -58,7 +61,7 @@ services:
       context: ./projects/hotel_automation_project/bank_service
       dockerfile: Bank.Dockerfile
     ports:
-      - 3012:80
+      - 3013:80
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: bank
@@ -71,13 +74,23 @@ services:
       context: ./projects/hotel_automation_project/guest_service
       dockerfile: Guest.Dockerfile
     ports:
-      - 3013:80
+      - 3014:80
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: guest
       DATABASE_URL: jdbc:postgresql://postgres:5432/test
       DATABASE_USER: test
       DATABASE_PASS: test
+
+  gateway:
+    build:
+      context: ./projects/hotel_automation_project/gateway
+      dockerfile: Gateway.Dockerfile
+    ports:
+      - 3000:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: gateway
 
 volumes:
   pg_data:

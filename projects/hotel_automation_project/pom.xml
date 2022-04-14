@@ -59,6 +59,7 @@
     <module>bank_service</module>
     <module>discovery_evr</module>
     <module>gateway</module>
+    <module>logger</module>
   </modules>
   <dependencies>
 
