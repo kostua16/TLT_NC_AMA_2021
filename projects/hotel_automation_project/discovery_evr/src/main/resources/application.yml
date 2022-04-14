@@ -1,18 +1,20 @@
 server:
-  port: ${EUREKA_PORT:8761}
+  port: ${PORT:8761}
+  public-port: ${PUBLIC_PORT:${server.port}}
   servlet:
     context-path: /eureka
 management:
   server:
-    port: ${server.port}
+    port: ${server.public-port}
 spring:
   security:
     user:
       password: ${eureka.password}
 eureka:
   instance:
-    hostname: ${EUREKA_HOST:localhost}
+    hostname: ${DOMAIN_NAME:localhost}
     appname: eurekaServer
+    nonSecurePort: ${server.public-port}
   password: ${EUREKA_USER_PASSWORD:tlt2021}
   client:
     register-with-eureka: false
@@ -21,6 +23,7 @@ eureka:
     service-url:
       #      defaultZone: http://127.0.0.1:${server.port}/eureka/eureka/
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/eureka/
+#      defaultZone: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/eureka/
   server:
     # Set to false, close self-protection, that is, Eureka Server will go to the cloud-hearted device to count whether the heartbeat failed in 15 minutes is less than 85%, if it is less than 85%, Eurekaserver
     # #
@@ -28,28 +31,8 @@ eureka:
     enable-self-preservation: true
     #               (      60 * 1000), 60S
     eviction-interval-timer-in-ms: 10000
-
 ---
-server:
-  port: ${PORT:8080}
 spring:
   config:
     activate:
       on-profile: prod
-eureka:
-  password: ${EUREKA_USER_PASSWORD:tlt2021}
-  instance:
-    hostname: ${DOMAIN_NAME:localhost}
-    nonSecurePort: ${PUBLIC_PORT:80}
-  client:
-    service-url: https://user:${eureka.password}}@${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/eureka/eureka/
-management:
-  server:
-    port: ${eureka.instance.nonSecurePort}
----
-server:
-  port: 80
-spring:
-  config:
-    activate:
-      on-profile: docker

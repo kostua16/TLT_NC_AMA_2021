@@ -1,8 +1,9 @@
 server:
-  port: ${COMPLAINT_PORT:8085}
+  port: ${PORT:8085}
+  public-port: ${PUBLIC_PORT:${server.port}}
 management:
   server:
-    port: ${server.port}
+    port: ${server.public-port}
 spring:
   main:
     banner-mode: off
@@ -23,6 +24,7 @@ spring:
 eureka:
   instance:
     appname: complain_handling
+    nonSecurePort: ${server.public-port}
   password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
@@ -30,8 +32,6 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
 ---
-server:
-  port: ${PORT:8080}
 spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
@@ -43,25 +43,9 @@ spring:
       on-profile: prod
   h2:
     console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
-    nonSecurePort: ${PUBLIC_PORT:80}
-    non-secure-port-enabled: true
-management:
-  server:
-    port: ${eureka.instance.nonSecurePort}
----
-server:
-  port: 80
-spring:
-  datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
-    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
-    username: ${DATABASE_USER:}
-    password: ${DATABASE_PASS:}
-  config:
-    activate:
-      on-profile: docker
-  h2:
-    console.enabled: false
+

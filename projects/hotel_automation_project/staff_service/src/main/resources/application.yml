@@ -64,3 +64,5 @@ spring:
       on-profile: docker
   h2:
     console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
