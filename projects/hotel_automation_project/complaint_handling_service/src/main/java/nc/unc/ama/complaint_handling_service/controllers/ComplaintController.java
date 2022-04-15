@@ -55,7 +55,6 @@ public class ComplaintController implements ComplaintREST {
     @GetMapping(path = "/")
     @Override
     public List<ComplaintDTO> getAllComplaints() {
-        //  List<Complaint> complainList = new ArrayList<>(complaintService.getAllComplaints());
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint : complaintService.getAllComplaints()) {
             complainDTOList.add(new ComplaintDTO(
@@ -71,8 +70,6 @@ public class ComplaintController implements ComplaintREST {
     @GetMapping(path = "/on-staff")
     @Override
     public List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO) {
-        //List<Complaint> complainList = new ArrayList<>(complaintService.getComplaintByStaffId
-        // (staffMemberDTO.getStaffMemberId()));
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint :
             complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId())) {
