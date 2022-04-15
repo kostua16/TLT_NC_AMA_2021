@@ -12,24 +12,21 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @Entity
-public class Complaint {
+public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long complaintId;
-    private String complaintText;
+    private Long reviewId;
     private Long guestId;
-    private Long staffMemberId;
-    private Long roomId;
+    private String reviewText;
 
     @Builder
-    public Complaint(String complaintText, Long guestId, Long staffMemberId, Long roomId) {
-        this.complaintText = complaintText;
+    public Reviews(Long reviewId, Long guestId, String reviewText) {
+        this.reviewId = reviewId;
         this.guestId = guestId;
-        this.staffMemberId = staffMemberId;
-        this.roomId = roomId;
+        this.reviewText = reviewText;
     }
 
-    public Complaint() {
+    public Reviews() {
 
     }
 }
