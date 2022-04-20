@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Класс-сущность Работника со свойствами имя, фамилия, дата регистрации, тип выполняемой работы и рейтинг
+ */
 @Data
 @NoArgsConstructor
 @Entity
@@ -23,6 +26,14 @@ public class Staff {
     private String typeOfStaff;
     private Integer staffRating;
 
+    /**
+     * Конструктор класса
+     * @param staffName имя
+     * @param stafflastName фамилия
+     * @param dateOfReg дата регистрации
+     * @param typeOfStaff тип выполняемой работы
+     * @param staffRating рейтинг
+     */
     public Staff(String staffName, String stafflastName, String dateOfReg, String typeOfStaff, Integer staffRating) {
         this.staffName = staffName;
         this.stafflastName = stafflastName;
