@@ -1,13 +1,13 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
 import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
-import nc.unc.ama.complaint_handling_service.dto.StaffMemberREST;
+import nc.unc.ama.complaint_handling_service.dto.StaffRatingREST;
 import nc.unc.ama.complaint_handling_service.services.StaffRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/staff-rating")
-public class RatingControllerImpl implements StaffMemberREST {
+public class RatingControllerImpl implements StaffRatingREST {
     private final StaffRatingService staffRatSer;
 
     @Autowired

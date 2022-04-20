@@ -14,11 +14,23 @@
   <artifactId>projects</artifactId>
 
   <modules>
-    <module>test_servlet</module>
-    <module>test_jsf</module>
+    <!--    <module>test_servlet</module>-->
+    <!--    <module>test_jsf</module>-->
+    <!--    <module>Web_Bank_tomcat</module>-->
     <module>hotel_automation_project</module>
-    <module>Web_Bank_tomcat</module>
   </modules>
+
+  <properties>
+    <app.name>${project.name}</app.name>
+    <app.main>nc.unc.ama.Main</app.main>
+    <app.repackage.skip>false</app.repackage.skip>
+    <app.layout>JAR</app.layout>
+    <app.target.file>target/${app.name}.jar</app.target.file>
+    <app.classpath>${app.target.file}:target/classes:target/dependency/*</app.classpath>
+<!--    <app.opts>-XX:+UseContainerSupport -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC</app.opts>-->
+    <app.opts>-XX:+UseContainerSupport -Dspring.profiles.active=prod</app.opts>
+    <app.profile>dev</app.profile>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -29,6 +41,7 @@
   </dependencies>
 
   <build>
+    <finalName>${app.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -84,7 +97,95 @@
           </dependency>
         </dependencies>
       </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <profiles>
+            <profile>default</profile>
+            <profile>${app.profile}</profile>
+          </profiles>
+          <imageName>${app.name}</imageName>
+          <mainClass>${app.main}</mainClass>
+          <layout>${app.layout}</layout>
+          <skip>${app.repackage.skip}</skip>
+          <layers>
+            <enabled>true</enabled>
+          </layers>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-fat-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>deploy-heroku</id>
+      <activation>
+        <file>
+          <missing>deploy.skip</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.heroku.sdk</groupId>
+            <artifactId>heroku-maven-plugin</artifactId>
+            <version>${heroku.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>heroku-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>deploy-only</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <logProgress>true</logProgress>
+              <appName>${app.name}-tlt-2021</appName>
+              <buildpacks>
+                <buildpack>heroku/jvm</buildpack>
+              </buildpacks>
+              <processTypes>
+                <web>java $JAVA_OPTS ${app.opts} -jar ${app.target.file} -cp ${app.classpath} ${app.main}</web>
+              </processTypes>
+              <configVars>
+                <!--suppress UnresolvedMavenProperty -->
+                <EUREKA_URL>https://user:${env.EUREKA_DEPL_PASSWORD:tlt2021}@discovery-tlt-2021.herokuapp.com/eureka/eureka/</EUREKA_URL>
+                <!--suppress UnresolvedMavenProperty -->
+                <EUREKA_USER_PASSWORD>${env.EUREKA_DEPL_PASSWORD:tlt2021}</EUREKA_USER_PASSWORD>
+                <GATEWAY_URL>https://gateway-tlt-2021.herokuapp.com/</GATEWAY_URL>
+                <DOMAIN_NAME>${app.name}-tlt-2021.herokuapp.com</DOMAIN_NAME>
+                <PUBLIC_PORT>80</PUBLIC_PORT>
+              </configVars>
+<!--              <warFile>projects\hotel_automation_project\${project.name}\${app.target.file}</warFile>-->
+              <jdkVersion>11</jdkVersion>
+              <includeTarget>false</includeTarget>
+              <includes>
+<!--                <include>target/dependency</include>-->
+<!--                <include>target/classes</include>-->
+                <include>${app.target.file}</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

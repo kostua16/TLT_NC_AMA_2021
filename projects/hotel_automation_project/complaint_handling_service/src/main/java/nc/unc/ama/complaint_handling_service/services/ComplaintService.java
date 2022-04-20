@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -17,13 +16,14 @@ public class ComplaintService {
 
     @Autowired
     public ComplaintService(ComplaintRepo complaintRepo) {
+
         this.complaintRepo = complaintRepo;
     }
 
 
     public Complaint getComplaint(Long complaintId) {
-        Optional<Complaint> optional = complaintRepo.findById(complaintId);
-        return optional.get();
+
+        return complaintRepo.findById(complaintId).get();
     }
 
     @Transactional

@@ -14,21 +14,13 @@ jobs:
     name: Build project
     runs-on: ubuntu-latest
     steps:
-      ##############################################
-      # Send Start notification to Discord         #
-      ##############################################
-      - name: Send "start" notification to Discord
-        uses: appleboy/discord-action@master
+      ########################
+      # Cancel Previous Runs #
+      ########################
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#8b9b9c"
-          username: "GitHub Builder"
-          message: |
-            Build started by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
+          access_token: ${{ secrets.GH_TKN }}
       ##########################
       # Checkout the code base #
       ##########################
@@ -37,13 +29,6 @@ jobs:
         with:
           token: ${{ secrets.GH_TKN }}
           fetch-depth: 0
-      ################################
-      # Remove workflow configs      #
-      ################################
-      - name: Remove workflow configs
-        uses: JesseTG/rm@v1.0.2
-        with:
-          path: ./.github/workflows
       ###############
       # Install JDK #
       ###############
@@ -59,11 +44,11 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TKN }}  # Needed to get PR information, if any
-        run: mvn -T 1 -B clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
+        run: mvn -T 1 -B -e -ntp clean install pmd:pmd --file pom.xml -Dformat=net.sourceforge.pmd.renderers.SarifRenderer
       #######################################
       # Add 'build_failed' label if build failed #
       #######################################
-      - name: Create issue if build fails
+      - name: Failure actions
         uses: actions/github-script@v6
         if: ${{ failure() }}
         with:
@@ -72,25 +57,9 @@ jobs:
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_fails.js`)
             await script({github, context})
       ##############################################
-      # Send Fail notification to Discord       #
-      ##############################################
-      - name: Send "Fail" notification to Discord
-        uses: appleboy/discord-action@master
-        if: ${{ failure() }}
-        with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#FF0000"
-          username: "GitHub Builder"
-          message: |
-            Build failed by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
-      ##############################################
       # Add 'build_passed' label if build success  #
       ##############################################
-      - name: Add 'build_passed' label if build success
+      - name: Success actions
         uses: actions/github-script@v6
         if: ${{ success() }}
         with:
@@ -98,22 +67,6 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
             await script({github, context})
-      ##############################################
-      # Send Success notification to Discord       #
-      ##############################################
-      - name: Send "Finish" notification to Discord
-        uses: appleboy/discord-action@master
-        if: ${{ success() }}
-        with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          color: "#00FF3E"
-          username: "GitHub Builder"
-          message: |
-            Build finished by 👤 ${{ github.actor }}
-            From `${{ github.head_ref }}` to `${{ github.base_ref }}`
-            Event `${{ github.event_name }}`
-            PR ${{ github.event.number }}: ${{ github.event.pull_request.url }}
 
   Validate_commit_message:
     name: Lint Commit Message
@@ -122,7 +75,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4.1.9
+      - uses: wagoid/commitlint-github-action@v4.1.11
         with:
           helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
           configFile: .github/commitlint.config.js
+          firstParent: true

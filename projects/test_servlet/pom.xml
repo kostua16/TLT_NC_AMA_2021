@@ -13,6 +13,10 @@
   <artifactId>test_servlet</artifactId>
   <packaging>war</packaging>
 
+  <properties>
+    <pmd.skip>true</pmd.skip>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>

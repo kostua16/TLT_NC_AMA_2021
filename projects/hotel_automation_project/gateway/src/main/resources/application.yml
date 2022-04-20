@@ -1,5 +1,9 @@
 server:
-  port: ${GATEWAY_PORT:8765}
+  port: ${PORT:8765}
+  public-port: ${PUBLIC_PORT:${server.port}}
+management:
+  server:
+    port: ${server.public-port}
 spring:
   main:
     web-application-type: reactive
@@ -10,11 +14,42 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+  security:
+    user:
+      password: ${eureka.password}
 eureka:
   instance:
     appname: gateway
+    nonSecurePort: ${server.public-port}
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/eureka/}
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: roomsApi
+          uri: lb://complain_handling/rooms
+          predicates:
+            - Path=/api/rooms/**
+        - id: complaintApi
+          uri: lb://complain_handling/complaint
+          predicates:
+            - Path=/api/complaint/**
+        - id: operationsApi
+          uri: lb://guest/api/operations
+          predicates:
+            - Path=/api/operations/**
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}

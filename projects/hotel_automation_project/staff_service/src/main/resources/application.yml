@@ -11,16 +11,58 @@ spring:
     url: jdbc:postgresql://${JDBCadress:192.168.99.100:5432/postgres}
     username: postgres
     password: postgres
-
+  security:
+    user:
+      password: ${eureka.password}
 server:
-  port: ${STAFF_PORT:8080}
-
+  port: ${STAFF_PORT:57118}
+management:
+  server:
+    port: ${server.port}
 eureka:
   instance:
-    appname: complain_handling
+    appname: staff_service
+  password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${EUREKA:http://localhost:8761/eureka/eureka/}
-      
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+
+---
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: prod
+  h2:
+    console.enabled: false
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
+    nonSecurePort: ${PUBLIC_PORT:80}
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}
+---
+server:
+  port: 80
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: docker
+  h2:
+    console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
