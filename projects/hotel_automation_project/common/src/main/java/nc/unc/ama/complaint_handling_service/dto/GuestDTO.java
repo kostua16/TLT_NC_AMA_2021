@@ -8,17 +8,19 @@ import lombok.Setter;
 public class GuestDTO {
 
     private Long guestId;
-    private String firstname;
-    private  String lastname;
+    private String guestFName;
+    private String guestLName;
     private String guestEmail;
+    private String guestPhone;
+
+    public GuestDTO(Long guestId, String guestFName, String guestLName, String guestEmail, String guestPhone) {
+        this.guestId = guestId;
+        this.guestFName = guestFName;
+        this.guestLName = guestLName;
+        this.guestEmail = guestEmail;
+        this.guestPhone = guestPhone;
+    }
 
     public GuestDTO() {
     }
-
-    public GuestDTO(String firstname, String lastname, String guestEmail) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.guestEmail = guestEmail;
-    }
-
 }
