@@ -4,10 +4,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "booking", path = "/rooms")
-@ConditionalOnProperty(prefix = "app.clients", name = "roomsApi")
+import java.util.List;
+
+@FeignClient()
+@ConditionalOnProperty()
 public interface OccupiedRoomsREST {
 
-    @GetMapping("/getOccupiedRoom")
-    OccupiedRoomsDTO getOccupiedRoom();
+    @GetMapping("/")
+    List<OccupiedRoomsDTO> getAllOccupiedRoom();
 }

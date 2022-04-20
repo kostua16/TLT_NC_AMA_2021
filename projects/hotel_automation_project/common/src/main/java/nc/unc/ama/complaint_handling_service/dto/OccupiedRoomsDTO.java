@@ -8,15 +8,16 @@ import lombok.Setter;
 public class OccupiedRoomsDTO {
 
     private Long occupiedRoomId;
-    private Long staffMemberId;
-    private Long bookingId;
+    private Long roomId;
+    private Long staffId;
 
     public OccupiedRoomsDTO() {
     }
 
-    public OccupiedRoomsDTO(Long staffMemberId, Long bookingId) {
-        this.staffMemberId = staffMemberId;
-        this.bookingId = bookingId;
-    }
 
+    public OccupiedRoomsDTO(Long occupiedRoomId, Long roomId, Long staffId) {
+        this.occupiedRoomId = occupiedRoomId;
+        this.roomId = roomId;
+        this.staffId = staffId;
+    }
 }
