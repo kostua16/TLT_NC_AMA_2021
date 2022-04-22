@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OcRoomsController implements OccupiedRoomsREST {
 
-    private OcRoomsService ocRoomsService;
+    private final OcRoomsService ocRoomsService;
 
     @Autowired
     public OcRoomsController(OcRoomsService ocRoomsService) {
@@ -21,14 +21,14 @@ public class OcRoomsController implements OccupiedRoomsREST {
     @Override
     public List<OccupiedRoomsDTO> getAllOccupiedRoom() {
 
-        List<OccupiedRoomsDTO> occupiedRoomsDTOList = new ArrayList<>();
+        List<OccupiedRoomsDTO> occupiedRoomsDTO = new ArrayList<>();
 
         for (OccupiedRooms occupiedRooms: ocRoomsService.getAllOcRooms()){
-            occupiedRoomsDTOList.add(new OccupiedRoomsDTO(
+            occupiedRoomsDTO.add(new OccupiedRoomsDTO(
                 occupiedRooms.getRoomId(),
                 occupiedRooms.getOccupiedRoomId(),
                 occupiedRooms.getStaffId()));
         }
-        return occupiedRoomsDTOList;
+        return occupiedRoomsDTO;
     }
 }

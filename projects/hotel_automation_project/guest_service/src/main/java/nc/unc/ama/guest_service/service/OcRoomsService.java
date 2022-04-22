@@ -1,7 +1,5 @@
 package nc.unc.ama.guest_service.service;
 
-import nc.unc.ama.complaint_handling_service.dto.OccupiedRoomsDTO;
-import nc.unc.ama.complaint_handling_service.dto.OccupiedRoomsREST;
 import nc.unc.ama.guest_service.dao.OcRoomsRepo;
 import nc.unc.ama.guest_service.entity.OccupiedRooms;
 import org.springframework.beans.factory.annotation.Autowired;
