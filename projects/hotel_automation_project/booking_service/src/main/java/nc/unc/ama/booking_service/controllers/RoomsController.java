@@ -57,7 +57,7 @@ public class RoomsController {
         }
         return roomDTOList;
     }
-    @PutMapping(path = "/{roomId)")
+    @PutMapping(path = "/{roomId}")
     public void updateRoom(@PathVariable("roomId") Long roomId, @RequestBody HotelRoomDTO hotelRoomDTO){
         roomsService.updateRoom(HotelRoom
             .builder()
@@ -70,7 +70,7 @@ public class RoomsController {
         );
     }
 
-    @DeleteMapping(path="/{roomId)")
+    @DeleteMapping(path="/{roomId}")
     public void deleteRoom(@PathVariable("roomId") Long roomId){
         roomsService.deleteRoom(roomId);
     }
