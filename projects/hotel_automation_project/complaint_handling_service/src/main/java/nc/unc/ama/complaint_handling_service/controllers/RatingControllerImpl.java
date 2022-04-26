@@ -1,6 +1,6 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
-import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
+import nc.unc.ama.complaint_handling_service.dto.StaffDTO;
 import nc.unc.ama.complaint_handling_service.dto.StaffRatingREST;
 import nc.unc.ama.complaint_handling_service.services.StaffRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class RatingControllerImpl implements StaffRatingREST {
     }
     @Override
     @GetMapping("/viewRatingOfStaff")
-    public StaffMemberDTO viewRatingOfStaff(@PathVariable("staffMemberId") Long staffMemberId){
+    public StaffDTO viewRatingOfStaff(@PathVariable("staffMemberId") Long staffMemberId){
         return staffRatSer.getStaffRating(staffMemberId);
     }
 

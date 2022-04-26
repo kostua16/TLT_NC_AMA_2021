@@ -1,7 +1,7 @@
 package nc.unc.ama.complaint_handling_service.services;
 
 import lombok.extern.slf4j.Slf4j;
-import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
+import nc.unc.ama.complaint_handling_service.dto.StaffDTO;
 /*import nc.unc.ama.complaint_handling_service.dto.StaffMemberREST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;*/
@@ -21,7 +21,7 @@ public class StaffRatingService {
 
     }
 
-    public StaffMemberDTO getStaffRating(Long staffMemberId) {
-        return new StaffMemberDTO();
+    public StaffDTO getStaffRating(Long staffMemberId) {
+        return new StaffDTO();
     }
 }

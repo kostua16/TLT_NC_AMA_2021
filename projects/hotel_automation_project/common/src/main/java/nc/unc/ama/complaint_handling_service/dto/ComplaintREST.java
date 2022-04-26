@@ -22,5 +22,5 @@ public interface ComplaintREST {
     List<ComplaintDTO> getAllComplaints();
 
     @GetMapping(path = "/on-staff")
-    List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO);
+    List<ComplaintDTO> getComplaintsOnStaff(StaffDTO staffMemberDTO);
 }

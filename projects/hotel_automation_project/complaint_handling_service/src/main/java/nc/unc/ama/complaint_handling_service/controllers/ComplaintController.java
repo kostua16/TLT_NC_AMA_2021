@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import nc.unc.ama.complaint_handling_service.dto.ComplaintDTO;
 import nc.unc.ama.complaint_handling_service.dto.ComplaintREST;
-import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
+import nc.unc.ama.complaint_handling_service.dto.StaffDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +69,10 @@ public class ComplaintController implements ComplaintREST {
 
     @GetMapping(path = "/on-staff")
     @Override
-    public List<ComplaintDTO> getComplaintsOnStaff(StaffMemberDTO staffMemberDTO) {
+    public List<ComplaintDTO> getComplaintsOnStaff(StaffDTO staffMemberDTO) {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint :
-            complaintService.getComplaintByStaffId(staffMemberDTO.getStaffMemberId())) {
+            complaintService.getComplaintByStaffId(staffMemberDTO.getStaffId())) {
             complainDTOList.add(new ComplaintDTO(
                 complaint.getComplaintId(),
                 complaint.getComplaintText(),
