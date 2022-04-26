@@ -1,10 +1,12 @@
 package nc.unc.ama.booking_service.services;
 
 import nc.unc.ama.booking_service.entities.Guest;
+import nc.unc.ama.booking_service.err.GuestNotFoundException;
 import nc.unc.ama.booking_service.repositories.GuestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,36 +19,24 @@ public class GuestService {
         this.guestRepo = guestRepo;
     }
 
-    public Guest getRegisteredUsers (String password, String username, Long registrationId)
-    {
-        return guestRepo.findById(registrationId).orElseThrow(() -> new NullPointerException());
-    }
-
+    @Transactional
     public void createGuest(Guest guest) {
         guestRepo.save(guest);
     }
 
     public Guest getGuest(Long guestId) {
-        return guestRepo.findById(guestId).get();
+        return guestRepo.findById(guestId).orElseThrow(()-> new GuestNotFoundException(guestId));
     }
 
     public List<Guest> getAllGuests() {
         return guestRepo.findAll();
     }
 
+    @Transactional
     public void updateGuest(Guest guestUpd, Long guestId) {
-        guestRepo.findById(guestId)
-            .map(guest -> {
-                guest.setGuestFName(guestUpd.getGuestFName());
-                guest.setGuestLName(guestUpd.getGuestLName());
-                guest.setGuestEmail(guestUpd.getGuestEmail());
-                guest.setGuestPhone(guestUpd.getGuestPhone());
-                return guestRepo.save(guest);
-            })
-            .orElseGet(() -> {
-                guestUpd.setGuestId(guestId);
-                return guestRepo.save(guestUpd);
-            });
+        guestRepo.save(guestUpd);
+        guestRepo.findById(guestId);
+
     }
 
     public void deleteGuest(Long guestId) {
