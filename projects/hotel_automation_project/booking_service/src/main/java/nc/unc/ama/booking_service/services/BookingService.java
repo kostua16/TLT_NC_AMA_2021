@@ -1,6 +1,7 @@
 package nc.unc.ama.booking_service.services;
 
 import nc.unc.ama.booking_service.entities.Booking;
+import nc.unc.ama.booking_service.err.BookingNotFoundException;
 import nc.unc.ama.booking_service.repositories.BookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class BookingService {
     }
 
     public Booking getBooking(Long bookId) {
-        return bookingRepo.findById(bookId).get();
+        return bookingRepo.findById(bookId).orElseThrow(()-> new BookingNotFoundException(bookId));
     }
 
     public List<Booking> getAllBookings() {
@@ -28,20 +29,8 @@ public class BookingService {
 
     @Transactional
     public void updateBooking(Booking updatedBooking, Long bookId) {
-        bookingRepo.findById(bookId)
-            .map(booking -> {
-                booking.setGuestId(updatedBooking.getGuestId());
-                booking.setRoomId(updatedBooking.getRoomId());
-                booking.setCheckInDate(updatedBooking.getCheckInDate());
-                booking.setEvictionDate(updatedBooking.getEvictionDate());
-                booking.setBookingCost(updatedBooking.getBookingCost());
-                return bookingRepo.save(booking);
-            })
-            .orElseGet(() -> {
-                updatedBooking.setBookingId(bookId);
-                return bookingRepo.save(updatedBooking);
-            });
-
+        updatedBooking.setBookingId(bookId);
+        bookingRepo.save(updatedBooking);
     }
 
     public void deleteBooking(Long bookId) {
