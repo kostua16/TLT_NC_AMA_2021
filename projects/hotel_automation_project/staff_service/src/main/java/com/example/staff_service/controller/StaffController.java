@@ -12,17 +12,12 @@ import com.example.staff_service.service.StaffService;
 public class StaffController
 {
 
-
+    private final StaffService staffService;
     @Autowired
     public StaffController(StaffService staffService)
     {
         this.staffService = staffService;
     }
-
-
-
-    private final StaffService staffService;
-
 
 
     @GetMapping
@@ -31,10 +26,10 @@ public class StaffController
     @PostMapping("/create")
     public ResponseEntity<Staff> createNewStaff(@RequestBody Staff staff) { return ResponseEntity.ok(staffService.createStaff(staff));}
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteStaffById(@PathVariable ("id") int id )
+    @DeleteMapping("/delete/{staffId}")
+    public ResponseEntity deleteStaffById(@PathVariable ("staffId") int staffId )
     {
-        staffService.deleteStaffById(id);
+        staffService.deleteStaffById(staffId);
         return ResponseEntity.accepted().build();
     }
 }

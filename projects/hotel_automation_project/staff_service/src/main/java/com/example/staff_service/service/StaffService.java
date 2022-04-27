@@ -8,14 +8,13 @@ import com.example.staff_service.repositories.StaffRepo;
 @Service
 public class StaffService {
 
-
+    private final  StaffRepo staffRepo;
     @Autowired
     public StaffService(StaffRepo staffrepo)
     {
         this.staffRepo = staffrepo;
     }
 
-    private final  StaffRepo staffRepo;
 
     public Iterable<Staff> getUsers() {
         return staffRepo.findAll();
@@ -23,5 +22,5 @@ public class StaffService {
 
     public Staff createStaff(Staff newStaff) { return  staffRepo.save(newStaff);}
 
-    public void deleteStaffById(int id) {   staffRepo.deleteById(id);}
+    public void deleteStaffById(int staffId) {   staffRepo.deleteById(staffId);}
 }

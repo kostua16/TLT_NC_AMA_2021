@@ -32,6 +32,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+      <dependency>
+          <groupId>nc.unc.ama</groupId>
+          <artifactId>common</artifactId>
+      </dependency>
   </dependencies>
 
 </project>
