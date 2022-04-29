@@ -2,25 +2,37 @@ package nc.unc.ama.staff_service.entities;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "staff_info")
-public class Staff {
 
+@Setter
+@Getter
+@Entity
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int staffId;
+    private Long staffId;
     private String staffName;
-    private String stafflastName;
-    private String dateOfReg;
+    private String staffLastName;
+    private Integer staffRating;
+    private Double staffSalary;
+    private Long staffTypeId;
+
+    @Builder
+    public Staff(Long staffId, String staffName, String staffLastName, Integer staffRating, Double staffSalary, Long staffTypeId) {
+        this.staffId = staffId;
+        this.staffName = staffName;
+        this.staffLastName = staffLastName;
+        this.staffRating = staffRating;
+        this.staffSalary = staffSalary;
+        this.staffTypeId = staffTypeId;
+    }
+
+    public Staff() {
+
+    }
 
 }
 
