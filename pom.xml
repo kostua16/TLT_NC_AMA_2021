@@ -31,7 +31,7 @@
     <json.version>20220320</json.version>
     <junit.version>4.13.2</junit.version>
     <commons.io.version>2.11.0</commons.io.version>
-    <lombok.version>1.18.22</lombok.version>
+    <lombok.version>1.18.24</lombok.version>
     <sjf4j.version>1.7.36</sjf4j.version>
     <jquery.version>3.6.0</jquery.version>
     <servlet.api.version>4.0.1</servlet.api.version> <!-- TOMCAT 8 uses 3.1 version -->
