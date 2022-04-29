@@ -30,6 +30,6 @@ public class Complaint {
     }
 
     public Complaint() {
-    }
 
+    }
 }

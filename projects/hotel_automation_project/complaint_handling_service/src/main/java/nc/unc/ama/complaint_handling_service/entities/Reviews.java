@@ -1,5 +1,6 @@
-package nc.unc.ama.booking_service.entities;
+package nc.unc.ama.complaint_handling_service.entities;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,20 +12,21 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @Entity
-public class OccupiedRooms {
+public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long occupiedRoomsId;
+    private Long reviewId;
     private Long guestId;
+    private String reviewText;
 
-    public OccupiedRooms(Long occupiedRoomsId, Long guestId)
-    {
+    @Builder
+    public Reviews(Long reviewId, Long guestId, String reviewText) {
+        this.reviewId = reviewId;
         this.guestId = guestId;
-        this.occupiedRoomsId = occupiedRoomsId;
+        this.reviewText = reviewText;
     }
 
-    public OccupiedRooms()
-    {
+    public Reviews() {
 
     }
 }

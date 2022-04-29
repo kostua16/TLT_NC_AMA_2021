@@ -73,7 +73,27 @@
 + Если модуль является WEB-модулем, для установки в Application Server (Tomcat\Jetty\JBOSS\TomEE\Welogic), выбираем Packaging - war.
 
 
+#### Тестовый стенд
+
+Изменения из всех принятых пулл реквестов добавляются в ветку main, после добавления запускается автоматическая сборка и отправка модулей на тестовый стенд для дальнейшей ручной проверки.
+Адреса стенда:
+
+| Модуль                     | Адрес                                      |
+|----------------------------|--------------------------------------------|
+| discovery_evr              | [discovery-tlt-2021][discovery-tlt-2021]   |
+| gateway                    | [gateway-tlt-2021][gateway-tlt-2021]       |
+| bank_service               | [bank-tlt-2021][bank-tlt-2021]             |
+| complaint_handling_service | [complaints-tlt-2021][complaints-tlt-2021] |
+| guest_service              | [guests-tlt-2021][guests-tlt-2021]         |
+| logger                     | [logger-tlt-2021][logger-tlt-2021]         |
+
 [conventional_commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [issues]: https://github.com/kostua16/TLT_NC_AMA_2021/issues
 [pulls]: https://github.com/kostua16/TLT_NC_AMA_2021/pulls
+[discovery-tlt-2021]: https://discovery-tlt-2021.herokuapp.com/
+[gateway-tlt-2021]: https://gateway-tlt-2021.herokuapp.com/
+[bank-tlt-2021]: https://bank-tlt-2021.herokuapp.com/
+[complaints-tlt-2021]: https://complaints-tlt-2021.herokuapp.com/
+[guests-tlt-2021]: https://guests-tlt-2021.herokuapp.com/
+[logger-tlt-2021]: https://logger-tlt-2021.herokuapp.com/
 
