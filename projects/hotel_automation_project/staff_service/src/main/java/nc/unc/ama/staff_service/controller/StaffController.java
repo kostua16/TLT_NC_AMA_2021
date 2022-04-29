@@ -88,4 +88,14 @@ public class StaffController
         );
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/changeRating/{staffId}")
+    public ResponseEntity<HttpStatus> changeRating(@PathVariable ("staffId") Long staffId,
+                                                   @RequestParam (required = false, name = "staffRating") Integer points,
+                                                   @RequestParam (required = false, name = "plusOrSub") Boolean plusOrSub
+                                                   ){
+        staffService.changeRating(staffId,points,plusOrSub);
+        return ResponseEntity.accepted().build();
+    }
+
 }

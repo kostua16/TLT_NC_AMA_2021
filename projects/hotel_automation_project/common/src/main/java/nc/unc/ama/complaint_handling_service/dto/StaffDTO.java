@@ -11,11 +11,11 @@ public class StaffDTO {
     private Long staffId;
     private String staffName;
     private String staffLastName;
-    private String staffRating;
+    private Integer staffRating;
     private Double staffSalary;
     private Long staffTypeId;
 
-    public StaffDTO(Long staffId, String staffName, String staffLastName, String staffRating, Double staffSalary, Long staffTypeId) {
+    public StaffDTO(Long staffId, String staffName, String staffLastName, Integer staffRating, Double staffSalary, Long staffTypeId) {
         this.staffId = staffId;
         this.staffName = staffName;
         this.staffLastName = staffLastName;
