@@ -171,6 +171,7 @@
                 <EUREKA_USER_PASSWORD>${env.EUREKA_DEPL_PASSWORD:tlt2021}</EUREKA_USER_PASSWORD>
                 <GATEWAY_URL>https://gateway-tlt-2021.herokuapp.com/</GATEWAY_URL>
                 <DOMAIN_NAME>${app.name}-tlt-2021.herokuapp.com</DOMAIN_NAME>
+                <PUBLIC_PORT>80</PUBLIC_PORT>
               </configVars>
 <!--              <warFile>projects\hotel_automation_project\${project.name}\${app.target.file}</warFile>-->
               <jdkVersion>11</jdkVersion>

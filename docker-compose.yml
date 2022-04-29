@@ -20,14 +20,77 @@ services:
     ports:
       - 3001:8080
 
+  discovery:
+    build:
+      context: ./projects/hotel_automation_project/discovery_evr
+      dockerfile: Discovery.Dockerfile
+    ports:
+      - 3010:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: discovery
+
+  logger:
+    build:
+      context: ./projects/hotel_automation_project/logger
+      dockerfile: Logger.Dockerfile
+    ports:
+      - 3011:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: logger
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
   complains:
     build:
-      context: .
+      context: ./projects/hotel_automation_project/complaint_handling_service
       dockerfile: Complaints.Dockerfile
-      args:
-        BUILD_MOD: "complaint_handling_service"
     ports:
-      - 8085:8085
+      - 3012:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: complains
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
+  bank:
+    build:
+      context: ./projects/hotel_automation_project/bank_service
+      dockerfile: Bank.Dockerfile
+    ports:
+      - 3013:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: bank
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
+  guest:
+    build:
+      context: ./projects/hotel_automation_project/guest_service
+      dockerfile: Guest.Dockerfile
+    ports:
+      - 3014:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: guest
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
+  gateway:
+    build:
+      context: ./projects/hotel_automation_project/gateway
+      dockerfile: Gateway.Dockerfile
+    ports:
+      - 3000:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: gateway
 
 volumes:
   pg_data:

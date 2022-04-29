@@ -16,7 +16,9 @@ spring:
       password: ${eureka.password}
 server:
   port: ${STAFF_PORT:57118}
-
+management:
+  server:
+    port: ${server.port}
 eureka:
   instance:
     appname: staff_service
@@ -45,3 +47,22 @@ eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
     nonSecurePort: ${PUBLIC_PORT:80}
+management:
+  server:
+    port: ${eureka.instance.nonSecurePort}
+---
+server:
+  port: 80
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: docker
+  h2:
+    console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
