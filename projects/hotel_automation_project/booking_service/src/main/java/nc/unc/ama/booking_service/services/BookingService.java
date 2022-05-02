@@ -32,7 +32,7 @@ public class BookingService {
         updatedBooking.setBookingId(bookId);
         bookingRepo.save(updatedBooking);
     }
-
+    @Transactional
     public void deleteBooking(Long bookId) {
         bookingRepo.deleteById(bookId);
     }
