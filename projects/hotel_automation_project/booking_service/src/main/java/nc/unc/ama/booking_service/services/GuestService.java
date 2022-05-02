@@ -38,7 +38,7 @@ public class GuestService {
         guestRepo.findById(guestId);
 
     }
-
+    @Transactional
     public void deleteGuest(Long guestId) {
         guestRepo.deleteById(guestId);
     }

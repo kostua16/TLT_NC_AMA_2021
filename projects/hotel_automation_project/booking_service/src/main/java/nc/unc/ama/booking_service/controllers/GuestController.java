@@ -61,7 +61,7 @@ public class GuestController {
         return guestDTOList;
     }
 
-    @PutMapping(path = "/{guestId)")
+    @PutMapping(path = "/{guestId}")
     public void updateGuest(@PathVariable("guestId") Long guestId, @RequestBody GuestDTO guestDTO){
         guestService.updateGuest(Guest
                 .builder()
@@ -75,7 +75,7 @@ public class GuestController {
         );
     }
 
-    @DeleteMapping(path="/{guestId)")
+    @DeleteMapping(path="/{guestId}")
     public void deleteGuest(@PathVariable("guestId") Long guestId){
         guestService.deleteGuest(guestId);
     }
