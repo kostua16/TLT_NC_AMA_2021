@@ -3,7 +3,7 @@ package nc.unc.ama.logger.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.stream.Stream;
+import java.util.List;
 import javax.transaction.Transactional;
 import nc.unc.ama.logger.dao.LogsRepo;
 import nc.unc.ama.logger.entity.LogEntry;
@@ -25,11 +25,12 @@ public class LogsService {
         return this.repo.save(entry);
     }
 
-    public Stream<LogEntry> findLogsByService(final String service) {
+    public List<LogEntry> findLogsByService(final String service) {
         return this.repo.findLogEntryByServiceOrderByCreated(service);
     }
 
-    public Stream<LogEntry> findLastLogs() {
+    @Transactional
+    public List<LogEntry> findLastLogs() {
         Instant now = Instant.now();
         Instant yesterday = now.minus(1, ChronoUnit.HOURS);
         return this.repo.getAllLogEntriesByCreatedAfterOrderByCreated(Date.from(yesterday));
