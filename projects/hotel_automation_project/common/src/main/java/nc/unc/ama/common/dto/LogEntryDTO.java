@@ -1,4 +1,4 @@
-package nc.unc.ama.complaint_handling_service.dto;
+package nc.unc.ama.common.dto;
 
 import java.util.Date;
 import lombok.Data;

@@ -2,9 +2,9 @@ package nc.unc.ama.complaint_handling_service.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import nc.unc.ama.complaint_handling_service.dto.ComplaintDTO;
-import nc.unc.ama.complaint_handling_service.dto.ComplaintREST;
-import nc.unc.ama.complaint_handling_service.dto.StaffDTO;
+import nc.unc.ama.common.dto.ComplaintDTO;
+import nc.unc.ama.common.dto.ComplaintREST;
+import nc.unc.ama.common.dto.StaffDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;

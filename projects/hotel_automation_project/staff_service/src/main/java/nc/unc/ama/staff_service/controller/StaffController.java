@@ -1,7 +1,7 @@
 package nc.unc.ama.staff_service.controller;
 
 
-import nc.unc.ama.complaint_handling_service.dto.StaffDTO;
+import nc.unc.ama.common.dto.StaffDTO;
 import nc.unc.ama.staff_service.entities.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class StaffController
         staffService.deleteStaffById(staffId);
         return ResponseEntity.accepted().build();
     }
-    @GetMapping("/staffId}")
+    @GetMapping("/{staffId}")
     public ResponseEntity<StaffDTO> getStaff(@PathVariable ("staffId") Long staffId){
         Staff newStaff = staffService.getStaff(staffId);
         return ResponseEntity.ok(new StaffDTO(
