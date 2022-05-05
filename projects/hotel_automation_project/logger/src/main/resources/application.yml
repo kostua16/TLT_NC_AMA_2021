@@ -25,6 +25,9 @@ eureka:
   instance:
     appname: logger
     nonSecurePort: ${server.public-port}
+    statusPageUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/health
+    homePageUrl: https://${eureka.instance.hostname}:${server.public-port}/
   password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
