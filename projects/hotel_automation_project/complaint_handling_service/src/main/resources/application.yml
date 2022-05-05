@@ -1,3 +1,10 @@
+app:
+  clients:
+    logsApi: true
+
+feign:
+  httpclient:
+    enabled: true
 server:
   port: ${PORT:8085}
   public-port: ${PUBLIC_PORT:${server.port}}
@@ -25,6 +32,9 @@ eureka:
   instance:
     appname: complain_handling
     nonSecurePort: ${server.public-port}
+    statusPageUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/health
+    homePageUrl: https://${eureka.instance.hostname}:${server.public-port}/
   password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
