@@ -1,4 +1,4 @@
-package nc.unc.ama.complaint_handling_service.dto;
+package nc.unc.ama.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;

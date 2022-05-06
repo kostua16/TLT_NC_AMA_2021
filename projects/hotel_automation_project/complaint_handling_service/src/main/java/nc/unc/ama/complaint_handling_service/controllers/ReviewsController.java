@@ -1,7 +1,7 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
-import nc.unc.ama.complaint_handling_service.dto.GuestDTO;
-import nc.unc.ama.complaint_handling_service.dto.ReviewsDTO;
+import nc.unc.ama.common.dto.GuestDTO;
+import nc.unc.ama.common.dto.ReviewsDTO;
 import nc.unc.ama.complaint_handling_service.entities.Reviews;
 import nc.unc.ama.complaint_handling_service.services.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;

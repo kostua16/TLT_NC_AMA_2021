@@ -2,7 +2,7 @@ package nc.unc.ama.booking_service.controllers;
 
 import nc.unc.ama.booking_service.entities.HotelRoom;
 import nc.unc.ama.booking_service.services.RoomsService;
-import nc.unc.ama.complaint_handling_service.dto.HotelRoomDTO;
+import nc.unc.ama.common.dto.HotelRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

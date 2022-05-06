@@ -2,7 +2,7 @@ package nc.unc.ama.guest_service.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import nc.unc.ama.complaint_handling_service.dto.OperationDTO;
+import nc.unc.ama.common.dto.OperationDTO;
 import nc.unc.ama.guest_service.entity.Operation;
 import nc.unc.ama.guest_service.service.OperationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
