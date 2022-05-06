@@ -1,6 +1,6 @@
-package com.example.staff_service.repositories;
+package nc.unc.ama.staff_service.repositories;
 
-import com.example.staff_service.entities.Staff;
+import nc.unc.ama.staff_service.entities.Staff;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

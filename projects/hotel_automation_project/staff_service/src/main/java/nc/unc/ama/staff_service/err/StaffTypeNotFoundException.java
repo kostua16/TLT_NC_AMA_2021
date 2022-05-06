@@ -1,4 +1,4 @@
-package com.example.staff_service.err;
+package nc.unc.ama.staff_service.err;
 
 public class StaffTypeNotFoundException extends RuntimeException{
 

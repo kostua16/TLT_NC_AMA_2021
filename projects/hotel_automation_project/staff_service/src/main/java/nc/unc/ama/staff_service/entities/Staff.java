@@ -1,4 +1,4 @@
-package com.example.staff_service.entities;
+package nc.unc.ama.staff_service.entities;
 
 
 

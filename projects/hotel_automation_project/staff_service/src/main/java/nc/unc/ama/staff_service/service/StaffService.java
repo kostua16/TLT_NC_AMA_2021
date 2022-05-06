@@ -1,9 +1,9 @@
-package com.example.staff_service.service;
+package nc.unc.ama.staff_service.service;
 
-import com.example.staff_service.entities.Staff;
+import nc.unc.ama.staff_service.entities.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.staff_service.repositories.StaffRepo;
+import nc.unc.ama.staff_service.repositories.StaffRepo;
 
 @Service
 public class StaffService {

@@ -1,8 +1,8 @@
-package com.example.staff_service.service;
+package nc.unc.ama.staff_service.service;
 
-import com.example.staff_service.entities.StaffType;
-import com.example.staff_service.err.StaffTypeNotFoundException;
-import com.example.staff_service.repositories.StaffTypeRepo;
+import nc.unc.ama.staff_service.entities.StaffType;
+import nc.unc.ama.staff_service.err.StaffTypeNotFoundException;
+import nc.unc.ama.staff_service.repositories.StaffTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

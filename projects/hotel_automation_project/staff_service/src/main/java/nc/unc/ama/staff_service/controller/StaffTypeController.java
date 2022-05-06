@@ -1,8 +1,8 @@
-package com.example.staff_service.controller;
+package nc.unc.ama.staff_service.controller;
 
 
-import com.example.staff_service.entities.StaffType;
-import com.example.staff_service.service.StaffTypeService;
+import nc.unc.ama.staff_service.entities.StaffType;
+import nc.unc.ama.staff_service.service.StaffTypeService;
 import nc.unc.ama.complaint_handling_service.dto.StaffTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

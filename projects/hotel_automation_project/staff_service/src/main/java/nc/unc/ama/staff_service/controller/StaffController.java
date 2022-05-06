@@ -1,11 +1,11 @@
-package com.example.staff_service.controller;
+package nc.unc.ama.staff_service.controller;
 
 
-import com.example.staff_service.entities.Staff;
+import nc.unc.ama.staff_service.entities.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.staff_service.service.StaffService;
+import nc.unc.ama.staff_service.service.StaffService;
 
 @RestController
 @RequestMapping("/staff")
