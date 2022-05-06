@@ -21,8 +21,8 @@ public class GuestService {
     }
 
     @Transactional
-    public void createGuest(Guest guest) {
-        guestRepo.save(guest);
+    public Guest createGuest(Guest guest) {
+        return guestRepo.save(guest);
     }
 
     public Guest getGuest(Long guestId) {
