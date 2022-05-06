@@ -26,6 +26,7 @@ public class StaffService {
     @Transactional
     public Staff createStaff(Staff newStaff) { return  staffRepo.save(newStaff);}
 
+    @Transactional
     public void deleteStaffById(Long staffId) {   staffRepo.deleteById(staffId);}
 
     public Staff getStaff(Long staffId) {
@@ -37,7 +38,6 @@ public class StaffService {
                 updatedStaff.setStaffId(staffId);
                 staffRepo.save(updatedStaff);
     }
-
     @Transactional
     public void changeRating(Long staffId, Integer points, Boolean plusOrSub) {
         staffRepo.findById(staffId)
@@ -51,4 +51,5 @@ public class StaffService {
             })
             .orElseThrow(()->new StaffNotFoundException(staffId));
     }
+
 }
