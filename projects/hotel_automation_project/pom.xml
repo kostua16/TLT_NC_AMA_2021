@@ -60,6 +60,7 @@
     <module>discovery_evr</module>
     <module>gateway</module>
     <module>logger</module>
+    <module>guest</module>
   </modules>
   <dependencies>
 

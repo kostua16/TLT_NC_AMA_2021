@@ -1,8 +1,9 @@
-package nc.unc.ama.booking_service.services;
+package nc.unc.ama.guest.services;
 
-import nc.unc.ama.booking_service.entities.Guest;
-import nc.unc.ama.booking_service.err.GuestNotFoundException;
-import nc.unc.ama.booking_service.repositories.GuestRepo;
+
+import nc.unc.ama.guest.entities.Guest;
+import nc.unc.ama.guest.err.GuestNotFoundException;
+import nc.unc.ama.guest.repositories.GuestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

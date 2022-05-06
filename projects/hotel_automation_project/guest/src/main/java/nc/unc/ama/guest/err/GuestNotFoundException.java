@@ -1,4 +1,4 @@
-package nc.unc.ama.booking_service.err;
+package nc.unc.ama.guest.err;
 
 public class GuestNotFoundException extends RuntimeException{
 

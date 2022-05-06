@@ -1,4 +1,4 @@
-package nc.unc.ama.booking_service.entities;
+package nc.unc.ama.guest.entities;
 
 import lombok.Builder;
 import lombok.Getter;

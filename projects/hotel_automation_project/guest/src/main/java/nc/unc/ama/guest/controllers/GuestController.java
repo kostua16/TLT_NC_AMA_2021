@@ -1,8 +1,9 @@
-package nc.unc.ama.booking_service.controllers;
+package nc.unc.ama.guest.controllers;
 
-import nc.unc.ama.booking_service.entities.Guest;
-import nc.unc.ama.booking_service.services.GuestService;
+
 import nc.unc.ama.complaint_handling_service.dto.GuestDTO;
+import nc.unc.ama.guest.entities.Guest;
+import nc.unc.ama.guest.services.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
