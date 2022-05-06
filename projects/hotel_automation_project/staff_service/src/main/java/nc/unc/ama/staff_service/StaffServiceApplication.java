@@ -1,4 +1,4 @@
-package nc.unc.ama.complaint_handling_service;
+package nc.unc.ama.staff_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,15 +7,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SuppressWarnings("PMD")
 
-@SpringBootApplication(scanBasePackages = {
-    "nc.unc.ama"
-})
-@EnableEurekaClient
+@SpringBootApplication
 @EnableFeignClients(basePackages = {"nc.unc.ama"})
-public class ComplaintHandlingServiceApplication {
+@EnableEurekaClient
+public class StaffServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ComplaintHandlingServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(StaffServiceApplication.class, args);
+	}
 
 }

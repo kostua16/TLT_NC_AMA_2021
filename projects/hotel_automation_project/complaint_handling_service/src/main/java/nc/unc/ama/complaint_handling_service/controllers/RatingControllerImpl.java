@@ -1,29 +1,36 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
-import nc.unc.ama.complaint_handling_service.dto.StaffMemberDTO;
-import nc.unc.ama.complaint_handling_service.dto.StaffRatingREST;
-import nc.unc.ama.complaint_handling_service.services.StaffRatingService;
+import nc.unc.ama.common.dto.StaffDTO;
+import nc.unc.ama.common.dto.StaffREST;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController("/staff-rating")
-public class RatingControllerImpl implements StaffRatingREST {
-    private final StaffRatingService staffRatSer;
+public class RatingControllerImpl {
+    private final StaffREST staffREST;
 
     @Autowired
-    public RatingControllerImpl(StaffRatingService staffRatSer) {
-        this.staffRatSer= staffRatSer;
+    public RatingControllerImpl(StaffREST staffREST) {
+        this.staffREST = staffREST;
     }
 
-    @Override
-    @PostMapping("/changeRating")
-    public void changeRating(@RequestBody Integer staffRating){
-        staffRatSer.changeStaffRating(staffRating);
-    }
-    @Override
-    @GetMapping("/viewRatingOfStaff")
-    public StaffMemberDTO viewRatingOfStaff(@PathVariable("staffMemberId") Long staffMemberId){
-        return staffRatSer.getStaffRating(staffMemberId);
+
+    public ResponseEntity<HttpStatus> changeRating(Long staffId, Integer points, Boolean plusOrSub) {
+        staffREST.changeRating(staffId,points,plusOrSub);
+        return ResponseEntity.accepted().build();
     }
 
+
+    public ResponseEntity<List<StaffDTO>> getAllStaff() {
+        return staffREST.getAllStaff();
+    }
+
+
+    public ResponseEntity<StaffDTO> getStaff(Long staffId) {
+        return staffREST.getStaff(staffId);
+    }
 }
