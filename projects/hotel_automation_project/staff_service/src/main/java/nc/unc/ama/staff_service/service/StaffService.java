@@ -26,6 +26,7 @@ public class StaffService {
     @Transactional
     public Staff createStaff(Staff newStaff) { return  staffRepo.save(newStaff);}
 
+    @Transactional
     public void deleteStaffById(Long staffId) {   staffRepo.deleteById(staffId);}
 
     public Staff getStaff(Long staffId) {

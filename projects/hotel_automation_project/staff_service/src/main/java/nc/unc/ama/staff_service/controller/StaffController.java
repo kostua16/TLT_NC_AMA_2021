@@ -2,6 +2,7 @@ package nc.unc.ama.staff_service.controller;
 
 
 import nc.unc.ama.common.dto.StaffDTO;
+import nc.unc.ama.common.dto.StaffREST;
 import nc.unc.ama.staff_service.entities.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/staff")
-public class StaffController
+public class StaffController implements StaffREST
 {
 
     private final StaffService staffService;
@@ -25,7 +26,9 @@ public class StaffController
         this.staffService = staffService;
     }
 
+
     @GetMapping
+    @Override
     public ResponseEntity<List<StaffDTO>> getAllStaff() {
         List<StaffDTO> staffDTOList = new ArrayList<>();
         for (Staff staff : staffService.getAllStaff()) {
@@ -41,8 +44,9 @@ public class StaffController
     }
 
     @PostMapping("/")
-    public ResponseEntity<HttpStatus> createNewStaff(@RequestBody StaffDTO staffDTO) {
-        staffService.createStaff(Staff
+    @Override
+    public ResponseEntity<StaffDTO> createNewStaff(@RequestBody StaffDTO staffDTO) {
+        final Staff newMember = staffService.createStaff(Staff
             .builder()
             .staffId(staffDTO.getStaffId())
             .staffName(staffDTO.getStaffName())
@@ -52,17 +56,27 @@ public class StaffController
             .staffTypeId(staffDTO.getStaffTypeId())
             .build()
         );
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+            new StaffDTO(
+                newMember.getStaffId(),
+                newMember.getStaffName(),
+                newMember.getStaffLastName(),
+                newMember.getStaffRating(),
+                newMember.getStaffSalary(),
+                newMember.getStaffTypeId())
+        );
     }
 
-    @DeleteMapping("/delete/{staffId}")
-    public ResponseEntity<HttpStatus>  deleteStaffById(@PathVariable ("staffId") Long staffId )
+    @DeleteMapping("/delete/{id}")
+    @Override
+    public ResponseEntity<HttpStatus>  deleteStaffById(@PathVariable ("id") Long staffId )
     {
         staffService.deleteStaffById(staffId);
         return ResponseEntity.accepted().build();
     }
-    @GetMapping("/{staffId}")
-    public ResponseEntity<StaffDTO> getStaff(@PathVariable ("staffId") Long staffId){
+    @GetMapping("/{id}")
+    @Override
+    public ResponseEntity<StaffDTO> getStaff(@PathVariable ("id") Long staffId){
         Staff newStaff = staffService.getStaff(staffId);
         return ResponseEntity.ok(new StaffDTO(
             newStaff.getStaffId(),
@@ -73,8 +87,9 @@ public class StaffController
             newStaff.getStaffTypeId()));
     }
 
-    @PutMapping("/{staffId}")
-    public ResponseEntity<HttpStatus> updateStaff(@PathVariable ("staffId") Long staffId, @RequestBody StaffDTO staffDTO){
+    @PutMapping("/{id}")
+    @Override
+    public ResponseEntity<HttpStatus> updateStaff(@PathVariable ("id") Long staffId, @RequestBody StaffDTO staffDTO){
         staffService.updateStaff(Staff
                 .builder()
                 .staffId(staffDTO.getStaffId())
@@ -89,8 +104,9 @@ public class StaffController
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/changeRating/{staffIdR}")
-    public ResponseEntity<HttpStatus> changeRating(@PathVariable ("staffIdR") Long staffId,
+    @PostMapping("/changeRating/{id}")
+    @Override
+    public ResponseEntity<HttpStatus> changeRating(@PathVariable ("id") Long staffId,
                                                    @RequestParam (required = false, name = "staffRating") Integer points,
                                                    @RequestParam (required = false, name = "plusOrSub") Boolean plusOrSub
                                                    ){
