@@ -21,7 +21,7 @@ management:
     port: ${server.port}
 eureka:
   instance:
-    appname: staff_service
+    appname: STAFF
   password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true
@@ -66,3 +66,15 @@ spring:
     console.enabled: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+---
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    driver-class-name: org.h2.Driver
+    username: test
+    password: test
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console.enabled: true

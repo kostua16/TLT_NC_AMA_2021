@@ -1,6 +1,7 @@
 app:
   clients:
     logsApi: true
+    staffRatingApi: true
 
 feign:
   httpclient:

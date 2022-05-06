@@ -1,7 +1,7 @@
 package nc.unc.ama.complaint_handling_service.services;
 
-import nc.unc.ama.complaint_handling_service.dto.LogEntryDTO;
-import nc.unc.ama.complaint_handling_service.dto.LogsREST;
+import nc.unc.ama.common.dto.LogEntryDTO;
+import nc.unc.ama.common.dto.LogsREST;
 import nc.unc.ama.complaint_handling_service.entities.Reviews;
 import nc.unc.ama.complaint_handling_service.repositories.ReviewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
