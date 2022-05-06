@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:57117}
+  port: ${PORT:8082}
   public-port: ${PUBLIC_PORT:${server.port}}
 management:
   server:

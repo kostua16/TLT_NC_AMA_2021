@@ -63,6 +63,7 @@
     <module>staff_service</module>
     <module>gateway</module>
     <module>logger</module>
+    <module>guest</module>
   </modules>
   <dependencies>
 
