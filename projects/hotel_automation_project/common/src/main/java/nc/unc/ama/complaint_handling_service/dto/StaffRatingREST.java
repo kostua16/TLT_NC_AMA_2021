@@ -14,7 +14,8 @@ public interface StaffRatingREST {
     @PostMapping("/change-rating")
     void changeRating(@RequestBody Integer staffRating);
 
-
     @GetMapping("/view-rating-of-staff")
-    StaffMemberDTO viewRatingOfStaff(@PathVariable("staffMemberId") Long staffMemberId);
+    StaffDTO viewRatingOfStaff(@PathVariable("staffMemberId") Long staffMemberId);
+
+
 }

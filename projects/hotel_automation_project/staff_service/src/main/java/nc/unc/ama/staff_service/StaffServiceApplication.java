@@ -1,10 +1,11 @@
-package com.example.staff_service;
+package nc.unc.ama.staff_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SuppressWarnings("PMD")
 
+@SpringBootApplication
 public class StaffServiceApplication {
 
 	public static void main(String[] args) {

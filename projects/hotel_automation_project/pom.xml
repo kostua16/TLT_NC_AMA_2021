@@ -60,6 +60,7 @@
     <module>bank_service</module>
     <module>booking_service</module>
     <module>discovery_evr</module>
+    <module>staff_service</module>
     <module>gateway</module>
     <module>logger</module>
   </modules>
