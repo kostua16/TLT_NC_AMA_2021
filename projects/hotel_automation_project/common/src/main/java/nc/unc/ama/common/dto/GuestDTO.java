@@ -1,26 +1,19 @@
 package nc.unc.ama.common.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class GuestDTO {
+@Setter
+@EqualsAndHashCode(callSuper = true)
+public class GuestDTO extends GuestCreationDTO {
 
-    private Long guestId;
-    private String guestFName;
-    private String guestLName;
-    private String guestEmail;
-    private String guestPhone;
+    private final Long guestId;
 
-    public GuestDTO(Long guestId, String guestFName, String guestLName, String guestEmail, String guestPhone) {
+    public GuestDTO(String guestFName, String guestLName, String guestEmail, String guestPhone,
+                    Long guestId) {
+        super(guestFName, guestLName, guestEmail, guestPhone);
         this.guestId = guestId;
-        this.guestFName = guestFName;
-        this.guestLName = guestLName;
-        this.guestEmail = guestEmail;
-        this.guestPhone = guestPhone;
-    }
-
-    public GuestDTO() {
     }
 }

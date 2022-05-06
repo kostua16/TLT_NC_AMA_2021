@@ -1,6 +1,7 @@
 package nc.unc.ama.guest.controllers;
 
 
+import nc.unc.ama.common.dto.GuestCreationDTO;
 import nc.unc.ama.common.dto.GuestDTO;
 import nc.unc.ama.common.dto.GuestREST;
 import nc.unc.ama.guest.entities.Guest;
@@ -25,10 +26,10 @@ public class GuestController implements GuestREST {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<GuestDTO> guestReg(@RequestBody GuestDTO guestDTO){
+    @Override
+    public ResponseEntity<GuestDTO> guestReg(@RequestBody GuestCreationDTO guestDTO){
         final Guest guest = guestService.createGuest(Guest
             .builder()
-            .guestId(guestDTO.getGuestId())
             .guestFName(guestDTO.getGuestFName())
             .guestLName(guestDTO.getGuestLName())
             .guestEmail(guestDTO.getGuestEmail())
@@ -37,24 +38,25 @@ public class GuestController implements GuestREST {
         );
         return ResponseEntity.ok(
             new GuestDTO(
-                guest.getGuestId(),
                 guest.getGuestFName(),
                 guest.getGuestLName(),
                 guest.getGuestEmail(),
-                guest.getGuestPhone()
+                guest.getGuestPhone(),
+                guest.getGuestId()
             )
         );
     }
 
     @GetMapping(path = "/{id}")
+    @Override
     public GuestDTO getGuest(@PathVariable("id") Long guestId) {
         Guest newGuest = guestService.getGuest(guestId);
         return new GuestDTO(
-            newGuest.getGuestId(),
             newGuest.getGuestFName(),
             newGuest.getGuestLName(),
             newGuest.getGuestEmail(),
-            newGuest.getGuestPhone()
+            newGuest.getGuestPhone(),
+            newGuest.getGuestId()
         );
     }
 
@@ -63,11 +65,11 @@ public class GuestController implements GuestREST {
         List<GuestDTO> guestDTOList = new ArrayList<>();
         for (Guest guest : guestService.getAllGuests()) {
             guestDTOList.add(new GuestDTO(
-                guest.getGuestId(),
                 guest.getGuestFName(),
                 guest.getGuestLName(),
                 guest.getGuestEmail(),
-                guest.getGuestPhone()
+                guest.getGuestPhone(),
+                guest.getGuestId()
             ));
         }
         return guestDTOList;

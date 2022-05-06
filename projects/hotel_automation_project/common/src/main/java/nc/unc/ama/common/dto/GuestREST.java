@@ -16,5 +16,5 @@ public interface GuestREST {
     GuestDTO getGuest(@PathVariable("id") Long guestId) ;
 
     @PostMapping(path = "/")
-    ResponseEntity<GuestDTO> guestReg(@RequestBody GuestDTO guestDTO);
+    ResponseEntity<GuestDTO> guestReg(@RequestBody GuestCreationDTO guestDTO);
 }
