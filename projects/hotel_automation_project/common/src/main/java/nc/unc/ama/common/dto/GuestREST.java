@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface GuestREST {
 
     @GetMapping(path = "/{id}")
-    GuestDTO getGuest(@PathVariable("id") Long guestId) ;
+    ResponseEntity<GuestDTO> getGuest(@PathVariable("id") Long guestId) ;
 
     @PostMapping(path = "/")
     ResponseEntity<GuestDTO> guestReg(@RequestBody GuestCreationDTO guestDTO);
