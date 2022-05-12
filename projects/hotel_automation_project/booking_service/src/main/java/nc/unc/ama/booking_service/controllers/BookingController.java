@@ -2,9 +2,11 @@ package nc.unc.ama.booking_service.controllers;
 
 import nc.unc.ama.booking_service.entities.Booking;
 import nc.unc.ama.booking_service.services.BookingService;
-import nc.unc.ama.complaint_handling_service.dto.BookingDTO;
+import nc.unc.ama.common.dto.BookingCreateDTO;
+import nc.unc.ama.common.dto.BookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/booking")
+@RequestMapping(path="/api/booking")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -31,10 +33,9 @@ public class BookingController {
     }
 
     @PostMapping(path = "/")
-    public void bookRoom(@RequestBody BookingDTO bookingDTO){
-        bookingService.bookRoom(Booking
+    public ResponseEntity<BookingDTO> bookRoom(@RequestBody BookingCreateDTO bookingDTO){
+        final Booking booking = bookingService.bookRoom(Booking
                 .builder()
-                .bookingId(bookingDTO.getBookingId())
                 .roomId(bookingDTO.getRoomId())
                 .guestId(bookingDTO.getGuestId())
                 .checkInDate(bookingDTO.getCheckInDate())
@@ -42,10 +43,18 @@ public class BookingController {
                 .bookingCost(bookingDTO.getBookingCost())
                 .build()
         );
+        return  ResponseEntity.ok(BookingDTO.builder()
+            .bookingId(booking.getBookingId())
+            .roomId(booking.getRoomId())
+            .guestId(booking.getGuestId())
+            .checkInDate(booking.getCheckInDate())
+            .evictionDate(booking.getEvictionDate())
+            .bookingCost(booking.getBookingCost())
+            .build());
     }
 
     @GetMapping(path = "/getFreeRooms")
-    public List<BookingDTO> getFreeRooms(@RequestParam(required = false, name = "fromDate") @DateTimeFormat(pattern="MMddyyyy")
+    public ResponseEntity<List<BookingDTO>> getFreeRooms(@RequestParam(required = false, name = "fromDate") @DateTimeFormat(pattern="MMddyyyy")
         Date fromDate, @RequestParam(required = false, name = "toDate") @DateTimeFormat(pattern="MMddyyyy") Date toDate){
         List<BookingDTO> bookingDTOList = new ArrayList<>();
         for (Booking booking : bookingService.getFreeRooms(fromDate,toDate)) {
@@ -58,23 +67,23 @@ public class BookingController {
                 booking.getBookingCost()
             ));
         }
-        return bookingDTOList;
+        return ResponseEntity.ok(bookingDTOList);
     }
-    @GetMapping(path = "{bookId}")
-    public BookingDTO getBooking(@PathVariable("bookId") Long bookId)
+    @GetMapping(path = "{id}")
+    public ResponseEntity<BookingDTO> getBooking(@PathVariable("id") Long bookId)
     {
         Booking newBooking = bookingService.getBooking(bookId);
-        return new BookingDTO(
+        return ResponseEntity.ok(new BookingDTO(
             newBooking.getBookingId(),
             newBooking.getGuestId(),
             newBooking.getRoomId(),
             newBooking.getCheckInDate(),
             newBooking.getEvictionDate(),
             newBooking.getBookingCost()
-        );
+        ));
     }
     @GetMapping(path = "/")
-    public List<BookingDTO> getAllBookings() {
+    public ResponseEntity<List<BookingDTO>> getAllBookings() {
         List<BookingDTO> bookingDTOList = new ArrayList<>();
         for (Booking booking : bookingService.getAllBookings()) {
             bookingDTOList.add(new BookingDTO(
@@ -86,11 +95,11 @@ public class BookingController {
                 booking.getBookingCost()
             ));
         }
-        return bookingDTOList;
+        return ResponseEntity.ok(bookingDTOList);
     }
-    @PutMapping(path = "/{bookId}")
-    public void updateBooking(@PathVariable("bookId") Long bookId, @RequestBody BookingDTO bookingDTO){
-        bookingService.updateBooking(Booking
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<BookingDTO> updateBooking(@PathVariable("id") Long bookId, @RequestBody BookingDTO bookingDTO){
+        Booking booking = bookingService.updateBooking(Booking
                 .builder()
                 .bookingId(bookingDTO.getBookingId())
                 .roomId(bookingDTO.getRoomId())
@@ -101,10 +110,19 @@ public class BookingController {
                 .build(),
             bookId
         );
+        return ResponseEntity.ok(BookingDTO.builder()
+            .bookingId(booking.getBookingId())
+            .roomId(booking.getRoomId())
+            .guestId(booking.getGuestId())
+            .checkInDate(booking.getCheckInDate())
+            .evictionDate(booking.getEvictionDate())
+            .bookingCost(booking.getBookingCost())
+            .build());
     }
 
-    @DeleteMapping(path="/{bookId}")
-    public void deleteRoom(@PathVariable("bookId") Long bookId){
+    @DeleteMapping(path="/{id}")
+    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long bookId){
         bookingService.deleteBooking(bookId);
+        return ResponseEntity.ok("Operation with ID = " + bookId + " was deleted");
     }
 }

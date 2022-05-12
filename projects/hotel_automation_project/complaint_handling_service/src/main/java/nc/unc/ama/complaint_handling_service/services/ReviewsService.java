@@ -24,9 +24,9 @@ public class ReviewsService {
     }
 
     @Transactional
-    public void createReview(Reviews review) {
-        reviewsRepo.save(review);
+    public Reviews createReview(Reviews review) {
         this.logsApi.addLog(new LogEntryDTO(new Date(), "reviewsService", "created review"));
+        return reviewsRepo.save(review);
     }
 
     public Reviews getReview(Long reviewId) {

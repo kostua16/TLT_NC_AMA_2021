@@ -28,9 +28,9 @@ public class BookingService {
     }
 
     @Transactional
-    public void updateBooking(Booking updatedBooking, Long bookId) {
+    public Booking updateBooking(Booking updatedBooking, Long bookId) {
         updatedBooking.setBookingId(bookId);
-        bookingRepo.save(updatedBooking);
+        return bookingRepo.save(updatedBooking);
     }
     @Transactional
     public void deleteBooking(Long bookId) {
@@ -38,8 +38,8 @@ public class BookingService {
     }
 
     @Transactional
-    public void bookRoom(Booking booking) {
-        bookingRepo.save(booking);
+    public Booking bookRoom(Booking booking) {
+        return bookingRepo.save(booking);
     }
 
     public List<Booking> getFreeRooms(Date fromDate, Date toDate) {

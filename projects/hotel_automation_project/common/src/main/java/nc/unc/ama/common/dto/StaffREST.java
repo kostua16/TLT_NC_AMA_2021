@@ -31,11 +31,11 @@ public interface StaffREST {
     ResponseEntity<StaffDTO> getStaff(@PathVariable ("staffId") Long staffId);
 
     @PostMapping("/")
-    ResponseEntity<StaffDTO> createNewStaff(@RequestBody StaffDTO staffDTO);
+    ResponseEntity<StaffDTO> createNewStaff(@RequestBody StaffCreateDTO staffDTO);
 
     @DeleteMapping("/delete/{staffId}")
     ResponseEntity<HttpStatus> deleteStaffById(@PathVariable("staffId") Long staffId );
 
     @PutMapping("/{staffId}")
-    ResponseEntity<HttpStatus> updateStaff(@PathVariable ("staffId") Long staffId, @RequestBody StaffDTO staffDTO);
+    ResponseEntity<StaffDTO> updateStaff(@PathVariable ("staffId") Long staffId, @RequestBody StaffDTO staffDTO);
 }

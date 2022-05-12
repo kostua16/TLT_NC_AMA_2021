@@ -14,6 +14,32 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        - id: bookingApi
+          uri: lb://BOOKING
+          predicates:
+            - Path=/api/booking/**
+            - Path=/api/rooms/**
+        - id: complaintApi
+          uri: lb://COMPLAINT
+          predicates:
+            - Path=/api/complaints/**
+            - Path=/api/reviews/**
+        - id: guestApi
+          uri: lb://GUEST
+          predicates:
+            - Path=/api/guests/**
+        - id: operationApi
+          uri: lb://OPERATION
+          predicates:
+            - Path=/api/occupied-rooms/**
+            - Path=/api/operations/**
+            - Path=/api/operation-type/**
+        - id: staffApi
+          uri: lb://STAFF
+          predicates:
+            - Path=/api/staff-types/**
+            - Path=/api/staff/**
   security:
     user:
       password: ${eureka.password}

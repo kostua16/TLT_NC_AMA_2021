@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(path="/guests")
+@RequestMapping(path="/api/guests")
 public class GuestController implements GuestREST {
 
     private final GuestService guestService;
