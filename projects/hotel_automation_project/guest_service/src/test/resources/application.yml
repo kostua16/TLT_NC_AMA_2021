@@ -1,0 +1,11 @@
+server:
+  port: ${PORT:8082}
+management:
+  server:
+    port: ${server.public-port}
+spring:
+  main:
+    banner-mode: off
+  cloud:
+    discovery:
+      enabled: false
