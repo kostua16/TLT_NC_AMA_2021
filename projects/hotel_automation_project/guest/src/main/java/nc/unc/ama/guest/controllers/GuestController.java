@@ -1,7 +1,6 @@
 package nc.unc.ama.guest.controllers;
 
 
-import nc.unc.ama.common.dto.GuestCreationDTO;
 import nc.unc.ama.common.dto.GuestDTO;
 import nc.unc.ama.common.dto.GuestREST;
 import nc.unc.ama.guest.entities.Guest;
@@ -26,37 +25,37 @@ public class GuestController implements GuestREST {
         this.guestService = guestService;
     }
 
-    @PostMapping(path = "/")
+    /*@PostMapping(path = "/")
     @Override
     public ResponseEntity<GuestDTO> guestReg(@RequestBody GuestCreationDTO guestDTO){
         final Guest guest = guestService.createGuest(Guest
             .builder()
-            .guestFName(guestDTO.getGuestFName())
-            .guestLName(guestDTO.getGuestLName())
-            .guestEmail(guestDTO.getGuestEmail())
-            .guestPhone(guestDTO.getGuestPhone())
+            .firstName(guestDTO.getGuestFName())
+            .lastName(guestDTO.getGuestLName())
+            .email(guestDTO.getGuestEmail())
+            .phone(guestDTO.getGuestPhone())
             .build()
         );
         return ResponseEntity.ok(
             new GuestDTO(
-                guest.getGuestFName(),
-                guest.getGuestLName(),
-                guest.getGuestEmail(),
-                guest.getGuestPhone(),
-                guest.getGuestId()
+                guest.getFirstName(),
+                guest.getLastName(),
+                guest.getEmail(),
+                guest.getPhone(),
+                guest.getId()
             )
         );
-    }
+    }*/
 
     @GetMapping(path = "/{id}")
     @Override
     public ResponseEntity<GuestDTO> getGuest(@PathVariable("id") Long guestId) {
         final Guest guest = guestService.getGuest(guestId);
         return ResponseEntity.ok(new GuestDTO(
-            guest.getGuestFName(),
-            guest.getGuestLName(),
-            guest.getGuestEmail(),
-            guest.getGuestPhone(),
+            guest.getFirstName(),
+            guest.getLastName(),
+            guest.getEmail(),
+            guest.getPhone(),
             guest.getGuestId()
         ));
     }
@@ -66,10 +65,10 @@ public class GuestController implements GuestREST {
         List<GuestDTO> guestDTOList = new ArrayList<>();
         for (Guest guest : guestService.getAllGuests()) {
             guestDTOList.add(new GuestDTO(
-                guest.getGuestFName(),
-                guest.getGuestLName(),
-                guest.getGuestEmail(),
-                guest.getGuestPhone(),
+                guest.getFirstName(),
+                guest.getLastName(),
+                guest.getEmail(),
+                guest.getPhone(),
                 guest.getGuestId()
             ));
         }
@@ -81,19 +80,19 @@ public class GuestController implements GuestREST {
         final Guest guest = guestService.updateGuest(Guest
                 .builder()
                 .guestId(guestDTO.getGuestId())
-                .guestFName(guestDTO.getGuestFName())
-                .guestLName(guestDTO.getGuestLName())
-                .guestEmail(guestDTO.getGuestEmail())
-                .guestPhone(guestDTO.getGuestPhone())
+                .firstName(guestDTO.getGuestFName())
+                .lastName(guestDTO.getGuestLName())
+                .email(guestDTO.getGuestEmail())
+                .phone(guestDTO.getGuestPhone())
                 .build(),
             guestId
         );
         return ResponseEntity.ok(
             new GuestDTO(
-                guest.getGuestFName(),
-                guest.getGuestLName(),
-                guest.getGuestEmail(),
-                guest.getGuestPhone(),
+                guest.getFirstName(),
+                guest.getLastName(),
+                guest.getEmail(),
+                guest.getPhone(),
                 guest.getGuestId()
             )
         );

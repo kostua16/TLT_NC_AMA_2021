@@ -21,6 +21,23 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+  mail:
+    host: localhost
+    port: ${MAIL_PORT:1025}
+    username: test
+    password: test
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 eureka:
   instance:
     appname: GUEST
