@@ -19,8 +19,8 @@ public class RoomsService {
     }
 
     @Transactional
-    public void createRoom(HotelRoom room) {
-        roomsRepo.save(room);
+    public HotelRoom createRoom(HotelRoom room) {
+        return roomsRepo.save(room);
     }
 
     public HotelRoom getRoom(Long roomId) {
@@ -32,20 +32,12 @@ public class RoomsService {
     }
 
     @Transactional
-    public void updateRoom(HotelRoom updatedRoom, Long roomId) {
-            roomsRepo.findById(roomId)
-            .map(room -> {
-                room.setRoomBed(updatedRoom.getRoomBed());
-                room.setRoomType(updatedRoom.getRoomType());
-                room.setRoomCost(updatedRoom.getRoomCost());
-                return roomsRepo.save(room);
-            })
-            .orElseGet(() -> {
+    public HotelRoom updateRoom(HotelRoom updatedRoom, Long roomId) {
+
                 updatedRoom.setRoomId(roomId);
                 return roomsRepo.save(updatedRoom);
-            });
     }
-
+    @Transactional
     public void deleteRoom(Long roomId) {
         roomsRepo.deleteById(roomId);
     }

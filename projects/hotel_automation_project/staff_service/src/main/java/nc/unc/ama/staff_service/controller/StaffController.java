@@ -1,6 +1,7 @@
 package nc.unc.ama.staff_service.controller;
 
 
+import nc.unc.ama.common.dto.StaffCreateDTO;
 import nc.unc.ama.common.dto.StaffDTO;
 import nc.unc.ama.common.dto.StaffREST;
 import nc.unc.ama.staff_service.entities.Staff;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/api/staff")
 public class StaffController implements StaffREST
 {
 
@@ -45,10 +46,9 @@ public class StaffController implements StaffREST
 
     @PostMapping("/")
     @Override
-    public ResponseEntity<StaffDTO> createNewStaff(@RequestBody StaffDTO staffDTO) {
+    public ResponseEntity<StaffDTO> createNewStaff(@RequestBody StaffCreateDTO staffDTO) {
         final Staff newMember = staffService.createStaff(Staff
             .builder()
-            .staffId(staffDTO.getStaffId())
             .staffName(staffDTO.getStaffName())
             .staffLastName(staffDTO.getStaffLastName())
             .staffRating(staffDTO.getStaffRating())
@@ -69,7 +69,7 @@ public class StaffController implements StaffREST
 
     @DeleteMapping("/delete/{id}")
     @Override
-    public ResponseEntity<HttpStatus>  deleteStaffById(@PathVariable ("id") Long staffId )
+    public ResponseEntity<HttpStatus> deleteStaffById(@PathVariable ("id") Long staffId )
     {
         staffService.deleteStaffById(staffId);
         return ResponseEntity.accepted().build();
@@ -89,8 +89,8 @@ public class StaffController implements StaffREST
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<HttpStatus> updateStaff(@PathVariable ("id") Long staffId, @RequestBody StaffDTO staffDTO){
-        staffService.updateStaff(Staff
+    public ResponseEntity<StaffDTO> updateStaff(@PathVariable ("id") Long staffId, @RequestBody StaffDTO staffDTO){
+        final Staff staff = staffService.updateStaff(Staff
                 .builder()
                 .staffId(staffDTO.getStaffId())
                 .staffName(staffDTO.getStaffName())
@@ -101,7 +101,13 @@ public class StaffController implements StaffREST
                 .build(),
             staffId
         );
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new StaffDTO(
+            staff.getStaffId(),
+            staff.getStaffName(),
+            staff.getStaffLastName(),
+            staff.getStaffRating(),
+            staff.getStaffSalary(),
+            staff.getStaffTypeId()));
     }
 
     @PostMapping("/changeRating/{id}")

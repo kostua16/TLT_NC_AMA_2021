@@ -34,13 +34,12 @@ public class GuestService {
     }
 
     @Transactional
-    public void updateGuest(Guest guestUpd, Long guestId) {
-        guestRepo.save(guestUpd);
-        guestRepo.findById(guestId);
-
+    public Guest updateGuest(Guest guestUpd, Long guestId) {
+        guestUpd.setGuestId(guestId);
+        return guestRepo.save(guestUpd);
     }
     @Transactional
     public void deleteGuest(Long guestId) {
-        guestRepo.deleteById(guestId);
+         guestRepo.deleteById(guestId);
     }
 }
