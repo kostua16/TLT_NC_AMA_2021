@@ -1,6 +1,5 @@
 package nc.unc.ama.operation_service.controller;
 
-import nc.unc.ama.common.dto.OccupiedRoomCreateDTO;
 import nc.unc.ama.common.dto.OccupiedRoomsDTO;
 import nc.unc.ama.operation_service.entity.OccupiedRoom;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +20,17 @@ import java.util.List;
 @RequestMapping(path = "/api/occupied-rooms")
 public class OccupiedRoomsController {
 
-    private final OccupiedRoomService occupRoomSer;
+    private final OccupiedRoomService roomService;
 
     @Autowired
-    public OccupiedRoomsController(OccupiedRoomService occupRoomSer) {
-        this.occupRoomSer = occupRoomSer;
+    public OccupiedRoomsController(OccupiedRoomService roomService) {
+        this.roomService = roomService;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<OccupiedRoomsDTO>> showAllOccupiedRooms() {
         List<OccupiedRoomsDTO> dtoList = new ArrayList<>();
-        for (OccupiedRoom occupiedRoom : occupRoomSer.getAllOccupiedRooms()) {
+        for (OccupiedRoom occupiedRoom : roomService.getAllOccupiedRooms()) {
             dtoList.add(new OccupiedRoomsDTO(
                 occupiedRoom.getOccupiedRoomId(),
                 occupiedRoom.getRoomId(),
@@ -44,22 +42,7 @@ public class OccupiedRoomsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OccupiedRoomsDTO> getOccupiedRoom(@PathVariable("id") Long idOccupiedRoom) {
-        OccupiedRoom occupiedRoom = occupRoomSer.getOccupiedRoom(idOccupiedRoom);
-        return ResponseEntity.ok(new OccupiedRoomsDTO(
-            occupiedRoom.getOccupiedRoomId(),
-            occupiedRoom.getRoomId(),
-            occupiedRoom.getStaffId(),
-            occupiedRoom.getGuestId()));
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<OccupiedRoomsDTO> addNewOccupiedRoom(@RequestBody OccupiedRoomCreateDTO createDTO) {
-        final OccupiedRoom occupiedRoom = occupRoomSer.addOccupiedRoom(OccupiedRoom
-            .builder()
-            .roomId(createDTO.getRoomId())
-            .staffId(createDTO.getStaffId())
-            .guestId(createDTO.getGuestId())
-            .build());
+        OccupiedRoom occupiedRoom = roomService.getOccupiedRoom(idOccupiedRoom);
         return ResponseEntity.ok(new OccupiedRoomsDTO(
             occupiedRoom.getOccupiedRoomId(),
             occupiedRoom.getRoomId(),
@@ -69,7 +52,7 @@ public class OccupiedRoomsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OccupiedRoomsDTO> updateOccupiedRoom(@PathVariable("id") Long idOccupiedRoom,@RequestBody OccupiedRoomsDTO occupiedRoomsDTO) {
-        final OccupiedRoom occupiedRoom = occupRoomSer.updateOccupiedRoom(OccupiedRoom
+        final OccupiedRoom occupiedRoom = roomService.updateOccupiedRoom(OccupiedRoom
                 .builder()
                 .occupiedRoomId(occupiedRoomsDTO.getOccupiedRoomId())
                 .roomId(occupiedRoomsDTO.getRoomId())
@@ -87,7 +70,7 @@ public class OccupiedRoomsController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOccupiedRoom(@PathVariable("id") Long idOccupiedRoom) {
-        occupRoomSer.deleteOccupiedRoom(idOccupiedRoom);
-        return ResponseEntity.ok("Operation with ID = " + idOccupiedRoom + " was deleted");
+        roomService.deleteOccupiedRoom(idOccupiedRoom);
+        return ResponseEntity.ok("Occupied room with ID = " + idOccupiedRoom + " was deleted");
     }
 }

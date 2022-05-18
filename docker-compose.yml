@@ -14,12 +14,16 @@ services:
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    restart: always
+#  adminer:
+#    image: adminer
+ #   restart: always
+ #   ports:
+ #     - 3001:8080
+  maildev:
+    image: maildev/maildev
     ports:
-      - 3001:8080
-
+      - 1080:1080
+      - 1025:1025
   discovery:
     build:
       context: ./projects/hotel_automation_project/discovery_evr
@@ -71,7 +75,7 @@ services:
 
   guest:
     build:
-      context: ./projects/hotel_automation_project/guest_service
+      context: ./projects/hotel_automation_project/guest
       dockerfile: Guest.Dockerfile
     ports:
       - 3014:80
@@ -92,5 +96,43 @@ services:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: gateway
 
+  booking:
+    build:
+      context: ./projects/hotel_automation_project/booking_service
+      dockerfile: booking.Dockerfile
+    ports:
+      - 3015:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: booking
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
+  operation:
+    build:
+      context: ./projects/hotel_automation_project/operation_service
+      dockerfile: Operation.Dockerfile
+    ports:
+      - 3016:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: operation
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
+
+  staff:
+    build:
+      context: ./projects/hotel_automation_project/staff_service
+      dockerfile: Staff.Dockerfile
+    ports:
+      - 3017:80
+    environment:
+      EUREKA_URL: http://discovery:80/eureka/eureka/
+      DOMAIN_NAME: staff
+      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+      DATABASE_USER: test
+      DATABASE_PASS: test
 volumes:
   pg_data:

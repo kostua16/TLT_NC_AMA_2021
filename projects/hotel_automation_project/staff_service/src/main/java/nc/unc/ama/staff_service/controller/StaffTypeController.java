@@ -59,7 +59,7 @@ public class StaffTypeController {
         }
         return ResponseEntity.ok(staffTypeDTOList);
     }
-    @PutMapping(path = "/{id)")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<StaffTypeDTO> updateStaffType(@PathVariable("id") Long staffTypeId, @RequestBody StaffTypeDTO staffTypeDTO){
         final StaffType staffType = staffTypeService.updateStaffType(StaffType
                 .builder()
@@ -76,7 +76,7 @@ public class StaffTypeController {
         ));
     }
 
-    @DeleteMapping(path="/{id)")
+    @DeleteMapping(path="/{id}")
     public ResponseEntity<String> deleteStaffTypeId(@PathVariable("id") Long staffTypeId){
         staffTypeService.deleteStaffType(staffTypeId);
         return ResponseEntity.ok("StaffType with ID = " + staffTypeId + " was deleted");

@@ -5,7 +5,6 @@ import nc.unc.ama.guest.entities.ConfirmationToken;
 import nc.unc.ama.guest.entities.Guest;
 import nc.unc.ama.guest.services.GuestRegService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,7 @@ public class GuestRegistration {
 
     @PostMapping("/")
     public ConfirmationToken registerGuest(@RequestBody RegDTO regDTO){
-        final ConfirmationToken token = guestRegService.regGuest(Guest
+        return guestRegService.regGuest(Guest
             .builder()
             .firstName(regDTO.getFirstName())
             .lastName(regDTO.getLastName())
@@ -34,7 +33,6 @@ public class GuestRegistration {
             .password(regDTO.getPassword())
             .build()
         );
-        return token;
     }
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token) {

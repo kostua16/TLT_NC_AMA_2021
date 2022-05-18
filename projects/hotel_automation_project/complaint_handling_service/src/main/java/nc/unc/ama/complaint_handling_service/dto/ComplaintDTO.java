@@ -1,4 +1,4 @@
-package nc.unc.ama.common.dto;
+package nc.unc.ama.complaint_handling_service.dto;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,8 +11,8 @@ public class ComplaintDTO extends ComplainCreateDTO{
 
     private Long complaintId;
 
-    public ComplaintDTO(Long complaintId, String complaintText, Long guestId, Long staffMemberId, Long roomId) {
-        super(complaintText, guestId, staffMemberId, roomId);
+    public ComplaintDTO(Long complaintId, String complaintText, Long guestId, Long staffMemberId, Long roomId, Long offenseId) {
+        super(complaintText, guestId, staffMemberId, roomId, offenseId);
         this.complaintId = complaintId;
     }
 }

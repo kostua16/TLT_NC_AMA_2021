@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OccupiedRoomRepo extends JpaRepository<OccupiedRoom,Long> {
+
+    Long findOccupiedRoomByGuestId(Long guestId);
 }

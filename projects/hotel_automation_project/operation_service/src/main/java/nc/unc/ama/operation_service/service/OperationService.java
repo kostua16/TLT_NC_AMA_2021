@@ -1,5 +1,7 @@
 package nc.unc.ama.operation_service.service;
 
+import nc.unc.ama.common.dto.StaffDTO;
+import nc.unc.ama.common.dto.StaffREST;
 import nc.unc.ama.operation_service.dao.OperationRepository;
 import nc.unc.ama.operation_service.entity.Operation;
 import nc.unc.ama.operation_service.err.OperationNotFoundException;
@@ -13,10 +15,12 @@ import java.util.List;
 public class OperationService{
 
     private final OperationRepository operationRepo;
+    private final StaffREST staffREST;
 
     @Autowired
-    public OperationService(OperationRepository operationRepo) {
+    public OperationService(OperationRepository operationRepo, StaffREST staffREST) {
         this.operationRepo = operationRepo;
+        this.staffREST = staffREST;
     }
 
 
@@ -26,6 +30,8 @@ public class OperationService{
 
     @Transactional
     public Operation saveOperation(Operation operation) {
+        StaffDTO staff = staffREST.getRandomStaff(operation.getOperationTypeId());
+        operation.setStaffId(staff.getStaffId());
         return operationRepo.save(operation);
     }
     @Transactional
@@ -40,5 +46,12 @@ public class OperationService{
     @Transactional
     public void deleteOperation(Long idOperation) {
         operationRepo.deleteById(idOperation);
+    }
+
+    @Transactional
+    public Operation operationDone(Long operationId){
+        Operation operation = operationRepo.findById(operationId).orElseThrow(()->new OperationNotFoundException(operationId));
+        operation.setStatus(true);
+        return operationRepo.save(operation);
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "operation_service", path = "/api/operations")
+@FeignClient(name = "OPERATION", path = "/api/operations")
 @ConditionalOnProperty(prefix = "app.clients", name = "operationsApi")
 public interface OperationREST {
 

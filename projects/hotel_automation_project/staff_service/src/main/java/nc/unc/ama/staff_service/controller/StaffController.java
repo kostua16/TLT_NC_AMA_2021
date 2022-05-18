@@ -28,7 +28,7 @@ public class StaffController implements StaffREST
     }
 
 
-    @GetMapping
+    @GetMapping("/")
     @Override
     public ResponseEntity<List<StaffDTO>> getAllStaff() {
         List<StaffDTO> staffDTOList = new ArrayList<>();
@@ -119,5 +119,16 @@ public class StaffController implements StaffREST
         staffService.changeRating(staffId,points,plusOrSub);
         return ResponseEntity.accepted().build();
     }
-
+    @Override
+    @GetMapping("/get-random")
+    public StaffDTO getRandomStaff(@RequestBody Long staffTypeId){
+        Staff staff = staffService.getRandomStaff(staffTypeId);
+        return new StaffDTO(
+            staff.getStaffId(),
+            staff.getStaffName(),
+            staff.getStaffLastName(),
+            staff.getStaffRating(),
+            staff.getStaffSalary(),
+            staff.getStaffTypeId());
+    }
 }

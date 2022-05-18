@@ -6,6 +6,7 @@ import nc.unc.ama.staff_service.repositories.StaffTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -39,5 +40,10 @@ public class StaffTypeService {
 
     public void deleteStaffType(Long staffTypeId) {
         staffTypeRepo.deleteById(staffTypeId);
+    }
+
+    @PostConstruct
+    public void initiolaize(){
+
     }
 }

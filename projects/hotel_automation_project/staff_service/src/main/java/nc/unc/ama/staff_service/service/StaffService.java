@@ -48,8 +48,12 @@ public class StaffService {
                 } else if (!plusOrSub && staff.getStaffRating()>0) {
                     staff.setStaffRating(staff.getStaffRating()-points);
                 }
-                return staffRepo.save(staff);
+                return staffRepo.save(staff);//проверить как это работает
             })
             .orElseThrow(()->new StaffNotFoundException(staffId));
+    }
+
+    public Staff getRandomStaff(Long staffType) {
+        return staffRepo.getRandomStaff(staffType);
     }
 }

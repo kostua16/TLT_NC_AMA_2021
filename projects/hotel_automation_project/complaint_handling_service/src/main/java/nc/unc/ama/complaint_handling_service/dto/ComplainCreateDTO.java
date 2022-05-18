@@ -1,4 +1,4 @@
-package nc.unc.ama.common.dto;
+package nc.unc.ama.complaint_handling_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,4 +11,5 @@ public class ComplainCreateDTO {
     private Long guestId;
     private Long staffMemberId;
     private Long roomId;
+    private Long offenseId;
 }

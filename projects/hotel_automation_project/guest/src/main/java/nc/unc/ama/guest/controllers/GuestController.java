@@ -25,27 +25,6 @@ public class GuestController implements GuestREST {
         this.guestService = guestService;
     }
 
-    /*@PostMapping(path = "/")
-    @Override
-    public ResponseEntity<GuestDTO> guestReg(@RequestBody GuestCreationDTO guestDTO){
-        final Guest guest = guestService.createGuest(Guest
-            .builder()
-            .firstName(guestDTO.getGuestFName())
-            .lastName(guestDTO.getGuestLName())
-            .email(guestDTO.getGuestEmail())
-            .phone(guestDTO.getGuestPhone())
-            .build()
-        );
-        return ResponseEntity.ok(
-            new GuestDTO(
-                guest.getFirstName(),
-                guest.getLastName(),
-                guest.getEmail(),
-                guest.getPhone(),
-                guest.getId()
-            )
-        );
-    }*/
 
     @GetMapping(path = "/{id}")
     @Override

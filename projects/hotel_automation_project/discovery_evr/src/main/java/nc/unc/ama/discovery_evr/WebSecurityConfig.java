@@ -1,4 +1,4 @@
-package nc.unc.ama.discovery_evr;
+/*package nc.unc.ama.discovery_evr;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,3 +15,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 }
+*/

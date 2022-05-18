@@ -1,7 +1,7 @@
 FROM maven:3.6-alpine as dependencies
-ADD target/guests.jar ./target/
+ADD target/booking.jar ./target/
 # собираем проект
-RUN mkdir target/extracted && java -Djarmode=layertools -jar ./target/guests.jar extract --destination target/extracted
+RUN mkdir target/extracted && java -Djarmode=layertools -jar ./target/booking.jar extract --destination target/extracted
 
 FROM openjdk:8-jdk-alpine as build
 #FROM tomcat:9.0.58-jre8-openjdk-slim as build

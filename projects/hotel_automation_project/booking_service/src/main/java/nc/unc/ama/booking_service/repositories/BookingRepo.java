@@ -5,11 +5,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface BookingRepo extends JpaRepository<Booking, Long> {
-    @Query("SELECT b FROM Booking b WHERE b.checkInDate<=?1 and b.evictionDate>=?2")
-    List<Booking> findBookingBetweenDates(Date fromDate, Date toDate);
+    @Query("SELECT distinct b.roomId FROM Booking b WHERE (?1 between b.checkInDate and b.evictionDate) " +
+        "or (?2 between b.checkInDate and b.evictionDate)" +
+        "or ((b.checkInDate between ?1 and ?2) and (b.evictionDate between ?1 and ?2)) ")
+    List<Long> findBookingBetweenDates(Date fromDate, Date toDate);
+
+    @Query("SELECT b FROM Booking b WHERE b.guestId = ?1 and b.checkInDate = ?2")
+    Booking findBookingByGuestId(Long guestId, Calendar today);
 }

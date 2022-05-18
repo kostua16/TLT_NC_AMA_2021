@@ -13,5 +13,5 @@ public class BookingCreateDTO {
     private Long roomId;
     private Date checkInDate;
     private Date evictionDate;
-    private Boolean bookingCost;
+
 }

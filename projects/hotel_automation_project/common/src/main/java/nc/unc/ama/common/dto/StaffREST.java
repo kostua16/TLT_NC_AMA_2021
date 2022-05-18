@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "STAFF", path = "/staff_service")
+@FeignClient(name = "STAFF", path = "/api/staff")
 @ConditionalOnProperty(prefix = "app.clients", name = "staffRatingApi")
 public interface StaffREST {
 
@@ -23,6 +23,8 @@ public interface StaffREST {
                                                    @RequestParam(required = false, name = "staffRating") Integer points,
                                                    @RequestParam (required = false, name = "plusOrSub") Boolean plusOrSub
     );
+    @GetMapping("/get-random")
+    StaffDTO getRandomStaff(@RequestBody Long staffTypeId);
 
     @GetMapping
     ResponseEntity<List<StaffDTO>> getAllStaff();

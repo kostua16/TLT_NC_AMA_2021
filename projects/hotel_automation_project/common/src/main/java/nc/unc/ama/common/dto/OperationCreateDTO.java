@@ -9,8 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OperationCreateDTO {
 
-        private String operationName;
-        private String description;
+        private Long operationTypeId;
+        private Long guestId;
         private Double price;
 
 }

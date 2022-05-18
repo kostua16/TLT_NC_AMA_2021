@@ -13,6 +13,8 @@ management:
   server:
     port: ${server.public-port}
 spring:
+  application:
+    name: BOOKING
   main:
     banner-mode: off
   datasource:
@@ -42,3 +44,20 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
+---
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USER:}
+    password: ${DATABASE_PASS:}
+  config:
+    activate:
+      on-profile: prod
+  h2:
+    console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+eureka:
+  instance:
+    hostname: ${DOMAIN_NAME:localhost}
