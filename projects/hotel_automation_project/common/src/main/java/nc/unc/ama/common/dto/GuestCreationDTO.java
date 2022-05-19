@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Deprecated
 public class GuestCreationDTO {
 
     private String guestFName;

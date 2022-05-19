@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
+@Deprecated
 public class GuestDTO extends GuestCreationDTO {
 
     private final Long guestId;

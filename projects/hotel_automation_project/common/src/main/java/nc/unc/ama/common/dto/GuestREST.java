@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "guest", path = "/guests")
 @ConditionalOnProperty(prefix = "app.clients", name = "guestsApi")
+@Deprecated
 public interface GuestREST {
 
     @GetMapping(path = "/{id}")
