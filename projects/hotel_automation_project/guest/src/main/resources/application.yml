@@ -23,7 +23,7 @@ spring:
     generate-ddl: true
 eureka:
   instance:
-    appname: complain_handling
+    appname: GUEST
     nonSecurePort: ${server.public-port}
   password: ${USER_PASSWORD:password}
   client:

@@ -20,15 +20,14 @@ public class ComplaintService {
         this.complaintRepo = complaintRepo;
     }
 
-
     public Complaint getComplaint(Long complaintId) {
 
         return complaintRepo.findById(complaintId).get();
     }
 
     @Transactional
-    public void createComplain(Complaint complaint){
-        complaintRepo.save(complaint);
+    public Complaint createComplain(Complaint complaint){
+        return complaintRepo.save(complaint);
     }
 
     public List<Complaint> getAllComplaints() {

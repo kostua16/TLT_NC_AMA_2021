@@ -1,0 +1,44 @@
+app:
+  clients:
+    logsApi: true
+    staffRatingApi: true
+
+feign:
+  httpclient:
+    enabled: true
+server:
+  port: ${PORT:8086}
+  public-port: ${PUBLIC_PORT:${server.port}}
+management:
+  server:
+    port: ${server.public-port}
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:mydb
+    driver-class-name: org.h2.Driver
+    username: test
+    password: test
+  h2:
+    console.enabled: true
+  security:
+    user:
+      password: ${eureka.password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+eureka:
+  instance:
+    appname: BOOKING
+    nonSecurePort: ${server.public-port}
+    statusPageUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/health
+    homePageUrl: https://${eureka.instance.hostname}:${server.public-port}/
+  password: ${USER_PASSWORD:password}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}

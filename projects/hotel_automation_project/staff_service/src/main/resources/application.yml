@@ -1,27 +1,32 @@
 spring:
+    main:
+      banner-mode: off
+    datasource:
+      url: jdbc:h2:mem:mydb
+      driver-class-name: org.h2.Driver
+      username: test
+      password: test
+    h2:
+      console.enabled: true
   jpa:
-    database: postgresql
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
       ddl-auto: update
     generate-ddl: true
-  datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://${JDBCadress:192.168.99.100:5432/postgres}
-    username: postgres
-    password: postgres
   security:
     user:
       password: ${eureka.password}
 server:
-  port: ${STAFF_PORT:57118}
+  port: ${STAFF_PORT:8084}
 management:
   server:
     port: ${server.port}
 eureka:
   instance:
     appname: STAFF
+    nonSecurePort: ${server.public-port}
+    statusPageUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${server.public-port}/actuator/health
+    homePageUrl: https://${eureka.instance.hostname}:${server.public-port}/
   password: ${USER_PASSWORD:password}
   client:
     fetch-registry: true

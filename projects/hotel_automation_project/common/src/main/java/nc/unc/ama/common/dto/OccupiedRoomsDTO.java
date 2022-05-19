@@ -1,22 +1,18 @@
 package nc.unc.ama.common.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class OccupiedRoomsDTO {
+@EqualsAndHashCode(callSuper = true)
+public class OccupiedRoomsDTO extends OccupiedRoomCreateDTO{
 
     private Long occupiedRoomId;
-    private Long staffMemberId;
-    private Long bookingId;
 
-    public OccupiedRoomsDTO() {
+    public OccupiedRoomsDTO(Long occupiedRoomId, Long roomId, Long staffId, Long guestId) {
+        super(roomId, staffId, guestId);
+        this.occupiedRoomId = occupiedRoomId;
     }
-
-    public OccupiedRoomsDTO(Long staffMemberId, Long bookingId) {
-        this.staffMemberId = staffMemberId;
-        this.bookingId = bookingId;
-    }
-
 }

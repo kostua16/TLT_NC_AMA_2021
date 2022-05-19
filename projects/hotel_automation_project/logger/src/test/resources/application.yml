@@ -1,0 +1,11 @@
+server:
+  port: ${PORT:4444}
+management:
+  server:
+    port: ${server.public-port}
+spring:
+  main:
+    banner-mode: off
+  cloud:
+    discovery:
+      enabled: false
