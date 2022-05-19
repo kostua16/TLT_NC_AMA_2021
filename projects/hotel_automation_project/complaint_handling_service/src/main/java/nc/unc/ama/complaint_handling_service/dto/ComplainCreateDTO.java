@@ -1,5 +1,6 @@
 package nc.unc.ama.complaint_handling_service.dto;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ public class ComplainCreateDTO {
 
     private String complaintText;
     private Long guestId;
-    private Long staffMemberId;
+    private UUID staffMemberId;
     private Long roomId;
     private Long offenseId;
 }

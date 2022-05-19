@@ -1,34 +1,45 @@
-app:
-  clients:
-    logsApi: true
-feign:
-  httpclient:
-    enabled: true
 server:
-  port: ${STAFF_PORT:8087}
+  port: ${PORT:8087}
   public-port: ${PUBLIC_PORT:${server.port}}
+  public-host: ${PUBLIC_HOST:localhost}
 management:
-    server:
-      port: ${server.public-port}
+  server:
+    port: ${server.public-port}
 spring:
   application:
-    name: STAFF
+    name: ${eureka.instance.appname}
   main:
-      banner-mode: off
-  datasource:
-      url: jdbc:h2:mem:mydb
-      driver-class-name: org.h2.Driver
-      username: test
-      password: test
+    banner-mode: off
   h2:
-      console.enabled: true
+    console.enabled: true
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
   security:
-      user:
-        password: ${eureka.password}
+    user:
+      password: ${eureka.password}
   jpa:
-      hibernate:
-        ddl-auto: update
-      generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USER:test}
+    password: ${MAIL_PASS:test}
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 eureka:
   instance:
     appname: STAFF

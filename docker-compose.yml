@@ -24,6 +24,7 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+
   discovery:
     build:
       context: ./projects/hotel_automation_project/discovery_evr
@@ -134,5 +135,7 @@ services:
       DATABASE_URL: jdbc:postgresql://postgres:5432/test
       DATABASE_USER: test
       DATABASE_PASS: test
+      PUBLIC_HOST: localhost
+      MAIL_HOST: maildev
 volumes:
   pg_data:

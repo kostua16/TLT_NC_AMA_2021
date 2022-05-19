@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = true)
+@Deprecated
 public class StaffTypeDTO extends StaffTypeCreateDTO{
 
     private Long staffTypeId;

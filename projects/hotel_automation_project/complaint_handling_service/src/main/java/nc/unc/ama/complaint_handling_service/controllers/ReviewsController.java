@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/reviews")
@@ -60,11 +61,11 @@ public class ReviewsController {
         return ResponseEntity.ok(reviewsDTOList);
     }
 
-    @GetMapping(path = "/on-guest")
-    public ResponseEntity<List<ReviewsDTO>> getReviewsOnGuest(GuestDTO guestDTO) {
+    @GetMapping(path = "/on-guest/{id}")
+    public ResponseEntity<List<ReviewsDTO>> getReviewsOnGuest(@PathVariable("id") UUID guest) {
         List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
         for (Reviews reviews :
-            reviewsService.getReviewByGuestId(guestDTO.getGuestId())) {
+            reviewsService.getReviewByGuestId(guest)) {
             reviewsDTOList.add(new ReviewsDTO(
                 reviews.getReviewId(),
                 reviews.getGuestId(),

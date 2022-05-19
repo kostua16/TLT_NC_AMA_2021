@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Deprecated
 public class StaffCreateDTO {
     private String staffName;
     private String staffLastName;

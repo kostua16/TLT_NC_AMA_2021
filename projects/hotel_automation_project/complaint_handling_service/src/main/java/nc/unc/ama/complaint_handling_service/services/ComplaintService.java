@@ -1,7 +1,9 @@
 package nc.unc.ama.complaint_handling_service.services;
 
 
-import nc.unc.ama.common.dto.StaffREST;
+import java.util.List;
+import java.util.UUID;
+import nc.unc.ama.common.dto.UsersREST;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.entities.Offense;
 import nc.unc.ama.complaint_handling_service.repositories.ComplaintRepo;
@@ -9,21 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 
 @Service
 public class ComplaintService {
+
     private final ComplaintRepo complaintRepo;
+
     private final OffenseService offenseService;
-    private final StaffREST staffREST;
+
+    private final UsersREST usersREST;
 
     @Autowired
-    public ComplaintService(ComplaintRepo complaintRepo, OffenseService offenseService, StaffREST staffREST) {
+    public ComplaintService(ComplaintRepo complaintRepo, OffenseService offenseService,
+                            UsersREST usersREST) {
 
         this.complaintRepo = complaintRepo;
         this.offenseService = offenseService;
-        this.staffREST = staffREST;
+        this.usersREST = usersREST;
     }
 
     public Complaint getComplaint(Long complaintId) {
@@ -32,9 +36,9 @@ public class ComplaintService {
     }
 
     @Transactional
-    public Complaint createComplain(Complaint complaint){
+    public Complaint createComplain(Complaint complaint) {
         Offense offense = offenseService.getOffense(complaint.getOffenseId());
-        staffREST.changeRating(complaint.getStaffMemberId(),offense.getPoints(),false);
+        this.usersREST.rateSet(complaint.getStaffMemberId(), -offense.getPoints());
         return complaintRepo.save(complaint);
     }//отправить оповещение администратору и работнику на почту
     //добавить тип проступка, в нём будет цена ошибки сотрудника вылияющая на рейтинг
@@ -44,7 +48,7 @@ public class ComplaintService {
         return complaintRepo.findAll();
     }
 
-    public List<Complaint> getComplaintByStaffId(Long staffMemberId) {
+    public List<Complaint> getComplaintByStaffId(UUID staffMemberId) {
         return complaintRepo.findComplaintByStaffMemberId(staffMemberId);
     }
     //сотрудник или администратор узнают жалобы на конкретного сотрудника

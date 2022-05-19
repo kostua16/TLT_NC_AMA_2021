@@ -16,6 +16,7 @@ import java.util.List;
 
 @FeignClient(name = "STAFF", path = "/api/staff")
 @ConditionalOnProperty(prefix = "app.clients", name = "staffRatingApi")
+@Deprecated
 public interface StaffREST {
 
     @PostMapping("/changeRating/{staffIdR}")
