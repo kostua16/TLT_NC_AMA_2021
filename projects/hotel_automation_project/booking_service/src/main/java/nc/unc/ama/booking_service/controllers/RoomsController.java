@@ -2,15 +2,17 @@ package nc.unc.ama.booking_service.controllers;
 
 import nc.unc.ama.booking_service.entities.HotelRoom;
 import nc.unc.ama.booking_service.services.RoomsService;
+import nc.unc.ama.common.dto.HotelRoomCreateDTO;
 import nc.unc.ama.common.dto.HotelRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/rooms")
+@RequestMapping(path="/api/rooms")
 public class RoomsController {
 
     private final RoomsService roomsService;
@@ -22,30 +24,35 @@ public class RoomsController {
     }
 
     @PostMapping(path = "/")
-    public void createRoom(@RequestBody HotelRoomDTO hotelRoomDTO){
-        roomsService.createRoom(HotelRoom
+    public ResponseEntity<HotelRoomDTO> createRoom(@RequestBody HotelRoomCreateDTO hotelRoomDTO){
+        final HotelRoom hotelRoom = roomsService.createRoom(HotelRoom
             .builder()
-            .roomId(hotelRoomDTO.getRoomId())
             .roomType(hotelRoomDTO.getRoomType())
             .roomBed(hotelRoomDTO.getRoomBed())
             .roomCost(hotelRoomDTO.getRoomCost())
             .build()
         );
+        return ResponseEntity.ok(new HotelRoomDTO(
+            hotelRoom.getRoomId(),
+            hotelRoom.getRoomType(),
+            hotelRoom.getRoomBed(),
+            hotelRoom.getRoomCost()
+        ));
     }
 
-    @GetMapping(path = "{roomId}")
-    public HotelRoomDTO viewRoom(@PathVariable("roomId") Long roomId)
+    @GetMapping(path = "{id}")
+    public ResponseEntity<HotelRoomDTO> viewRoom(@PathVariable("id") Long roomId)
     {
         HotelRoom newRoom = roomsService.getRoom(roomId);
-        return new HotelRoomDTO(
+        return ResponseEntity.ok(new HotelRoomDTO(
             newRoom.getRoomId(),
             newRoom.getRoomType(),
             newRoom.getRoomBed(),
             newRoom.getRoomCost()
-        );
+        ));
     }
     @GetMapping(path = "/")
-    public List<HotelRoomDTO> getAllRooms() {
+    public ResponseEntity<List<HotelRoomDTO>> getAllRooms() {
         List<HotelRoomDTO> roomDTOList = new ArrayList<>();
         for (HotelRoom room : roomsService.getAllRooms()) {
             roomDTOList.add(new HotelRoomDTO(
@@ -55,11 +62,11 @@ public class RoomsController {
                 room.getRoomCost()
             ));
         }
-        return roomDTOList;
+        return ResponseEntity.ok(roomDTOList);
     }
-    @PutMapping(path = "/{roomId}")
-    public void updateRoom(@PathVariable("roomId") Long roomId, @RequestBody HotelRoomDTO hotelRoomDTO){
-        roomsService.updateRoom(HotelRoom
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<HotelRoomDTO> updateRoom(@PathVariable("id") Long roomId, @RequestBody HotelRoomDTO hotelRoomDTO){
+        final HotelRoom hotelRoom = roomsService.updateRoom(HotelRoom
             .builder()
             .roomId(hotelRoomDTO.getRoomId())
             .roomType(hotelRoomDTO.getRoomType())
@@ -68,10 +75,17 @@ public class RoomsController {
             .build(),
             roomId
         );
+        return ResponseEntity.ok(new HotelRoomDTO(
+            hotelRoom.getRoomId(),
+            hotelRoom.getRoomType(),
+            hotelRoom.getRoomBed(),
+            hotelRoom.getRoomCost()
+        ));
     }
 
-    @DeleteMapping(path="/{roomId}")
-    public void deleteRoom(@PathVariable("roomId") Long roomId){
+    @DeleteMapping(path="/{id}")
+    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long roomId){
         roomsService.deleteRoom(roomId);
+        return ResponseEntity.ok("Room with ID = " + roomId + " was deleted");
     }
 }

@@ -33,10 +33,10 @@ public class StaffService {
         return staffRepo.findById(staffId).orElseThrow(()->new StaffNotFoundException(staffId));
     }
     @Transactional
-    public void updateStaff(Staff updatedStaff, Long staffId) {
+    public Staff updateStaff(Staff updatedStaff, Long staffId) {
 
                 updatedStaff.setStaffId(staffId);
-                staffRepo.save(updatedStaff);
+                return staffRepo.save(updatedStaff);
     }
 
     @Transactional

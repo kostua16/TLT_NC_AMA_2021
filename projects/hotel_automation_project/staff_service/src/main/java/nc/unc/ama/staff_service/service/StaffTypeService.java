@@ -19,8 +19,8 @@ public class StaffTypeService {
     }
 
     @Transactional
-    public void createStaffType(StaffType staffType) {
-        staffTypeRepo.save(staffType);
+    public StaffType createStaffType(StaffType staffType) {
+        return staffTypeRepo.save(staffType);
     }
 
     public StaffType getStaffTypeId(Long staffTypeId) {
@@ -32,9 +32,9 @@ public class StaffTypeService {
     }
 
     @Transactional
-    public void updateStaffType(StaffType updatedStaffType, Long staffTypeId) {
+    public StaffType updateStaffType(StaffType updatedStaffType, Long staffTypeId) {
         updatedStaffType.setStaffTypeId(staffTypeId);
-        staffTypeRepo.save(updatedStaffType);
+        return staffTypeRepo.save(updatedStaffType);
     }
 
     public void deleteStaffType(Long staffTypeId) {

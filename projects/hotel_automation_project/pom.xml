@@ -59,7 +59,7 @@
   <modules>
     <module>common</module>
     <module>complaint_handling_service</module>
-    <module>guest_service</module>
+    <module>operation_service</module>
     <module>bank_service</module>
     <module>booking_service</module>
     <module>discovery_evr</module>

@@ -1,20 +1,18 @@
-package nc.unc.ama.complaint_handling_service.dto;
+package nc.unc.ama.common.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class StaffTypeDTO {
+@EqualsAndHashCode(callSuper = true)
+public class StaffTypeDTO extends StaffTypeCreateDTO{
 
     private Long staffTypeId;
-    private String staffTypeName;
-    private String typeDescription;
 
     public StaffTypeDTO(Long staffTypeId, String staffTypeName, String typeDescription) {
+        super(staffTypeName, typeDescription);
         this.staffTypeId = staffTypeId;
-        this.staffTypeName = staffTypeName;
-        this.typeDescription = typeDescription;
     }
-
 }

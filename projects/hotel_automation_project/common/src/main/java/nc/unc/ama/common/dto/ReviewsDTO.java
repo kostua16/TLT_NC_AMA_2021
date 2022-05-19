@@ -1,20 +1,18 @@
 package nc.unc.ama.common.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class ReviewsDTO {
+@EqualsAndHashCode(callSuper = true)
+public class ReviewsDTO extends ReviewCreateDTO{
 
         private Long reviewId;
-        private Long guestId;
-        private String reviewText;
 
-        public ReviewsDTO(Long reviewId, Long guestId, String reviewText) {
-            this.reviewId = reviewId;
-            this.guestId = guestId;
-            this.reviewText = reviewText;
-        }
-
+    public ReviewsDTO(Long reviewId, Long guestId, String reviewText) {
+        super(guestId, reviewText);
+        this.reviewId = reviewId;
+    }
 }
