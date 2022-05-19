@@ -23,6 +23,9 @@
     <spring-cloud-openfeign-core.version>3.1.2</spring-cloud-openfeign-core.version>
     <http.client.version>4.5.13</http.client.version>
     <spring-security-test.version>5.5.3</spring-security-test.version>
+    <mockito-version>3.4.6</mockito-version>
+    <junit-jupiter>5.7.2</junit-jupiter>
+    <junit.version>4.13.2</junit.version>
   </properties>
 
   <dependencyManagement>
@@ -125,6 +128,28 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
