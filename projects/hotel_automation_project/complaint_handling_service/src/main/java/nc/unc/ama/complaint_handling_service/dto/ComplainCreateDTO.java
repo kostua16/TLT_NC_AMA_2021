@@ -9,7 +9,7 @@ import lombok.Data;
 public class ComplainCreateDTO {
 
     private String complaintText;
-    private Long guestId;
+    private UUID guestId;
     private UUID staffMemberId;
     private Long roomId;
     private Long offenseId;

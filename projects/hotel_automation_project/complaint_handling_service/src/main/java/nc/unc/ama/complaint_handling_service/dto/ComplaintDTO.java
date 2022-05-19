@@ -12,7 +12,7 @@ public class ComplaintDTO extends ComplainCreateDTO{
 
     private Long complaintId;
 
-    public ComplaintDTO(Long complaintId, String complaintText, Long guestId, UUID staffMemberId, Long roomId, Long offenseId) {
+    public ComplaintDTO(Long complaintId, String complaintText, UUID guestId, UUID staffMemberId, Long roomId, Long offenseId) {
         super(complaintText, guestId, staffMemberId, roomId, offenseId);
         this.complaintId = complaintId;
     }
