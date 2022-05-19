@@ -3,11 +3,8 @@ package nc.unc.ama.complaint_handling_service.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import nc.unc.ama.common.dto.UserDTO;
 import nc.unc.ama.complaint_handling_service.dto.ComplainCreateDTO;
 import nc.unc.ama.complaint_handling_service.dto.ComplaintDTO;
-import nc.unc.ama.common.dto.StaffDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;

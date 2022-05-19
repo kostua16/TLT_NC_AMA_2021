@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "STAFF", path = "/api/users", configuration = RestAuthConfig.class)
 @ConditionalOnProperty(prefix = "app.users", name = "usersApi")
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.ShortVariable"})
 public interface UsersREST {
 
     @GetMapping("/activate/{id}")

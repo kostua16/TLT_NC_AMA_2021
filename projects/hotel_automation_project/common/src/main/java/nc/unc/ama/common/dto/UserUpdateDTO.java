@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
+@SuppressWarnings("PMD.ShortVariable")
 public class UserUpdateDTO {
 
     private UUID id;

@@ -1,7 +1,8 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
-import nc.unc.ama.common.dto.StaffDTO;
-import nc.unc.ama.common.dto.StaffREST;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import nc.unc.ama.common.dto.UserDTO;
 import nc.unc.ama.common.dto.UserInfoDTO;
 import nc.unc.ama.common.dto.UserRoles;
@@ -9,14 +10,12 @@ import nc.unc.ama.common.dto.UsersREST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/staff-rating")
+@SuppressWarnings("PMD.ShortVariable")
 public class RatingControllerImpl {
+
     private final UsersREST usersREST;
 
     @Autowired
@@ -51,7 +50,7 @@ public class RatingControllerImpl {
         final ResponseEntity<UserInfoDTO> user = this.usersREST.getUser(staffId);
         final UserInfoDTO body = user.getBody();
         if (body != null && UserRoles.STAFF == body.getRole()) {
-             result = ResponseEntity.status(user.getStatusCode()).body(body.toSummary());
+            result = ResponseEntity.status(user.getStatusCode()).body(body.toSummary());
         } else {
             result = ResponseEntity.status(user.getStatusCode()).build();
         }

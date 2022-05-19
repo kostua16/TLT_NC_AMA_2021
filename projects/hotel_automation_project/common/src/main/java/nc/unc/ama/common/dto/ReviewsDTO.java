@@ -10,7 +10,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class ReviewsDTO extends ReviewCreateDTO{
 
-        private UUID reviewId;
+        private Long reviewId;
 
     public ReviewsDTO(Long reviewId, UUID guestId, String reviewText) {
         super(guestId, reviewText);

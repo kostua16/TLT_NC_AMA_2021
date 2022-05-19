@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
+@SuppressWarnings("PMD.ShortVariable")
 public class UserDTO implements Serializable {
 
     private UUID id;
