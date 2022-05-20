@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import nc.unc.ama.common.dto.UserInfoDTO;
 import nc.unc.ama.common.dto.UsersREST;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("PMD.AvoidUncheckedExceptionsInSignatures")
 @Service
 public class UsersAuthService implements UserDetailsService {
+
+    private static transient final Logger LOG = LoggerFactory.getLogger(UsersAuthService.class);
 
     private final UsersREST usersREST;
 
@@ -34,6 +38,9 @@ public class UsersAuthService implements UserDetailsService {
     private UserDetails loadFromRest(String username) throws UsernameNotFoundException {
         final ResponseEntity<UserInfoDTO> found = this.usersREST.findUser(username);
         final UserInfoDTO body = found.getBody();
+        if (LOG.isErrorEnabled()) {
+            LOG.error("[loadFromRest][code:{}][id:{}]", found.getStatusCode().value(), body.getId());
+        }
         if (found.getStatusCode().is2xxSuccessful() && body != null) {
             final User user = new User(
                 body.getEmail(),
@@ -46,6 +53,9 @@ public class UsersAuthService implements UserDetailsService {
             );
             return user;
         } else {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("[loadFromRest][code:{}][id:{}] Not found", found.getStatusCode().value(), body.getId());
+            }
             throw new UsernameNotFoundException(username);
         }
     }
@@ -54,10 +64,16 @@ public class UsersAuthService implements UserDetailsService {
         Optional<UserDetails> results = Optional.empty();
         if (this.cache.containsKey(username)) {
             final Map.Entry<User, LocalDateTime> entry = this.cache.get(username);
+            if (LOG.isErrorEnabled()) {
+                LOG.error("[loadFromCache][name:{}]",  entry.getKey().getUsername());
+            }
             if (entry.getValue().isAfter(LocalDateTime.now())) {
                 results = Optional.of(entry.getKey());
             } else {
                 this.cache.remove(username);
+                if (LOG.isErrorEnabled()) {
+                    LOG.error("[loadFromCache][name:{}] Expired",  entry.getKey().getUsername());
+                }
             }
         }
         return results;
@@ -65,6 +81,6 @@ public class UsersAuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.loadFromCache(username).orElse(this.loadFromRest(username));
+        return this.loadFromCache(username).orElseGet(() -> this.loadFromRest(username));
     }
 }

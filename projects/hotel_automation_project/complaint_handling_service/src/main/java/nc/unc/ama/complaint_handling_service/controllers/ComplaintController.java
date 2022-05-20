@@ -9,6 +9,7 @@ import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ public class ComplaintController {
     }
 
     @PostMapping(path = "/")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     public ResponseEntity<ComplaintDTO> createComplaint(@RequestBody ComplainCreateDTO complaintDTO) {
         final Complaint complaint = complaintService.createComplain(Complaint
             .builder()
@@ -49,6 +51,7 @@ public class ComplaintController {
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     public ResponseEntity<ComplaintDTO> viewComplaint(@PathVariable("id") Long complaintId) {
         Complaint complaint = complaintService.getComplaint(complaintId);
         return ResponseEntity.ok(new ComplaintDTO(
@@ -61,6 +64,7 @@ public class ComplaintController {
     }
 
     @GetMapping(path = "/")
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     public ResponseEntity<List<ComplaintDTO>> getAllComplaints() {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint : complaintService.getAllComplaints()) {
@@ -76,6 +80,7 @@ public class ComplaintController {
     }
 
     @GetMapping(path = "/on-staff/{id}")
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     public ResponseEntity<List<ComplaintDTO>> getComplaintsOnStaff(@PathVariable("id") UUID user) {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint :
