@@ -1,5 +1,7 @@
 package nc.unc.ama.common.dto;
 
+import java.util.UUID;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +12,8 @@ import lombok.Setter;
 public class OccupiedRoomsDTO extends OccupiedRoomCreateDTO{
 
     private Long occupiedRoomId;
-
-    public OccupiedRoomsDTO(Long occupiedRoomId, Long roomId, Long staffId, Long guestId) {
+    @Builder
+    public OccupiedRoomsDTO(Long occupiedRoomId, Long roomId, UUID staffId, UUID guestId) {
         super(roomId, staffId, guestId);
         this.occupiedRoomId = occupiedRoomId;
     }

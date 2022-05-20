@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class OperTypeCreateDTO {
 
-    private Long staffId;
+    private Long staffTypeId;
     private String description;
 }

@@ -35,6 +35,8 @@ spring:
             - Path=/api/occupied-rooms/**
             - Path=/api/operations/**
             - Path=/api/operation-type/**
+            - Path=/api/check-in/**
+            - Path=/api/eviction/**
         - id: staffApi
           uri: lb://STAFF
           predicates:

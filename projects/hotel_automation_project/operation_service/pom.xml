@@ -10,14 +10,14 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>nc.unc.ama</groupId>
-  <artifactId>guest_service</artifactId>
+  <artifactId>operation_service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>guest_service</name>
+  <name>operation_service</name>
   <description>Demo project for Spring Boot</description>
   <packaging>jar</packaging>
   <properties>
-    <app.name>guests</app.name>
-    <app.main>nc.unc.ama.operation_service.GuestServiceApplication</app.main>
+    <app.name>operation</app.name>
+    <app.main>nc.unc.ama.operation_service.OperationServiceApplication</app.main>
   </properties>
   <dependencies>
     <dependency>

@@ -35,7 +35,7 @@ public class OperTypeController {
         for (OperationType operationType : operTypeService.getAllOperTypes()) {
             operTypeDTOList.add(new OperTypeDTO(
                 operationType.getIdOperType(),
-                operationType.getStaffId(),
+                operationType.getIdOperType(),
                 operationType.getDescription()
             ));
         }
@@ -47,7 +47,7 @@ public class OperTypeController {
         OperationType operationType = operTypeService.getOperationType(operTypeId);
         return ResponseEntity.ok(new OperTypeDTO(
             operationType.getIdOperType(),
-            operationType.getStaffId(),
+            operationType.getStaffTypeId(),
             operationType.getDescription()
         ));
     }
@@ -56,12 +56,12 @@ public class OperTypeController {
     public ResponseEntity<OperTypeDTO> addNewOperationType(@RequestBody OperTypeCreateDTO operTypeCreateDTO) {
         final OperationType operationType = operTypeService.addOperType(OperationType
             .builder()
-            .staffId(operTypeCreateDTO.getStaffId())
+            .staffTypeId(operTypeCreateDTO.getStaffTypeId())
             .description(operTypeCreateDTO.getDescription())
             .build());
         return ResponseEntity.ok(new OperTypeDTO(
             operationType.getIdOperType(),
-            operationType.getStaffId(),
+            operationType.getStaffTypeId(),
             operationType.getDescription()));
     }
 
@@ -70,20 +70,20 @@ public class OperTypeController {
         final OperationType operationType = operTypeService.updateOperType(OperationType
                 .builder()
                 .idOperType(operTypeDTO.getIdOperType())
-                .staffId(operTypeDTO.getStaffId())
+                .staffTypeId(operTypeDTO.getStaffTypeId())
                 .description(operTypeDTO.getDescription())
                 .build(),
             operTypeId
         );
         return ResponseEntity.ok(new OperTypeDTO(
             operationType.getIdOperType(),
-            operationType.getStaffId(),
+            operationType.getStaffTypeId(),
             operationType.getDescription()));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperationType(@PathVariable("id") Long operTypeId) {
         operTypeService.deleteOperationType(operTypeId);
-        return ResponseEntity.ok("Operation with ID = " + operTypeId + " was deleted");
+        return ResponseEntity.ok("Operation type with ID = " + operTypeId + " was deleted");
     }
 }

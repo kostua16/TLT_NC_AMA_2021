@@ -12,5 +12,5 @@ COPY --from=dependencies ./target/extracted/snapshot-dependencies/ ./
 COPY --from=dependencies ./target/extracted/application/ ./
 ADD src/main/resources/application.yml ./BOOT-INF/classes/application.yml
 ENV JAVA_IMG_OPTS="-Dspring.jmx.enabled=false -noverify -XX:TieredStopAtLevel=1 -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV PORT=8761
+ENV PORT=80
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} ${JAVA_IMG_OPTS} -Dspring.profiles.active=prod org.springframework.boot.loader.JarLauncher"]

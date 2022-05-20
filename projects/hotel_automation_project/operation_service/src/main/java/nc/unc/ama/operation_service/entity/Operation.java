@@ -1,36 +1,43 @@
 package nc.unc.ama.operation_service.entity;
 
-import lombok.*;
+import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "operations")
-
 public class Operation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long idOperation;
 
-    @Column(name = "operationname")
-    private String operationName;
+    private Long operationTypeId;
 
-    @Column(name = "description")
-    private String description;
+    private UUID guestId;
 
-    @Column(name = "price")
+    private UUID staffId;
+
     private Double price;
 
+    private Boolean status = false;
+
     @Builder
-    public Operation(Long idOperation, String operationName, String description, Double price) {
+    public Operation(Long idOperation, Long operationTypeId, UUID guestId, UUID staffId,
+                     Double price) {
         this.idOperation = idOperation;
-        this.operationName = operationName;
-        this.description = description;
+        this.operationTypeId = operationTypeId;
+        this.guestId = guestId;
+        this.staffId = staffId;
         this.price = price;
     }
 }

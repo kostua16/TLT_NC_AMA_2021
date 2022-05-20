@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,15 +16,14 @@ public class OperationType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long idOperType;
-    private Long staffId;
+    private Long staffTypeId;
     private String description;
 
     @Builder
-    public OperationType(Long idOperType, Long staffId, String description) {
+    public OperationType(Long idOperType, Long staffTypeId, String description) {
         this.idOperType = idOperType;
-        this.staffId = staffId;
+        this.staffTypeId = staffTypeId;
         this.description = description;
     }
 
