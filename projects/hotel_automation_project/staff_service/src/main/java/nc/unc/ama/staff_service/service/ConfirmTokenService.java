@@ -1,6 +1,7 @@
 package nc.unc.ama.staff_service.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import nc.unc.ama.staff_service.entities.ConfirmationToken;
@@ -30,6 +31,14 @@ public class ConfirmTokenService {
 
     public Optional<ConfirmationToken> getToken(String token) {
         return confirmTokenRepo.findByToken(token);
+    }
+
+    public List<ConfirmationToken> getTokens(UserEntity user) {
+        return confirmTokenRepo.findByUser(user);
+    }
+
+    public List<ConfirmationToken> getActiveTokens(UserEntity user) {
+        return confirmTokenRepo.findActiveByUserThatExpireAfter(user, LocalDateTime.now());
     }
 
     @Transactional

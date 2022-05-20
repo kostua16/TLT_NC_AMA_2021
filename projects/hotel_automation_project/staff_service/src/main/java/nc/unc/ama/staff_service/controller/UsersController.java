@@ -9,11 +9,13 @@ import nc.unc.ama.common.dto.UserRegistrationDTO;
 import nc.unc.ama.common.dto.UserRoles;
 import nc.unc.ama.common.dto.UserUpdateDTO;
 import nc.unc.ama.common.dto.UsersREST;
+import nc.unc.ama.staff_service.config.UsersApiConfig;
 import nc.unc.ama.staff_service.err.UserAlreadyExistsException;
 import nc.unc.ama.staff_service.service.EmailService;
 import nc.unc.ama.staff_service.service.UsersService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,21 +32,23 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.TooManyMethods", "PMD.ShortVariable"})
 public class UsersController implements UsersREST {
 
+    private static transient final Logger LOG = LoggerFactory.getLogger(UsersController.class);
+
     private final UsersService usersService;
 
     private final EmailService emailService;
 
-    private final String publicUrl;
+    private final UsersApiConfig apiConfig;
 
     @Autowired
     public UsersController(
         final UsersService usersService,
         final EmailService emailService,
-        @Value("http://${server.public-host}:${server.public-port}/") final String publicUrl
+        final UsersApiConfig apiConfig
     ) {
         this.usersService = usersService;
         this.emailService = emailService;
-        this.publicUrl = publicUrl;
+        this.apiConfig = apiConfig;
     }
 
     @Override @GetMapping("/activate/{id}")
@@ -79,9 +83,9 @@ public class UsersController implements UsersREST {
             final UserInfoDTO user = token.getUser();
             this.emailService.sendConfirmation(
                 user.getFirstName() + " " + user.getLastName(),
-                this.publicUrl + "/api/users/activate/" + token.getToken(),
+                this.apiConfig.getConfirmationUrl(token.getToken()),
                 user.getEmail()
-                );
+            );
             result = ResponseEntity.ok(user);
         } catch (UserAlreadyExistsException exists) {
             result = ResponseEntity.badRequest().build();
@@ -169,7 +173,15 @@ public class UsersController implements UsersREST {
     @Override @GetMapping("/find/{id}")
     @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     public ResponseEntity<UserInfoDTO> findUser(@PathVariable("id") String name) {
+
         final Optional<UserInfoDTO> found = this.usersService.findUserDetails(name);
+        if (LOG.isErrorEnabled()) {
+            LOG.error(
+                "[findUser][id:{}] {}",
+                name,
+                found.map(Object::toString).orElseGet(() -> "Not found")
+            );
+        }
         return found.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
@@ -177,6 +189,13 @@ public class UsersController implements UsersREST {
     @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     public ResponseEntity<UserInfoDTO> getUser(@PathVariable("id") UUID id) {
         final Optional<UserInfoDTO> found = this.usersService.getUserDetails(id);
+        if (LOG.isErrorEnabled()) {
+            LOG.error(
+                "[getUser][id:{}] {}",
+                id,
+                found.map(Object::toString).orElseGet(() -> "Not found")
+            );
+        }
         return found.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
@@ -238,7 +257,7 @@ public class UsersController implements UsersREST {
     ) {
         ResponseEntity<UserInfoDTO> result;
         try {
-            result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> value));
+            result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> curr + value));
         } catch (UsernameNotFoundException exists) {
             result = ResponseEntity.badRequest().build();
         }

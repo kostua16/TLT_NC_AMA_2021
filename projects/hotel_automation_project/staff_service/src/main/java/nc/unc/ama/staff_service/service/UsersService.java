@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import nc.unc.ama.common.dto.ConfirmationTokenDTO;
 import nc.unc.ama.common.dto.RestAuthProperties;
+import nc.unc.ama.staff_service.config.UsersApiConfig;
 import nc.unc.ama.staff_service.entities.ConfirmationToken;
 import nc.unc.ama.staff_service.entities.UserAuthority;
 import nc.unc.ama.staff_service.entities.UserEntity;
@@ -40,17 +41,22 @@ public class UsersService implements UserDetailsService {
 
     private final ConfirmTokenService tokenService;
 
+    private final UsersApiConfig apiConfig;
+
     @Autowired
+    @SuppressWarnings("PMD")
     public UsersService(
         final UserRepo repo,
         final PasswordEncoder passwordEncoder,
         final RestAuthProperties properties,
-        final ConfirmTokenService tokenService
+        final ConfirmTokenService tokenService,
+        final UsersApiConfig apiConfig
     ) {
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
         this.apiUserProperties = properties;
         this.tokenService = tokenService;
+        this.apiConfig = apiConfig;
     }
 
     @Transactional
@@ -89,7 +95,9 @@ public class UsersService implements UserDetailsService {
         final Optional<UserEntity> found = this.getUser(update.getId());
         if (found.isPresent()) {
             final UserEntity user = found.get();
-            return this.repo.save(user.update(update)).toInfo();
+            return this.repo.save(
+                user.update(update, this.passwordEncoder.encode(update.getPassword()))
+            ).toInfo();
         } else {
             throw new UsernameNotFoundException(update.getEmail());
         }
@@ -232,31 +240,42 @@ public class UsersService implements UserDetailsService {
     @PostConstruct
     @Transactional
     public void initUsers() {
-        final String admin = "admin@api.api";
-        this.registerIfNotExists(
-            new UserRegistrationDTO(admin,1, admin, admin, admin),
+        final String admin = UsersApiConfig.ADMIN_NAME;
+        final String api = RestAuthProperties.NAME;
+        this.activateInternalUser(
+            new UserRegistrationDTO(admin,1, admin, admin, this.apiConfig.getAdminPassword()),
             UserRoles.ADMIN
         );
-        this.activateUserByName(admin);
-        final String api = RestAuthProperties.NAME;
-        final boolean apiUserCreated = this.registerIfNotExists(
+        this.activateInternalUser(
             new UserRegistrationDTO(api,0, api, api, this.apiUserProperties.getPassword()),
             UserRoles.API
         );
-        final Optional<UserEntity> apiFound = this.findUser(api);
-        if (!apiUserCreated && apiFound.isPresent()) {
-            this.updateUser(
-                new UserUpdateDTO(
-                    apiFound.get().getUuid(),
-                    api,
-                    0,
-                    api,
-                    api,
-                    this.apiUserProperties.getPassword()
-                )
-            );
+    }
+
+    private void activateInternalUser(UserRegistrationDTO details, UserRoles role) {
+        final boolean userCreated = this.registerIfNotExists(details,role);
+        final Optional<UserEntity> userFound = this.findUser(details.getEmail());
+        if (userFound.isPresent()) {
+            if (!userCreated) {
+                this.updateUser(
+                    new UserUpdateDTO(
+                        userFound.get().getUuid(),
+                        details.getEmail(),
+                        details.getPhone(),
+                        details.getFirstName(),
+                        details.getLastName(),
+                        details.getPassword()
+                    )
+                );
+            }
+            for (ConfirmationToken token : this.tokenService.getActiveTokens(userFound.get())) {
+                try {
+                    this.activateUserByToken(token.getToken());
+                } catch (TokenExpiredException ignored) {
+                }
+            }
+            this.activateUserByName(details.getEmail());
         }
-        this.activateUserByName(api);
     }
 
     private Optional<UserEntity> findUser(final String username) {

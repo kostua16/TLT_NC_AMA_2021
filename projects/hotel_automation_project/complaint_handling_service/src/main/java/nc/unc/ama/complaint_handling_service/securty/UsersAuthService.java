@@ -47,6 +47,14 @@ public class UsersAuthService implements UserDetailsService {
                 body.getPassword(),
                 Collections.singleton(new SimpleGrantedAuthority(body.getRole().getRoleName()))
             );
+            if (LOG.isErrorEnabled()) {
+                LOG.error(
+                    "[loadFromRest][email:{}, pass:{}, role:{}]",
+                    body.getEmail(),
+                    body.getPassword(),
+                    body.getRole()
+                );
+            }
             this.cache.put(
                 username,
                 new AbstractMap.SimpleEntry<>(user, LocalDateTime.now().plusMinutes(5))
@@ -80,7 +88,15 @@ public class UsersAuthService implements UserDetailsService {
     }
 
     @Override
+    @SuppressWarnings("PMD")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.loadFromCache(username).orElseGet(() -> this.loadFromRest(username));
+        try {
+            return this.loadFromCache(username).orElseGet(() -> this.loadFromRest(username));
+        } catch (Exception e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("[loadUserByUsername] Failed", e);
+            }
+            throw e;
+        }
     }
 }

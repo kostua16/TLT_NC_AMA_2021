@@ -72,12 +72,12 @@ public class UserEntity {
         );
     }
 
-    public UserEntity update(final UserUpdateDTO upd) {
+    public UserEntity update(final UserUpdateDTO upd, final String password) {
         this.setEmail(upd.getEmail());
         this.setPhone(upd.getPhone());
         this.setFirstName(upd.getFirstName());
         this.setLastName(upd.getLastName());
-        this.setPassword(upd.getPassword());
+        this.setPassword(password);
         return this;
     }
 

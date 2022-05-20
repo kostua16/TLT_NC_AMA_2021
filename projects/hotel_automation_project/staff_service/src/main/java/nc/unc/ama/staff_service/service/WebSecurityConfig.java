@@ -1,6 +1,6 @@
 package nc.unc.ama.staff_service.service;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +13,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private final UsersService usersService;
 
-    @Autowired
     private final PasswordEncoder encoder;
+
+    @Autowired
+    public WebSecurityConfig(
+        @NonNull final UsersService usersService,
+        @NonNull final PasswordEncoder encoder
+    ) {
+        super();
+        this.encoder = encoder;
+        this.usersService = usersService;
+    }
 
 
     @Override
@@ -44,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Autowired
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(this.encoder);
