@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
+
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
@@ -13,8 +15,8 @@ public class BookingDTO extends BookingCreateDTO{
     private final Long bookingId;
 
     @Builder
-    public BookingDTO(Long bookingId, Long guestId, Long roomId, Date checkInDate, Date evictionDate, Boolean bookingCost) {
-        super(guestId, roomId, checkInDate, evictionDate, bookingCost);
+    public BookingDTO(Long bookingId, UUID guestId, Long roomId, Date checkInDate, Date evictionDate) {
+        super(guestId, roomId, checkInDate, evictionDate);
         this.bookingId = bookingId;
     }
 

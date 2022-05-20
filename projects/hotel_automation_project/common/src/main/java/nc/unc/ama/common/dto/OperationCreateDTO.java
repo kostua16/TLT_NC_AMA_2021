@@ -1,5 +1,6 @@
 package nc.unc.ama.common.dto;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OperationCreateDTO {
 
-        private String operationName;
-        private String description;
+        private Long operationTypeId;
+        private UUID guestId;
         private Double price;
 
 }

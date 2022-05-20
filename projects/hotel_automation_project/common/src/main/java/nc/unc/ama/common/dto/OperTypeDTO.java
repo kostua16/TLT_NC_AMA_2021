@@ -10,8 +10,8 @@ import lombok.Setter;
 public class OperTypeDTO extends OperTypeCreateDTO {
     private Long idOperType;
 
-    public OperTypeDTO(Long idOperType, Long staffId, String description) {
-        super(staffId, description);
+    public OperTypeDTO(Long idOperType, Long staffTypeId, String description) {
+        super(staffTypeId, description);
         this.idOperType = idOperType;
     }
 }

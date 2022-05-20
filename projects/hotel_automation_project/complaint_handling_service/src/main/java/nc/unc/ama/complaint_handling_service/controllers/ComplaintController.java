@@ -2,15 +2,14 @@ package nc.unc.ama.complaint_handling_service.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import nc.unc.ama.common.dto.ComplainCreateDTO;
-import nc.unc.ama.common.dto.ComplaintDTO;
-import nc.unc.ama.common.dto.ComplaintREST;
-import nc.unc.ama.common.dto.StaffDTO;
+import java.util.UUID;
+import nc.unc.ama.complaint_handling_service.dto.ComplainCreateDTO;
+import nc.unc.ama.complaint_handling_service.dto.ComplaintDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
 import nc.unc.ama.complaint_handling_service.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/api/complaints")
-public class ComplaintController implements ComplaintREST {
+public class ComplaintController {
 
     private final ComplaintService complaintService;
 
@@ -31,7 +30,7 @@ public class ComplaintController implements ComplaintREST {
     }
 
     @PostMapping(path = "/")
-    @Override
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     public ResponseEntity<ComplaintDTO> createComplaint(@RequestBody ComplainCreateDTO complaintDTO) {
         final Complaint complaint = complaintService.createComplain(Complaint
             .builder()
@@ -39,6 +38,7 @@ public class ComplaintController implements ComplaintREST {
             .guestId(complaintDTO.getGuestId())
             .staffMemberId(complaintDTO.getStaffMemberId())
             .roomId(complaintDTO.getRoomId())
+            .offenseId(complaintDTO.getOffenseId())
             .build()
         );
         return ResponseEntity.ok(new ComplaintDTO(
@@ -46,23 +46,25 @@ public class ComplaintController implements ComplaintREST {
             complaint.getComplaintText(),
             complaint.getGuestId(),
             complaint.getStaffMemberId(),
-            complaint.getRoomId()));
+            complaint.getRoomId(),
+            complaint.getOffenseId()));
     }
 
     @GetMapping(path = "/{id}")
-    @Override
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     public ResponseEntity<ComplaintDTO> viewComplaint(@PathVariable("id") Long complaintId) {
-        Complaint newComplaint = complaintService.getComplaint(complaintId);
+        Complaint complaint = complaintService.getComplaint(complaintId);
         return ResponseEntity.ok(new ComplaintDTO(
-            newComplaint.getComplaintId(),
-            newComplaint.getComplaintText(),
-            newComplaint.getGuestId(),
-            newComplaint.getStaffMemberId(),
-            newComplaint.getRoomId()));
+            complaint.getComplaintId(),
+            complaint.getComplaintText(),
+            complaint.getGuestId(),
+            complaint.getStaffMemberId(),
+            complaint.getRoomId(),
+            complaint.getOffenseId()));
     }
 
     @GetMapping(path = "/")
-    @Override
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     public ResponseEntity<List<ComplaintDTO>> getAllComplaints() {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint : complaintService.getAllComplaints()) {
@@ -71,23 +73,25 @@ public class ComplaintController implements ComplaintREST {
                 complaint.getComplaintText(),
                 complaint.getGuestId(),
                 complaint.getStaffMemberId(),
-                complaint.getRoomId()));
+                complaint.getRoomId(),
+                complaint.getOffenseId()));
         }
         return ResponseEntity.ok(complainDTOList);
     }
 
-    @GetMapping(path = "/on-staff")
-    @Override
-    public ResponseEntity<List<ComplaintDTO>> getComplaintsOnStaff(StaffDTO staffMemberDTO) {
+    @GetMapping(path = "/on-staff/{id}")
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
+    public ResponseEntity<List<ComplaintDTO>> getComplaintsOnStaff(@PathVariable("id") UUID user) {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint :
-            complaintService.getComplaintByStaffId(staffMemberDTO.getStaffId())) {
+            complaintService.getComplaintByStaffId(user)) {
             complainDTOList.add(new ComplaintDTO(
                 complaint.getComplaintId(),
                 complaint.getComplaintText(),
                 complaint.getGuestId(),
                 complaint.getStaffMemberId(),
-                complaint.getRoomId()));
+                complaint.getRoomId(),
+                complaint.getOffenseId()));
         }
         return ResponseEntity.ok(complainDTOList);
     }

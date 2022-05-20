@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +30,20 @@ public class RoomsService {
 
     public List<HotelRoom> getAllRooms() {
         return roomsRepo.findAll();
+    }
+
+    public List<HotelRoom> freeRooms(List<Long> occupiedRooms, Boolean costMin, Boolean costMax) {
+
+        List<HotelRoom> listKjm = new ArrayList<>();
+        if (occupiedRooms.isEmpty()){listKjm.addAll(roomsRepo.findAll());}
+        if (costMin) {
+            listKjm.addAll(roomsRepo.findAllByRoomIdNotInOrderByRoomCostDesc(occupiedRooms));
+        } else if (costMax) {
+            listKjm.addAll(roomsRepo.findAllByRoomIdNotInOrderByRoomCost(occupiedRooms));
+        } else {
+            listKjm.addAll(roomsRepo.findAllByRoomIdNotIn(occupiedRooms));
+        }
+        return listKjm;
     }
 
     @Transactional

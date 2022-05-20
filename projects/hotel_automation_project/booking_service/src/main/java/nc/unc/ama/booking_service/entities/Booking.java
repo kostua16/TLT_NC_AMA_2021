@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -18,20 +19,18 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
-    private Long guestId;
+    private UUID guestId;
     private Long roomId;
     private Date checkInDate;
     private Date evictionDate;
-    private Boolean bookingCost;
 
     @Builder
-    public Booking(Long bookingId, Long guestId, Long roomId, Date checkInDate, Date evictionDate, Boolean bookingCost) {
+    public Booking(Long bookingId, UUID guestId, Long roomId, Date checkInDate, Date evictionDate) {
         this.bookingId = bookingId;
         this.guestId = guestId;
         this.roomId = roomId;
         this.checkInDate = checkInDate;
         this.evictionDate = evictionDate;
-        this.bookingCost = bookingCost;
     }
 
     public Booking() {

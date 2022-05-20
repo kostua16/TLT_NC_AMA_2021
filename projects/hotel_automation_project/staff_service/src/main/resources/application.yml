@@ -1,25 +1,45 @@
+server:
+  port: ${PORT:8087}
+  public-port: ${PUBLIC_PORT:${server.port}}
+  public-host: ${PUBLIC_HOST:localhost}
+management:
+  server:
+    port: ${server.public-port}
 spring:
-    main:
-      banner-mode: off
-    datasource:
-      url: jdbc:h2:mem:mydb
-      driver-class-name: org.h2.Driver
-      username: test
-      password: test
-    h2:
-      console.enabled: true
+  application:
+    name: ${eureka.instance.appname}
+  main:
+    banner-mode: off
+  h2:
+    console.enabled: true
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  security:
+    user:
+      password: ${eureka.password}
   jpa:
     hibernate:
       ddl-auto: update
     generate-ddl: true
-  security:
-    user:
-      password: ${eureka.password}
-server:
-  port: ${STAFF_PORT:8084}
-management:
-  server:
-    port: ${server.port}
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USER:test}
+    password: ${MAIL_PASS:test}
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 eureka:
   instance:
     appname: STAFF
@@ -33,10 +53,7 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/eureka/}
-
 ---
-server:
-  port: ${PORT:8080}
 spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
@@ -48,38 +65,8 @@ spring:
       on-profile: prod
   h2:
     console.enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 eureka:
   instance:
     hostname: ${DOMAIN_NAME:localhost}
-    nonSecurePort: ${PUBLIC_PORT:80}
-management:
-  server:
-    port: ${eureka.instance.nonSecurePort}
----
-server:
-  port: 80
-spring:
-  datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://test:test@database:5432/test}
-    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
-    username: ${DATABASE_USER:}
-    password: ${DATABASE_PASS:}
-  config:
-    activate:
-      on-profile: docker
-  h2:
-    console.enabled: false
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
----
-spring:
-  datasource:
-    url: jdbc:h2:mem:mydb
-    driver-class-name: org.h2.Driver
-    username: test
-    password: test
-  config:
-    activate:
-      on-profile: local
-  h2:
-    console.enabled: true

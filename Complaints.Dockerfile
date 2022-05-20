@@ -27,5 +27,5 @@ COPY --from=dependencies ./target/extracted/spring-boot-loader/ ./
 COPY --from=dependencies ./target/extracted/snapshot-dependencies/ ./
 COPY --from=dependencies ./target/extracted/application/ ./
 ENV JAVA_IMG_OPTS="-Dspring.jmx.enabled=false -noverify XX:TieredStopAtLevel=1 -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENV PORT=8085
+ENV PORT=80
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} ${JAVA_IMG_OPTS} org.springframework.boot.loader.JarLauncher"]

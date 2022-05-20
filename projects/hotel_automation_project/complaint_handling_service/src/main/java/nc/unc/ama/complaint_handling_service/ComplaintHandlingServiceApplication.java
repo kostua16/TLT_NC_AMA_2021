@@ -7,9 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SuppressWarnings("PMD")
 
-@SpringBootApplication(scanBasePackages = {
-    "nc.unc.ama"
-})
+@SpringBootApplication(scanBasePackages = "nc.unc.ama")
 @EnableEurekaClient
 @EnableFeignClients(basePackages = {"nc.unc.ama"})
 public class ComplaintHandlingServiceApplication {

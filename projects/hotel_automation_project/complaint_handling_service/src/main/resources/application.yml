@@ -2,6 +2,8 @@ app:
   clients:
     logsApi: true
     staffRatingApi: true
+    bookingApi: true
+    usersApi: true
 
 feign:
   httpclient:
@@ -13,6 +15,8 @@ management:
   server:
     port: ${server.public-port}
 spring:
+  application:
+    name: COMPLAINT
   main:
     banner-mode: off
   datasource:
@@ -29,6 +33,8 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+  logging:
+    
 eureka:
   instance:
     appname: COMPLAINT

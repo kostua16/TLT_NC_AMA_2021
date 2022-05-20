@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class BookingCreateDTO {
 
-    private Long guestId;
+    private UUID guestId;
     private Long roomId;
     private Date checkInDate;
     private Date evictionDate;
-    private Boolean bookingCost;
+
 }

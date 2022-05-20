@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReviewsService {
@@ -37,7 +38,7 @@ public class ReviewsService {
         return reviewsRepo.findAll();
     }
 
-    public List<Reviews> getReviewByGuestId(Long guestId) {
+    public List<Reviews> getReviewByGuestId(UUID guestId) {
         return reviewsRepo.findReviewsByGuestId(guestId);
     }
 }

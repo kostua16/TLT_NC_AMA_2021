@@ -37,8 +37,8 @@ public class OperationController implements OperationREST {
         for (Operation operation : operationService.getAllOperations()) {
             operationDTOList.add(new OperationDTO(
                 operation.getIdOperation(),
-                operation.getOperationName(),
-                operation.getDescription(),
+                operation.getOperationTypeId(),
+                operation.getGuestId(),
                 operation.getPrice()));
         }
         return ResponseEntity.ok(operationDTOList);
@@ -50,8 +50,8 @@ public class OperationController implements OperationREST {
         Operation operation = operationService.getOperation(idOperation);
         return ResponseEntity.ok(new OperationDTO(
             operation.getIdOperation(),
-            operation.getOperationName(),
-            operation.getDescription(),
+            operation.getOperationTypeId(),
+            operation.getGuestId(),
             operation.getPrice()));
     }
 
@@ -60,14 +60,14 @@ public class OperationController implements OperationREST {
     public ResponseEntity<OperationDTO> addNewOperation(@RequestBody OperationCreateDTO operCreateDTO) {
         final Operation operation = operationService.saveOperation(Operation
             .builder()
-            .operationName(operCreateDTO.getOperationName())
-            .description(operCreateDTO.getDescription())
+            .operationTypeId(operCreateDTO.getOperationTypeId())
+            .guestId(operCreateDTO.getGuestId())
             .price(operCreateDTO.getPrice())
             .build());
         return ResponseEntity.ok(new OperationDTO(
             operation.getIdOperation(),
-            operation.getOperationName(),
-            operation.getDescription(),
+            operation.getOperationTypeId(),
+            operation.getGuestId(),
             operation.getPrice()));
     }
 
@@ -77,16 +77,15 @@ public class OperationController implements OperationREST {
        final Operation operation = operationService.updateOperation(Operation
                 .builder()
                 .idOperation(operationDTO.getIdOperation())
-                .operationName(operationDTO.getOperationName())
-                .description(operationDTO.getDescription())
+                .operationTypeId(operationDTO.getOperationTypeId())
                 .price(operationDTO.getPrice())
                 .build(),
                 operationId
         );
         return ResponseEntity.ok(new OperationDTO(
             operation.getIdOperation(),
-            operation.getOperationName(),
-            operation.getDescription(),
+            operation.getOperationTypeId(),
+            operation.getGuestId(),
             operation.getPrice()));
     }
 
@@ -95,5 +94,14 @@ public class OperationController implements OperationREST {
     public ResponseEntity<String> deleteOperation(@PathVariable("id") Long idOperation) {
         operationService.deleteOperation(idOperation);
         return ResponseEntity.ok("Operation with ID = " + idOperation + " was deleted");
+    }
+    @PutMapping("/operation-done/{id}")
+    public ResponseEntity<OperationDTO> operationDone(@PathVariable("id") Long idOperation){
+        final Operation operation = operationService.operationDone(idOperation);
+        return ResponseEntity.ok(new OperationDTO(
+            operation.getIdOperation(),
+            operation.getOperationTypeId(),
+            operation.getGuestId(),
+            operation.getPrice()));
     }
 }
