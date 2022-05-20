@@ -74,19 +74,6 @@ services:
       DATABASE_USER: test
       DATABASE_PASS: test
 
-  guest:
-    build:
-      context: ./projects/hotel_automation_project/guest
-      dockerfile: Guest.Dockerfile
-    ports:
-      - 3014:80
-    environment:
-      EUREKA_URL: http://discovery:80/eureka/eureka/
-      DOMAIN_NAME: guest
-      DATABASE_URL: jdbc:postgresql://postgres:5432/test
-      DATABASE_USER: test
-      DATABASE_PASS: test
-
   gateway:
     build:
       context: ./projects/hotel_automation_project/gateway
