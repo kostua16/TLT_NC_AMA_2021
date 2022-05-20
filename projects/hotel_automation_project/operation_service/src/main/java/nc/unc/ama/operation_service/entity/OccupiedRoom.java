@@ -1,6 +1,5 @@
 package nc.unc.ama.operation_service.entity;
 
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,12 +21,12 @@ public class OccupiedRoom {
 
     private Long roomId;
 
-    private UUID staffId;
+    private Long staffId;
 
-    private UUID guestId;
+    private Long guestId;
 
     @Builder
-    public OccupiedRoom(Long occupiedRoomId, Long roomId, UUID staffId, UUID guestId) {
+    public OccupiedRoom(Long occupiedRoomId, Long roomId, Long staffId, Long guestId) {
         this.occupiedRoomId = occupiedRoomId;
         this.roomId = roomId;
         this.staffId = staffId;

@@ -3,7 +3,6 @@ package nc.unc.ama.staff_service.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -125,7 +124,7 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional
-    public UserInfoDTO activateUserById(final UUID id) {
+    public UserInfoDTO activateUserById(final Long id) {
         final Optional<UserEntity> found = this.getUser(id);
         if (found.isPresent()) {
             final UserEntity user = found.get();
@@ -149,19 +148,7 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional
-    public UserInfoDTO activateUserByCode(final String code) {
-        final Optional<UserEntity> found = this.repo.findById(UUID.fromString(code));
-        if (found.isPresent()) {
-            final UserEntity user = found.get();
-            user.setStatus(UserStatus.ACTIVE);
-            return this.repo.save(user).toInfo();
-        } else {
-            throw new UsernameNotFoundException(code);
-        }
-    }
-
-    @Transactional
-    public UserInfoDTO lockUser(final UUID id) {
+    public UserInfoDTO lockUser(final Long id) {
         final Optional<UserEntity> found = this.getUser(id);
         if (found.isPresent()) {
             final UserEntity user = found.get();
@@ -173,7 +160,7 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional
-    public UserInfoDTO expireUser(final UUID id) {
+    public UserInfoDTO expireUser(final Long id) {
         final Optional<UserEntity> found = this.getUser(id);
         if (found.isPresent()) {
             final UserEntity user = found.get();
@@ -186,7 +173,7 @@ public class UsersService implements UserDetailsService {
 
     @Transactional
     public UserInfoDTO updateRating(
-        final UUID id,
+        final Long id,
         final IntUnaryOperator rating
     ) {
         final Optional<UserEntity> found = this.getUser(id);
@@ -203,7 +190,7 @@ public class UsersService implements UserDetailsService {
         return this.findUser(username).isPresent();
     }
 
-    public boolean existsUser(final UUID id) {
+    public boolean existsUser(final Long id) {
         return this.getUser(id).isPresent();
     }
 
@@ -211,7 +198,7 @@ public class UsersService implements UserDetailsService {
         return this.findUser(username).map(UserEntity::toInfo);
     }
 
-    public Optional<UserInfoDTO> getUserDetails(final UUID id) {
+    public Optional<UserInfoDTO> getUserDetails(final Long id) {
         return this.getUser(id).map(UserEntity::toInfo);
     }
 
@@ -282,7 +269,7 @@ public class UsersService implements UserDetailsService {
         return this.repo.findOneByEmail(username);
     }
 
-    private Optional<UserEntity> getUser(final UUID id) {
+    private Optional<UserEntity> getUser(final Long id) {
         return this.repo.findById(id);
     }
 }

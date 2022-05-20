@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 @FeignClient(name = "BOOKING", path = "/api/booking")
 @ConditionalOnProperty(prefix = "app.clients", name = "bookingApi")
@@ -28,7 +27,7 @@ public interface BookingREST {
     ResponseEntity<List<BookingDTO>> getAllBookings();
 
     @GetMapping(path = "/get-by-guest/{id}")
-    BookingDTO getBookingByGuest(@PathVariable("id") UUID guestId, Calendar today);
+    BookingDTO getBookingByGuest(@PathVariable("id") Long guestId, Calendar today);
 
     @PutMapping(path = "/{id}")
     ResponseEntity<BookingDTO> updateBooking(@PathVariable("id") Long bookId, @RequestBody BookingDTO bookingDTO);

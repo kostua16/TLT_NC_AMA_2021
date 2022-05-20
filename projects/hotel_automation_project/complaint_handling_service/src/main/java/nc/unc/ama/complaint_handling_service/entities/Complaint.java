@@ -1,6 +1,5 @@
 package nc.unc.ama.complaint_handling_service.entities;
 
-import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +19,13 @@ public class Complaint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long complaintId;
     private String complaintText;
-    private UUID guestId;
-    private UUID staffMemberId;
+    private Long guestId;
+    private Long staffMemberId;
     private Long roomId;
     private Long offenseId;
 
     @Builder
-    public Complaint(Long complaintId, String complaintText, UUID guestId, UUID staffMemberId, Long roomId, Long offenseId) {
+    public Complaint(Long complaintId, String complaintText, Long guestId, Long staffMemberId, Long roomId, Long offenseId) {
         this.complaintId = complaintId;
         this.complaintText = complaintText;
         this.guestId = guestId;

@@ -1,7 +1,6 @@
 package nc.unc.ama.common.dto;
 
 import java.io.Serializable;
-import java.util.UUID;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @SuppressWarnings("PMD.ShortVariable")
 public class UserDTO implements Serializable {
 
-    private UUID id;
+    private Long id;
 
     private String email;
 
