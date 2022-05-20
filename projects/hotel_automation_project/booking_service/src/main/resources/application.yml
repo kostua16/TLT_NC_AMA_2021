@@ -2,6 +2,7 @@ app:
   clients:
     logsApi: true
     staffRatingApi: true
+    usersApi: true
 
 feign:
   httpclient:

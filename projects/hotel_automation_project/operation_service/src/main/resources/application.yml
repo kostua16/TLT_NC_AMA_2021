@@ -3,6 +3,7 @@ app:
     logsApi: true
     bookingApi: true
     staffRatingApi: true
+    usersApi: true
 
 feign:
   httpclient:

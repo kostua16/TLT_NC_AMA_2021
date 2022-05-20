@@ -1,5 +1,6 @@
 package nc.unc.ama.operation_service.controller;
 
+import java.util.UUID;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class EvictionController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<String> eviction(@PathVariable("id") Long guestId){
+    public ResponseEntity<String> eviction(@PathVariable("id") UUID guestId){
         roomService.deleteOccupiedRoom(guestId);
         return ResponseEntity.ok("Guest with ID = " + guestId + " has been evicted");
     }

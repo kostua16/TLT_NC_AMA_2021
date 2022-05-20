@@ -56,7 +56,7 @@ public class OccupiedRoomService {
         return occupiedRoomRepo.save(occupiedRoomUpd);
     }
 
-    public void deleteOccupiedRoom(Long guestId) {
+    public void deleteOccupiedRoom(UUID guestId) {
         Long occupiedRoom = occupiedRoomRepo.findOccupiedRoomByGuestId(guestId);
         occupiedRoomRepo.deleteById(occupiedRoom);
     }

@@ -1,5 +1,6 @@
 package nc.unc.ama.operation_service.controller;
 
+import java.util.UUID;
 import nc.unc.ama.common.dto.OccupiedRoomsDTO;
 import nc.unc.ama.operation_service.entity.OccupiedRoom;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
@@ -26,9 +27,9 @@ public class CheckInController {
 
 
     @PostMapping("/{id}")
-    public ResponseEntity<OccupiedRoomsDTO> checkInGuest(@PathVariable("id") Long guestId,
+    public ResponseEntity<OccupiedRoomsDTO> checkInGuest(@PathVariable("id") UUID guestId,
                                                          @RequestParam(required = false, name = "staff-type-id") Long staffTypeId){
-        OccupiedRoom occupiedRoom = roomService.addOccupiedRoom(guestId,staffTypeId);
+        OccupiedRoom occupiedRoom = roomService.addOccupiedRoom(guestId, staffTypeId);
         return ResponseEntity.ok(OccupiedRoomsDTO
             .builder()
             .occupiedRoomId(occupiedRoom.getOccupiedRoomId())

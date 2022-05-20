@@ -61,7 +61,7 @@ public class OperationController implements OperationREST {
         final Operation operation = operationService.saveOperation(Operation
             .builder()
             .operationTypeId(operCreateDTO.getOperationTypeId())
-            .guestId(operCreateDTO.getOperationTypeId())
+            .guestId(operCreateDTO.getGuestId())
             .price(operCreateDTO.getPrice())
             .build());
         return ResponseEntity.ok(new OperationDTO(
