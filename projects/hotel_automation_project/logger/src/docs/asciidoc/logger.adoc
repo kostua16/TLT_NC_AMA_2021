@@ -1,0 +1,40 @@
+= Logger API Guide
+
+[[javadocs]]
+== Javadocs
+|===
+| Entity | Service
+
+| Bank specification
+| link:/{jdocs}nc/unc/ama/logger/entity/LogEntry.html[Log Entry]
+
+| Logger Service
+| link:/{jdocs}nc/unc/ama/logger/service/LogService.html[Log Service]
+
+|===
+
+[[agenda]]
+== Agenda
+|===
+| Ref | Details
+
+| HTTP Verbs
+| link:/{root}/http_verbs.html[HTTP Verbs]
+
+| HTTP Codes
+| link:/{root}/http_codes.html[HTTP Codes]
+|===
+
+//[[requestPaymentTest]]
+//== Registration of performed services
+//operation::requestPaymentTest[snippets='curl-request,http-request,http-response']
+//
+//[[paymentTest]]
+//== Bills payment
+//operation::paymentTest[snippets='curl-request,http-request,http-response,response-fields']
+//
+//[[getDebtPaymentRequestsTest]]
+//== Receiving unpaid invoices by citizen ID
+//operation::getDebtPaymentRequestsTest[snippets='curl-request,http-request,http-response,response-fields']
+
+

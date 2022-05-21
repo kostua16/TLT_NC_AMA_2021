@@ -48,9 +48,11 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <pmd.report.format>xml</pmd.report.format>
+    <mpr.root>${maven.multiModuleProjectDirectory}</mpr.root>
+    <javadoc.build.version>3.3.1</javadoc.build.version>
+    <asciidoc.build.version>2.2.1</asciidoc.build.version>
+    <springdoc.version>1.5.10</springdoc.version>
   </properties>
-
-
 
   <dependencyManagement>
     <dependencies>
@@ -115,6 +117,32 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-jdk14</artifactId>
         <version>${sjf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-webmvc-core</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-data-rest</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-security</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.restdocs/spring-restdocs-mockmvc -->
+      <dependency>
+        <groupId>org.springframework.restdocs</groupId>
+        <artifactId>spring-restdocs-mockmvc</artifactId>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -209,8 +237,88 @@
           <artifactId>maven-war-plugin</artifactId>
           <version>${war.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${javadoc.build.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.asciidoctor</groupId>
+          <artifactId>asciidoctor-maven-plugin</artifactId>
+          <version>${asciidoc.build.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+  <profile>
+    <id>docs</id>
+    <activation>
+      <property>
+        <name>!skipDocs</name>
+      </property>
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.asciidoctor</groupId>
+          <artifactId>asciidoctor-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>generate-docs</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>process-asciidoc</goal>
+              </goals>
+              <configuration>
+                <backend>html5</backend>
+                <doctype>book</doctype>
+                <attributes>
+                  <root>TLT_NC_AMA_2021</root>
+                  <jdocs>TLT_NC_AMA_2021/apidocs</jdocs>
+                  <templates>${mpr.root}/docs/templates</templates>
+                  <snippets>${project.build.directory}/generated-snippets</snippets>
+                  <icons>font</icons>
+                  <source-highlighter>highlightjs</source-highlighter>
+                  <toc>left</toc>
+                  <toclevels>4</toclevels>
+                  <operation-curl-request-title>CURL request</operation-curl-request-title>
+                  <operation-http-request-title>Example request</operation-http-request-title>
+                  <operation-http-response-title>Example response</operation-http-response-title>
+                </attributes>
+                <outputDirectory>${mpr.root}/documentation/</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.springframework.restdocs</groupId>
+              <artifactId>spring-restdocs-asciidoctor</artifactId>
+              <version>${spring-restdocs.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <inherited>false</inherited>
+          <executions>
+            <execution>
+              <phase>prepare-package</phase>
+              <id>generate-apidocs</id>
+              <goals>
+                <goal>aggregate</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <reportOutputDirectory>documentation/apidocs</reportOutputDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+  </profiles>
 
 </project>
