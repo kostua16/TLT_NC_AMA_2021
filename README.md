@@ -11,6 +11,4 @@
 
 
 
-[gh_docs]: https://kostua16.github.io/TLT_NC_AMA_2021/tree/featues/add_docs
-
-
+[gh_docs]: https://kostua16.github.io/TLT_NC_AMA_2021/
