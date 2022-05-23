@@ -48,6 +48,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <pmd.report.format>xml</pmd.report.format>
+    <javadoc.build.version>3.3.1</javadoc.build.version>
   </properties>
 
 
@@ -209,8 +210,46 @@
           <artifactId>maven-war-plugin</artifactId>
           <version>${war.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${javadoc.build.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <show>public</show>
+          <nohelp>true</nohelp>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${javadoc.build.version}</version>
+        <!--        <configuration>-->
+        <!--          &lt;!&ndash;          <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>&ndash;&gt;-->
+        <!--          <show>public</show>-->
+        <!--        </configuration>-->
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
