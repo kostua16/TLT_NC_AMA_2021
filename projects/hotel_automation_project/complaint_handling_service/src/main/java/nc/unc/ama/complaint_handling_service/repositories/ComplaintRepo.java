@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public interface ComplaintRepo extends JpaRepository<Complaint,Long> {
     @Query("SELECT c FROM Complaint c WHERE c.staffMemberId=?1")
-    List<Complaint> findComplaintByStaffMemberId(UUID staffMemberId);
+    List<Complaint> findComplaintByStaffMemberId(Long staffMemberId);
 }

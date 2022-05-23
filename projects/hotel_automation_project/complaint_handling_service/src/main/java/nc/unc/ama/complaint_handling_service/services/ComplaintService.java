@@ -2,7 +2,6 @@ package nc.unc.ama.complaint_handling_service.services;
 
 
 import java.util.List;
-import java.util.UUID;
 import feign.FeignException;
 import nc.unc.ama.common.dto.UsersREST;
 import nc.unc.ama.common.err.UserCantBeUpdatedException;
@@ -58,7 +57,7 @@ public class ComplaintService {
         return complaintRepo.findAll();
     }
 
-    public List<Complaint> getComplaintByStaffId(UUID staffMemberId) {
+    public List<Complaint> getComplaintByStaffId(Long staffMemberId) {
         return complaintRepo.findComplaintByStaffMemberId(staffMemberId);
     }
     //сотрудник или администратор узнают жалобы на конкретного сотрудника

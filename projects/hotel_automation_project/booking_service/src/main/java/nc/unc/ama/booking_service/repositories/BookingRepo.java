@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public interface BookingRepo extends JpaRepository<Booking, Long> {
@@ -18,5 +17,5 @@ public interface BookingRepo extends JpaRepository<Booking, Long> {
     List<Long> findBookingBetweenDates(Date fromDate, Date toDate);
 
     @Query("SELECT b FROM Booking b WHERE b.guestId = ?1 and b.checkInDate = ?2")
-    Booking findBookingByGuestId(UUID guestId, Calendar today);
+    Booking findBookingByGuestId(Long guestId, Calendar today);
 }

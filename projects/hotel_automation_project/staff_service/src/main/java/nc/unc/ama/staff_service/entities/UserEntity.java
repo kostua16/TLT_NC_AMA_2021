@@ -1,11 +1,13 @@
 package nc.unc.ama.staff_service.entities;
 
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +27,9 @@ import org.hibernate.annotations.NaturalId;
 public class UserEntity {
 
     @Id
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_generator")
+    @SequenceGenerator(name = "user_sequence_generator", sequenceName = "user_sequence")
+    private Long uuid;
 
     @NaturalId(mutable = true)
     @Column(nullable = false, unique = true)
@@ -54,7 +58,7 @@ public class UserEntity {
     private UserStatus status;
 
     public UserEntity() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = 0L;
         this.rating = 0;
     }
 

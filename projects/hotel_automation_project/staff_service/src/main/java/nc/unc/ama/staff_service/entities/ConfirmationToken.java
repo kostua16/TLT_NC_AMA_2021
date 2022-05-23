@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +22,9 @@ import nc.unc.ama.common.dto.ConfirmationTokenDTO;
 public class ConfirmationToken {
 
     @Id
-    private UUID tokenId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_id_generator")
+    @SequenceGenerator(name = "token_id_generator", sequenceName = "token_id_sequence")
+    private Long tokenId;
 
     @Column(nullable = false)
     private String token;
@@ -37,7 +42,7 @@ public class ConfirmationToken {
     private UserEntity user;
 
     public ConfirmationToken() {
-        this.tokenId = UUID.randomUUID();
+        this.tokenId = 0L;
         this.createdAt = LocalDateTime.now();
         this.expiresAt = LocalDateTime.now().plusMinutes(30);
         this.token = UUID.randomUUID().toString();

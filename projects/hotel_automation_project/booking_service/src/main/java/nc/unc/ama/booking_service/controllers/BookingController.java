@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path="/api/booking")
@@ -104,7 +103,7 @@ public class BookingController implements BookingREST {
     }
     @Override
     @GetMapping(path = "/get-by-guest/{id}")
-    public BookingDTO getBookingByGuest(@PathVariable("id") UUID guestId, Calendar today){
+    public BookingDTO getBookingByGuest(@PathVariable("id") Long guestId, Calendar today){
         Booking newBooking = bookingService.getBookingByGuest(guestId, today);
         return new BookingDTO(
             newBooking.getBookingId(),

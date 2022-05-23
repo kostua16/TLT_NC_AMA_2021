@@ -1,6 +1,5 @@
 package nc.unc.ama.common.dto;
 
-import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import lombok.Setter;
     public class OperationDTO extends OperationCreateDTO {
         private Long idOperation;
 
-        public OperationDTO(Long idOperation, Long operationTypeId, UUID guestId, Double price ) {
+        public OperationDTO(Long idOperation, Long operationTypeId, Long guestId, Double price ) {
             super(operationTypeId, guestId, price);
             this.idOperation = idOperation;
         }

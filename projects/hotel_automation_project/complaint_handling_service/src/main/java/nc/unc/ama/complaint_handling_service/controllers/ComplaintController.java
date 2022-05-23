@@ -2,7 +2,6 @@ package nc.unc.ama.complaint_handling_service.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import nc.unc.ama.complaint_handling_service.dto.ComplainCreateDTO;
 import nc.unc.ama.complaint_handling_service.dto.ComplaintDTO;
 import nc.unc.ama.complaint_handling_service.entities.Complaint;
@@ -81,7 +80,7 @@ public class ComplaintController {
 
     @GetMapping(path = "/on-staff/{id}")
     @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
-    public ResponseEntity<List<ComplaintDTO>> getComplaintsOnStaff(@PathVariable("id") UUID user) {
+    public ResponseEntity<List<ComplaintDTO>> getComplaintsOnStaff(@PathVariable("id") Long user) {
         List<ComplaintDTO> complainDTOList = new ArrayList<>();
         for (Complaint complaint :
             complaintService.getComplaintByStaffId(user)) {
