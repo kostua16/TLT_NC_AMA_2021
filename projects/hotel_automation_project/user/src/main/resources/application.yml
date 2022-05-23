@@ -1,3 +1,7 @@
+app:
+  api:
+    users:
+      confirmAddress: ${CONFIRM_ADDR:http://localhost:3017/}
 server:
   port: ${PORT:8087}
   public-port: ${PUBLIC_PORT:${server.port}}
