@@ -1,6 +1,5 @@
 package nc.unc.ama.common.dto;
 
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @SuppressWarnings("PMD.ShortVariable")
 public class UserUpdateDTO {
 
-    private UUID id;
+    private Long id;
 
     private String email;
 

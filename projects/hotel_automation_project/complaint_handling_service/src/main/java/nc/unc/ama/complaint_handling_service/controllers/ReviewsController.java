@@ -2,7 +2,6 @@ package nc.unc.ama.complaint_handling_service.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import nc.unc.ama.common.dto.ReviewCreateDTO;
 import nc.unc.ama.common.dto.ReviewsDTO;
 import nc.unc.ama.complaint_handling_service.entities.Reviews;
@@ -70,7 +69,7 @@ public class ReviewsController {
 
     @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @GetMapping(path = "/on-guest/{id}")
-    public ResponseEntity<List<ReviewsDTO>> getReviewsOnGuest(@PathVariable("id") UUID guest) {
+    public ResponseEntity<List<ReviewsDTO>> getReviewsOnGuest(@PathVariable("id") Long guest) {
         List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
         for (Reviews reviews :
             reviewsService.getReviewByGuestId(guest)) {

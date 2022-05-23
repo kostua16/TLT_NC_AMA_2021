@@ -1,7 +1,6 @@
 package nc.unc.ama.common.dto;
 
 import java.util.List;
-import java.util.UUID;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -47,23 +46,23 @@ public interface UsersREST {
     ResponseEntity<UserInfoDTO> findUser(@PathVariable("id") String name);
 
     @GetMapping("/manage/{id}")
-    ResponseEntity<UserInfoDTO> getUser(@PathVariable("id") UUID id);
+    ResponseEntity<UserInfoDTO> getUser(@PathVariable("id") Long id);
 
     @GetMapping("/manage/{id}/lock")
-    ResponseEntity<UserInfoDTO> lockUser(@PathVariable("id") UUID id);
+    ResponseEntity<UserInfoDTO> lockUser(@PathVariable("id") Long id);
 
     @GetMapping("/manage/{id}/unlock")
-    ResponseEntity<UserInfoDTO> unlockUser(@PathVariable("id") UUID id);
+    ResponseEntity<UserInfoDTO> unlockUser(@PathVariable("id") Long id);
 
     @GetMapping("/rate/{id}/up")
-    ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") UUID id);
+    ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") Long id);
 
     @GetMapping("/rate/{id}/down")
-    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") UUID id, @PathVariable("value") int value);
+    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id);
 
     @GetMapping("/rate/{id}/set/{value}")
     ResponseEntity<UserInfoDTO> rateSet(
-        @PathVariable("id") UUID id,
+        @PathVariable("id") Long id,
         @PathVariable("value") int value
     );
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/occupied-rooms")
@@ -75,7 +74,7 @@ public class OccupiedRoomsController {
 
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOccupiedRoom(@PathVariable("id") UUID guestId) {
+    public ResponseEntity<String> deleteOccupiedRoom(@PathVariable("id") Long guestId) {
         roomService.deleteOccupiedRoom(guestId);
         return ResponseEntity.ok("Occupied room for Guest ID = " + guestId + " was deleted");
     }

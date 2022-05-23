@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BookingService {
@@ -59,7 +58,7 @@ public class BookingService {
         return roomsService.freeRooms(occupiedRooms, costMin, costMax);
     }
 
-    public Booking getBookingByGuest(UUID guestId, Calendar today) {
+    public Booking getBookingByGuest(Long guestId, Calendar today) {
         return bookingRepo.findBookingByGuestId(guestId, today);
     }
 }

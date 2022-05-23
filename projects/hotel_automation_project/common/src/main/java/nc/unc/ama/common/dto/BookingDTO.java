@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ public class BookingDTO extends BookingCreateDTO{
     private final Long bookingId;
 
     @Builder
-    public BookingDTO(Long bookingId, UUID guestId, Long roomId, Date checkInDate, Date evictionDate) {
+    public BookingDTO(Long bookingId, Long guestId, Long roomId, Date checkInDate, Date evictionDate) {
         super(guestId, roomId, checkInDate, evictionDate);
         this.bookingId = bookingId;
     }

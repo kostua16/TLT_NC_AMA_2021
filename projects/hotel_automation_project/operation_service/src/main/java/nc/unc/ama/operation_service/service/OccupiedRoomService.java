@@ -2,7 +2,6 @@ package nc.unc.ama.operation_service.service;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 import nc.unc.ama.common.dto.BookingDTO;
 import nc.unc.ama.common.dto.BookingREST;
 import nc.unc.ama.common.dto.UserInfoDTO;
@@ -38,7 +37,7 @@ public class OccupiedRoomService {
         return occupiedRoomRepo.findById(idOccupiedRoom).orElseThrow(() -> new OccupiedRoomNotFoundException(idOccupiedRoom));
     }
 
-    public OccupiedRoom addOccupiedRoom(UUID guestId, Long staffTypeId) {
+    public OccupiedRoom addOccupiedRoom(Long guestId, Long staffTypeId) {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         BookingDTO bookingDTO = bookingREST.getBookingByGuest(guestId, today);
@@ -56,7 +55,7 @@ public class OccupiedRoomService {
         return occupiedRoomRepo.save(occupiedRoomUpd);
     }
 
-    public void deleteOccupiedRoom(UUID guestId) {
+    public void deleteOccupiedRoom(Long guestId) {
         Long occupiedRoom = occupiedRoomRepo.findOccupiedRoomByGuestId(guestId);
         occupiedRoomRepo.deleteById(occupiedRoom);
     }

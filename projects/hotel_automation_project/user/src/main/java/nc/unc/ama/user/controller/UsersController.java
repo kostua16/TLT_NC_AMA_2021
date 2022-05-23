@@ -2,7 +2,6 @@ package nc.unc.ama.user.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import nc.unc.ama.common.dto.ConfirmationTokenDTO;
 import nc.unc.ama.common.dto.StaffRegistrationDTO;
 import nc.unc.ama.common.dto.UserInfoDTO;
@@ -188,7 +187,7 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/manage/{id}")
     @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> getUser(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserInfoDTO> getUser(@PathVariable("id") Long id) {
         final Optional<UserInfoDTO> found = this.usersService.getUserDetails(id);
         if (LOG.isErrorEnabled()) {
             LOG.error(
@@ -202,7 +201,7 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/manage/{id}/lock")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> lockUser(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserInfoDTO> lockUser(@PathVariable("id") Long id) {
         ResponseEntity<UserInfoDTO> result;
         try {
             result = ResponseEntity.ok(this.usersService.lockUser(id));
@@ -215,7 +214,7 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/manage/{id}/unlock")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> unlockUser(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserInfoDTO> unlockUser(@PathVariable("id") Long id) {
         ResponseEntity<UserInfoDTO> result;
         try {
             result = ResponseEntity.ok(this.usersService.activateUserById(id));
@@ -228,7 +227,7 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/rate/{id}/up")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") Long id) {
         ResponseEntity<UserInfoDTO> result;
         try {
             result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> curr + 1));
@@ -240,7 +239,7 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/rate/{id}/down")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") UUID id, @PathVariable("value") int value) {
+    public ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id) {
         ResponseEntity<UserInfoDTO> result;
         try {
             result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> curr - value));
@@ -253,7 +252,7 @@ public class UsersController implements UsersREST {
     @Override @GetMapping("/rate/{id}/set/{value}")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     public ResponseEntity<UserInfoDTO> rateSet(
-        @PathVariable("id") UUID id,
+        @PathVariable("id") Long id,
         @PathVariable("value") int value
     ) {
         ResponseEntity<UserInfoDTO> result;

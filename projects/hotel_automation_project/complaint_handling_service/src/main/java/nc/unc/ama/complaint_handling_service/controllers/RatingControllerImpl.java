@@ -1,7 +1,6 @@
 package nc.unc.ama.complaint_handling_service.controllers;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import nc.unc.ama.common.dto.UserDTO;
 import nc.unc.ama.common.dto.UserInfoDTO;
@@ -24,7 +23,7 @@ public class RatingControllerImpl {
     }
 
 
-    public ResponseEntity<HttpStatus> rateUp(final UUID id, int value) {
+    public ResponseEntity<HttpStatus> rateUp(final Long id, int value) {
         return ResponseEntity.status(this.usersREST.rateSet(id, value).getStatusCode()).build();
     }
 
@@ -45,7 +44,7 @@ public class RatingControllerImpl {
     }
 
 
-    public ResponseEntity<UserDTO> getStaff(UUID staffId) {
+    public ResponseEntity<UserDTO> getStaff(Long staffId) {
         final ResponseEntity<UserDTO> result;
         final ResponseEntity<UserInfoDTO> user = this.usersREST.getUser(staffId);
         final UserInfoDTO body = user.getBody();
