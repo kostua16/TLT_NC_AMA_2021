@@ -6,6 +6,7 @@ import nc.unc.ama.operation_service.entity.OperationType;
 import nc.unc.ama.operation_service.service.OperTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class OperTypeController {
         this.operTypeService = operTypeService;
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping("/")
     public ResponseEntity<List<OperTypeDTO>> showAllOperationTypes() {
         List<OperTypeDTO> operTypeDTOList = new ArrayList<>();
@@ -42,6 +44,7 @@ public class OperTypeController {
         return ResponseEntity.ok(operTypeDTOList);
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<OperTypeDTO> getOperationType(@PathVariable("id") Long operTypeId) {
         OperationType operationType = operTypeService.getOperationType(operTypeId);
@@ -52,6 +55,7 @@ public class OperTypeController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority( 'API', 'ADMIN')")
     @PostMapping("/")
     public ResponseEntity<OperTypeDTO> addNewOperationType(@RequestBody OperTypeCreateDTO operTypeCreateDTO) {
         final OperationType operationType = operTypeService.addOperType(OperationType
@@ -65,6 +69,7 @@ public class OperTypeController {
             operationType.getDescription()));
     }
 
+    @PreAuthorize("hasAnyAuthority( 'API', 'ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<OperTypeDTO> updateOperationType(@PathVariable("id") Long operTypeId,@RequestBody OperTypeDTO operTypeDTO) {
         final OperationType operationType = operTypeService.updateOperType(OperationType
@@ -81,9 +86,24 @@ public class OperTypeController {
             operationType.getDescription()));
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperationType(@PathVariable("id") Long operTypeId) {
         operTypeService.deleteOperationType(operTypeId);
         return ResponseEntity.ok("Operation type with ID = " + operTypeId + " was deleted");
+    }
+
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
+    @GetMapping("/by-staff/{id}")
+    public ResponseEntity<List<OperTypeDTO>> getOperationTypeByStaffType(@PathVariable("id") Long staffTypeId){
+        List<OperTypeDTO> operTypeDTOList = new ArrayList<>();
+        for (OperationType operationType : operTypeService.getOperationTypeByStaffType(staffTypeId)) {
+            operTypeDTOList.add(new OperTypeDTO(
+                operationType.getIdOperType(),
+                operationType.getIdOperType(),
+                operationType.getDescription()
+            ));
+        }
+        return ResponseEntity.ok(operTypeDTOList);
     }
 }

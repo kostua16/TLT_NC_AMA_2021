@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>hotel_automation_project</artifactId>
+    <groupId>nc.unc.ama</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>user</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>user</name>
+  <description>User service for hotel automation project</description>
+  <packaging>jar</packaging>
+  <properties>
+    <spring-boot-starter-mail.version>2.6.3</spring-boot-starter-mail.version>
+    <app.name>user</app.name>
+    <app.main>nc.unc.ama.user.UserApplication</app.main>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+      <version>${spring-boot-starter-mail.version}</version>
+    </dependency>
+      <dependency>
+          <groupId>nc.unc.ama</groupId>
+          <artifactId>common</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      </dependency>
+  </dependencies>
+
+</project>

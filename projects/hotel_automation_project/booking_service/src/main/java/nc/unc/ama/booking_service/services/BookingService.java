@@ -2,6 +2,7 @@ package nc.unc.ama.booking_service.services;
 
 import nc.unc.ama.booking_service.entities.Booking;
 import nc.unc.ama.booking_service.entities.HotelRoom;
+import nc.unc.ama.booking_service.err.BookingAlredyExists;
 import nc.unc.ama.booking_service.err.BookingNotFoundException;
 import nc.unc.ama.booking_service.repositories.BookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,14 @@ public class BookingService {
 
     @Transactional
     public Booking bookRoom(Booking booking) {
-        return bookingRepo.save(booking);
-    }
 
+        if(bookingRepo.findBookingByCheckInDateAndEvictionDateAndRoomId(
+            booking.getCheckInDate(),booking.getEvictionDate(),booking.getRoomId()) != null){
+            throw new BookingAlredyExists();
+        }else{
+            return bookingRepo.save(booking);
+        }
+    }
     public List<HotelRoom> getFreeRooms(Date fromDate, Date toDate, Boolean costMin, Boolean costMax) {
         List<Long> occupiedRooms = bookingRepo.findBookingBetweenDates(fromDate,toDate);
         return roomsService.freeRooms(occupiedRooms, costMin, costMax);

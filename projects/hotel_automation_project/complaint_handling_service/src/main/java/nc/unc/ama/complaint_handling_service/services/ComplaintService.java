@@ -41,7 +41,7 @@ public class ComplaintService {
     public Complaint createComplain(Complaint complaint) {
         Offense offense = offenseService.getOffense(complaint.getOffenseId());
         try {
-            this.usersREST.rateSet(complaint.getStaffMemberId(), offense.getPoints());
+            this.usersREST.rateDown(complaint.getStaffMemberId(), offense.getPoints());
         } catch (FeignException.FeignClientException.BadRequest badRequest) {
             throw new UserCantBeUpdatedException(
                 complaint.getStaffMemberId(),
@@ -50,9 +50,7 @@ public class ComplaintService {
             );
         }
         return complaintRepo.save(complaint);
-    }//отправить оповещение администратору и работнику на почту
-    //добавить тип проступка, в нём будет цена ошибки сотрудника вылияющая на рейтинг
-    //вызывается стафсервис в котором отнимается рейтинг у сотрудника
+    }
 
     public List<Complaint> getAllComplaints() {
         return complaintRepo.findAll();
@@ -61,5 +59,4 @@ public class ComplaintService {
     public List<Complaint> getComplaintByStaffId(UUID staffMemberId) {
         return complaintRepo.findComplaintByStaffMemberId(staffMemberId);
     }
-    //сотрудник или администратор узнают жалобы на конкретного сотрудника
 }

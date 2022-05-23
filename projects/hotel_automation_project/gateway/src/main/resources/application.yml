@@ -37,11 +37,10 @@ spring:
             - Path=/api/operation-type/**
             - Path=/api/check-in/**
             - Path=/api/eviction/**
-        - id: staffApi
-          uri: lb://STAFF
+        - id: userApi
+          uri: lb://USER
           predicates:
-            - Path=/api/staff-types/**
-            - Path=/api/staff/**
+            - Path=/api/users/**
   security:
     user:
       password: ${eureka.password}

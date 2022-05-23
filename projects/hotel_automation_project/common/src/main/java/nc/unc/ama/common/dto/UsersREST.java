@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "STAFF", path = "/api/users", configuration = RestAuthConfig.class)
+@FeignClient(name = "USER", path = "/api/users", configuration = RestAuthConfig.class)
 @ConditionalOnProperty(prefix = "app.clients", name = "usersApi")
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.ShortVariable"})
 public interface UsersREST {
@@ -29,7 +29,7 @@ public interface UsersREST {
     ResponseEntity<List<UserInfoDTO>> listStaff();
 
     @PostMapping("/register/staff")
-    ResponseEntity<UserInfoDTO> registerStaff(@RequestBody UserRegistrationDTO input);
+    ResponseEntity<UserInfoDTO> registerStaff(@RequestBody StaffRegistrationDTO input);
 
     @GetMapping("/admin")
     ResponseEntity<List<UserInfoDTO>> listAdmin();
@@ -59,7 +59,7 @@ public interface UsersREST {
     ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") UUID id);
 
     @GetMapping("/rate/{id}/down")
-    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") UUID id);
+    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") UUID id, @PathVariable("value") int value);
 
     @GetMapping("/rate/{id}/set/{value}")
     ResponseEntity<UserInfoDTO> rateSet(

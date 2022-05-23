@@ -28,6 +28,8 @@ public class UserInfoDTO implements Serializable {
 
     private int rating;
 
+    private Long staffTypeId;
+
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 
@@ -42,6 +44,7 @@ public class UserInfoDTO implements Serializable {
             this.firstName,
             this.lastName,
             this.rating,
+            this.staffTypeId,
             this.role,
             this.status
         );

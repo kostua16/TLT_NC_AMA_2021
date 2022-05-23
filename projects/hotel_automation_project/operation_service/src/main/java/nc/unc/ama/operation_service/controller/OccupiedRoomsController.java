@@ -5,6 +5,7 @@ import nc.unc.ama.operation_service.entity.OccupiedRoom;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class OccupiedRoomsController {
         this.roomService = roomService;
     }
 
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     @GetMapping("/")
     public ResponseEntity<List<OccupiedRoomsDTO>> showAllOccupiedRooms() {
         List<OccupiedRoomsDTO> dtoList = new ArrayList<>();
@@ -41,6 +43,7 @@ public class OccupiedRoomsController {
         return ResponseEntity.ok(dtoList);
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<OccupiedRoomsDTO> getOccupiedRoom(@PathVariable("id") Long idOccupiedRoom) {
         OccupiedRoom occupiedRoom = roomService.getOccupiedRoom(idOccupiedRoom);
@@ -51,6 +54,7 @@ public class OccupiedRoomsController {
             occupiedRoom.getGuestId()));
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<OccupiedRoomsDTO> updateOccupiedRoom(@PathVariable("id") Long idOccupiedRoom,@RequestBody OccupiedRoomsDTO occupiedRoomsDTO) {
         final OccupiedRoom occupiedRoom = roomService.updateOccupiedRoom(OccupiedRoom
@@ -69,6 +73,7 @@ public class OccupiedRoomsController {
             occupiedRoom.getGuestId()));
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOccupiedRoom(@PathVariable("id") UUID guestId) {
         roomService.deleteOccupiedRoom(guestId);

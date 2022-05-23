@@ -6,6 +6,7 @@ import nc.unc.ama.common.dto.HotelRoomCreateDTO;
 import nc.unc.ama.common.dto.HotelRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class RoomsController {
         this.roomsService = roomsService;
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @PostMapping(path = "/")
     public ResponseEntity<HotelRoomDTO> createRoom(@RequestBody HotelRoomCreateDTO hotelRoomDTO){
         final HotelRoom hotelRoom = roomsService.createRoom(HotelRoom
@@ -40,6 +42,7 @@ public class RoomsController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping(path = "{id}")
     public ResponseEntity<HotelRoomDTO> viewRoom(@PathVariable("id") Long roomId)
     {
@@ -51,6 +54,8 @@ public class RoomsController {
             newRoom.getRoomCost()
         ));
     }
+
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping(path = "/")
     public ResponseEntity<List<HotelRoomDTO>> getAllRooms() {
         List<HotelRoomDTO> roomDTOList = new ArrayList<>();
@@ -64,6 +69,7 @@ public class RoomsController {
         }
         return ResponseEntity.ok(roomDTOList);
     }
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<HotelRoomDTO> updateRoom(@PathVariable("id") Long roomId, @RequestBody HotelRoomDTO hotelRoomDTO){
         final HotelRoom hotelRoom = roomsService.updateRoom(HotelRoom
@@ -83,6 +89,7 @@ public class RoomsController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @DeleteMapping(path="/{id}")
     public ResponseEntity<String> deleteRoom(@PathVariable("id") Long roomId){
         roomsService.deleteRoom(roomId);

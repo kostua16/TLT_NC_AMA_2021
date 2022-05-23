@@ -32,21 +32,21 @@ services:
     ports:
       - 3010:80
     environment:
-      EUREKA_URL: http://discovery:80/eureka/eureka/
+      EUREKA_URL: http://discovery:80/oktet
       DOMAIN_NAME: discovery
 
-  logger:
-    build:
-      context: ./projects/hotel_automation_project/logger
-      dockerfile: Logger.Dockerfile
-    ports:
-      - 3011:80
-    environment:
-      EUREKA_URL: http://discovery:80/eureka/eureka/
-      DOMAIN_NAME: logger
-      DATABASE_URL: jdbc:postgresql://postgres:5432/test
-      DATABASE_USER: test
-      DATABASE_PASS: test
+#  logger:
+#    build:
+#      context: ./projects/hotel_automation_project/logger
+#      dockerfile: Logger.Dockerfile
+#   ports:
+#     - 3011:80
+#    environment:
+#      EUREKA_URL: http://discovery:80/eureka/eureka/
+#      DOMAIN_NAME: logger
+#      DATABASE_URL: jdbc:postgresql://postgres:5432/test
+#      DATABASE_USER: test
+#      DATABASE_PASS: test
 
   complains:
     build:
@@ -57,19 +57,6 @@ services:
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
       DOMAIN_NAME: complains
-      DATABASE_URL: jdbc:postgresql://postgres:5432/test
-      DATABASE_USER: test
-      DATABASE_PASS: test
-
-  bank:
-    build:
-      context: ./projects/hotel_automation_project/bank_service
-      dockerfile: Bank.Dockerfile
-    ports:
-      - 3013:80
-    environment:
-      EUREKA_URL: http://discovery:80/eureka/eureka/
-      DOMAIN_NAME: bank
       DATABASE_URL: jdbc:postgresql://postgres:5432/test
       DATABASE_USER: test
       DATABASE_PASS: test
@@ -110,15 +97,15 @@ services:
       DATABASE_USER: test
       DATABASE_PASS: test
 
-  staff:
+  user:
     build:
-      context: ./projects/hotel_automation_project/staff_service
-      dockerfile: Staff.Dockerfile
+      context: ./projects/hotel_automation_project/user
+      dockerfile: User.Dockerfile
     ports:
       - 3017:80
     environment:
       EUREKA_URL: http://discovery:80/eureka/eureka/
-      DOMAIN_NAME: staff
+      DOMAIN_NAME: user
       DATABASE_URL: jdbc:postgresql://postgres:5432/test
       DATABASE_USER: test
       DATABASE_PASS: test

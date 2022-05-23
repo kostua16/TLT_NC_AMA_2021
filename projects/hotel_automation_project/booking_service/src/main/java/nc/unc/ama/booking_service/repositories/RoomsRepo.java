@@ -12,4 +12,5 @@ public interface RoomsRepo extends JpaRepository<HotelRoom, Long>{
     List<HotelRoom> findAllByRoomIdNotIn(List<Long> rooms);
     List<HotelRoom> findAllByRoomIdNotInOrderByRoomCost(List<Long> rooms);
     List<HotelRoom> findAllByRoomIdNotInOrderByRoomCostDesc(List<Long> rooms);
+
 }

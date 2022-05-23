@@ -10,6 +10,7 @@ import nc.unc.ama.common.dto.HotelRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +37,9 @@ public class BookingController implements BookingREST {
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
-//нельзя сделать две брони на одно и то же число
+
     @Override
+    @PreAuthorize("hasAnyAuthority('GUEST','API', 'ADMIN')")
     @PostMapping(path = "/")
     public ResponseEntity<BookingDTO> bookRoom(@RequestBody BookingCreateDTO bookingDTO){
         final Booking booking = bookingService.bookRoom(Booking
@@ -56,7 +58,7 @@ public class BookingController implements BookingREST {
             .evictionDate(booking.getEvictionDate())
             .build());
     }
-
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @GetMapping(path = "/get-free-rooms")
     public ResponseEntity<List<HotelRoomDTO>> getFreeRooms(@RequestParam(required = false, name = "fromDate") @DateTimeFormat(pattern="MMddyyyy") Date fromDate,
                                                          @RequestParam(required = false, name = "toDate") @DateTimeFormat(pattern="MMddyyyy") Date toDate,
@@ -75,6 +77,7 @@ public class BookingController implements BookingREST {
         return ResponseEntity.ok(roomDTOS);
     }
     @Override
+    @PreAuthorize("hasAnyAuthority('GUEST','API', 'ADMIN')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<BookingDTO> getBooking(@PathVariable("id") Long bookId)
     {
@@ -88,6 +91,7 @@ public class BookingController implements BookingREST {
         ));
     }
     @Override
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @GetMapping(path = "/")
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
         List<BookingDTO> bookingDTOList = new ArrayList<>();
@@ -102,6 +106,7 @@ public class BookingController implements BookingREST {
         }
         return ResponseEntity.ok(bookingDTOList);
     }
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @Override
     @GetMapping(path = "/get-by-guest/{id}")
     public BookingDTO getBookingByGuest(@PathVariable("id") UUID guestId, Calendar today){
@@ -114,6 +119,7 @@ public class BookingController implements BookingREST {
             newBooking.getEvictionDate()
         );
     }
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @Override
     @PutMapping(path = "/{id}")
     public ResponseEntity<BookingDTO> updateBooking(@PathVariable("id") Long bookId, @RequestBody BookingDTO bookingDTO){
@@ -136,10 +142,11 @@ public class BookingController implements BookingREST {
             .build());
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST','API', 'ADMIN')")
     @Override
     @DeleteMapping(path="/{id}")
-    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long bookId){
+    public ResponseEntity<String> deleteBooking(@PathVariable("id") Long bookId){
         bookingService.deleteBooking(bookId);
-        return ResponseEntity.ok("Operation with ID = " + bookId + " was deleted");
+        return ResponseEntity.ok("Booking with ID = " + bookId + " was deleted");
     }
 }

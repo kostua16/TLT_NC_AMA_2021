@@ -9,6 +9,7 @@ import nc.unc.ama.complaint_handling_service.entities.Reviews;
 import nc.unc.ama.complaint_handling_service.services.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class ReviewsController {
         this.reviewsService = reviewsService;
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @PostMapping(path = "/")
     public ResponseEntity<ReviewsDTO> createReview(@RequestBody ReviewCreateDTO reviewsDTO) {
         final Reviews reviews = reviewsService.createReview(Reviews
@@ -42,6 +44,7 @@ public class ReviewsController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<ReviewsDTO> viewReview(@PathVariable("id") Long reviewId) {
         Reviews newReview = reviewsService.getReview(reviewId);
@@ -51,7 +54,7 @@ public class ReviewsController {
             newReview.getReviewText()
         ));
     }
-
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @GetMapping(path = "/")
     public ResponseEntity<List<ReviewsDTO>> getAllReviews() {
         List<ReviewsDTO> reviewsDTOList = new ArrayList<>();
@@ -65,6 +68,7 @@ public class ReviewsController {
         return ResponseEntity.ok(reviewsDTOList);
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @GetMapping(path = "/on-guest/{id}")
     public ResponseEntity<List<ReviewsDTO>> getReviewsOnGuest(@PathVariable("id") UUID guest) {
         List<ReviewsDTO> reviewsDTOList = new ArrayList<>();

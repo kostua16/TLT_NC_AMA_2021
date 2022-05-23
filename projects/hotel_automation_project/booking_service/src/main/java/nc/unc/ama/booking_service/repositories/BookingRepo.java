@@ -19,4 +19,7 @@ public interface BookingRepo extends JpaRepository<Booking, Long> {
 
     @Query("SELECT b FROM Booking b WHERE b.guestId = ?1 and b.checkInDate = ?2")
     Booking findBookingByGuestId(UUID guestId, Calendar today);
+
+    Booking findBookingByCheckInDateAndEvictionDateAndRoomId(Date fromDate, Date toDate, Long roomId);
+
 }

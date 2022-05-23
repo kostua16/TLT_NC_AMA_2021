@@ -12,8 +12,11 @@ import lombok.Setter;
     public class OperationDTO extends OperationCreateDTO {
         private Long idOperation;
 
-        public OperationDTO(Long idOperation, Long operationTypeId, UUID guestId, Double price ) {
+        private Boolean status;
+
+        public OperationDTO(Long idOperation, Long operationTypeId, UUID guestId, Double price, Boolean status ) {
             super(operationTypeId, guestId, price);
             this.idOperation = idOperation;
+            this.status = status;
         }
     }

@@ -6,6 +6,7 @@ import nc.unc.ama.complaint_handling_service.entities.Offense;
 import nc.unc.ama.complaint_handling_service.services.OffenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class OffenseController {
     }
 
     @PostMapping(path = "/")
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     public ResponseEntity<OffenseDTO> createOffense(@RequestBody OffenseCreateDTO offenseCreateDTO){
         final Offense offense = offenseService.createOffense(Offense
             .builder()
@@ -46,6 +48,7 @@ public class OffenseController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @GetMapping(path = "{id}")
     public ResponseEntity<OffenseDTO> viewOffense(@PathVariable("id") Long offenseId)
     {
@@ -57,6 +60,7 @@ public class OffenseController {
             offense.getPoints()
         ));
     }
+    @PreAuthorize("hasAnyAuthority('GUEST','STAFF', 'API', 'ADMIN')")
     @GetMapping(path = "/")
     public ResponseEntity<List<OffenseDTO>> getAllOffenses() {
         List<OffenseDTO> offenseDTOList = new ArrayList<>();
@@ -70,6 +74,7 @@ public class OffenseController {
         }
         return ResponseEntity.ok(offenseDTOList);
     }
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<OffenseDTO> updateOffense(@PathVariable("id") Long offenseId, @RequestBody OffenseDTO offenseDTO){
         final Offense offense = offenseService.offenseUpdate(Offense
@@ -89,6 +94,7 @@ public class OffenseController {
         ));
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @DeleteMapping(path="/{id}")
     public ResponseEntity<String> deleteOffense(@PathVariable("id") Long offenseId){
         offenseService.deleteOffense(offenseId);

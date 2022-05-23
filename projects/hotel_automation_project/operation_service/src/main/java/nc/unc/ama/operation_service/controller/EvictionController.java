@@ -4,6 +4,7 @@ import java.util.UUID;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class EvictionController {
         this.roomService = roomService;
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @PostMapping("/{id}")
     public ResponseEntity<String> eviction(@PathVariable("id") UUID guestId){
         roomService.deleteOccupiedRoom(guestId);

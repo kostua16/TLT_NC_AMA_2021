@@ -15,6 +15,8 @@ management:
   server:
     port: ${server.public-port}
 spring:
+  application:
+    name: OPERATION
   main:
     banner-mode: off
   h2:

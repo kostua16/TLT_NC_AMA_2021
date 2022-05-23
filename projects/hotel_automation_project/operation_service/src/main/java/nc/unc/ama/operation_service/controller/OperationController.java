@@ -10,6 +10,7 @@ import nc.unc.ama.operation_service.entity.Operation;
 import nc.unc.ama.operation_service.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class OperationController implements OperationREST {
         this.operationService = operationService;
     }
 
+    @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
     @Override
     @GetMapping("/")
     public ResponseEntity<List<OperationDTO>> showAllOperations() {
@@ -39,11 +41,13 @@ public class OperationController implements OperationREST {
                 operation.getIdOperation(),
                 operation.getOperationTypeId(),
                 operation.getGuestId(),
-                operation.getPrice()));
+                operation.getPrice(),
+                operation.getStatus()));
         }
         return ResponseEntity.ok(operationDTOList);
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'STAFF', 'API', 'ADMIN')")
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<OperationDTO> getOperation(@PathVariable("id") Long idOperation) {
@@ -52,9 +56,11 @@ public class OperationController implements OperationREST {
             operation.getIdOperation(),
             operation.getOperationTypeId(),
             operation.getGuestId(),
-            operation.getPrice()));
+            operation.getPrice(),
+            operation.getStatus()));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @Override
     @PostMapping("/")
     public ResponseEntity<OperationDTO> addNewOperation(@RequestBody OperationCreateDTO operCreateDTO) {
@@ -68,9 +74,11 @@ public class OperationController implements OperationREST {
             operation.getIdOperation(),
             operation.getOperationTypeId(),
             operation.getGuestId(),
-            operation.getPrice()));
+            operation.getPrice(),
+            operation.getStatus()));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST', 'API', 'ADMIN')")
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<OperationDTO> updateOperation(@PathVariable("id") Long operationId,@RequestBody OperationDTO operationDTO) {
@@ -86,15 +94,19 @@ public class OperationController implements OperationREST {
             operation.getIdOperation(),
             operation.getOperationTypeId(),
             operation.getGuestId(),
-            operation.getPrice()));
+            operation.getPrice(),
+            operation.getStatus()));
     }
 
+    @PreAuthorize("hasAnyAuthority('GUEST','API', 'ADMIN')")
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOperation(@PathVariable("id") Long idOperation) {
         operationService.deleteOperation(idOperation);
         return ResponseEntity.ok("Operation with ID = " + idOperation + " was deleted");
     }
+
+    @PreAuthorize("hasAnyAuthority('STAFF', 'API', 'ADMIN')")
     @PutMapping("/operation-done/{id}")
     public ResponseEntity<OperationDTO> operationDone(@PathVariable("id") Long idOperation){
         final Operation operation = operationService.operationDone(idOperation);
@@ -102,6 +114,7 @@ public class OperationController implements OperationREST {
             operation.getIdOperation(),
             operation.getOperationTypeId(),
             operation.getGuestId(),
-            operation.getPrice()));
+            operation.getPrice(),
+            operation.getStatus()));
     }
 }

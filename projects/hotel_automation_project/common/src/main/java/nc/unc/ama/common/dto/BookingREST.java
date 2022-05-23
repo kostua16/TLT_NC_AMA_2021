@@ -34,5 +34,5 @@ public interface BookingREST {
     ResponseEntity<BookingDTO> updateBooking(@PathVariable("id") Long bookId, @RequestBody BookingDTO bookingDTO);
 
     @DeleteMapping(path="/{id}")
-    ResponseEntity<String> deleteRoom(@PathVariable("id") Long bookId);
+    ResponseEntity<String> deleteBooking(@PathVariable("id") Long bookId);
 }

@@ -26,6 +26,8 @@ public class UserDTO implements Serializable {
 
     private int rating;
 
+    private Long staffTypeId;
+
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 

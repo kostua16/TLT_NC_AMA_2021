@@ -6,6 +6,7 @@ import nc.unc.ama.operation_service.entity.OccupiedRoom;
 import nc.unc.ama.operation_service.service.OccupiedRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,7 @@ public class CheckInController {
         this.roomService = roomService;
     }
 
-
-
-
+    @PreAuthorize("hasAnyAuthority( 'API', 'ADMIN')")
     @PostMapping("/{id}")
     public ResponseEntity<OccupiedRoomsDTO> checkInGuest(@PathVariable("id") UUID guestId,
                                                          @RequestParam(required = false, name = "staff-type-id") Long staffTypeId){
