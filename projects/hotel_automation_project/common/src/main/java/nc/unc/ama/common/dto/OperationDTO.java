@@ -13,7 +13,7 @@ import lombok.Setter;
 
         private Boolean status;
 
-        public OperationDTO(Long idOperation, Long operationTypeId, Long guestId, Double price ) {
+        public OperationDTO(Long idOperation, Long operationTypeId, Long guestId, Double price, Boolean status ) {
             super(operationTypeId, guestId, price);
             this.idOperation = idOperation;
             this.status = status;

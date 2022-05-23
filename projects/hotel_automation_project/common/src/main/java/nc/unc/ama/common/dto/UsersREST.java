@@ -58,7 +58,7 @@ public interface UsersREST {
     ResponseEntity<UserInfoDTO> rateUp(@PathVariable("id") Long id);
 
     @GetMapping("/rate/{id}/down")
-    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id);
+    ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id, Integer points);
 
     @GetMapping("/rate/{id}/set/{value}")
     ResponseEntity<UserInfoDTO> rateSet(

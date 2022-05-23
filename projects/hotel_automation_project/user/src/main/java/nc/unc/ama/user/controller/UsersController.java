@@ -239,10 +239,10 @@ public class UsersController implements UsersREST {
 
     @Override @GetMapping("/rate/{id}/down")
     @PreAuthorize("hasAnyAuthority('API', 'ADMIN')")
-    public ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id) {
+    public ResponseEntity<UserInfoDTO> rateDown(@PathVariable("id") Long id, Integer points) {
         ResponseEntity<UserInfoDTO> result;
         try {
-            result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> curr - value));
+            result = ResponseEntity.ok(this.usersService.updateRating(id, curr -> curr - points));
         } catch (UsernameNotFoundException exists) {
             result = ResponseEntity.badRequest().build();
         }

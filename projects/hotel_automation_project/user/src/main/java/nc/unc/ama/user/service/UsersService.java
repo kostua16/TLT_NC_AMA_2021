@@ -77,8 +77,8 @@ public class UsersService implements UserDetailsService {
     @Transactional
     public ConfirmationTokenDTO registerStaff(final StaffRegistrationDTO reg, final UserRoles role) {
        ConfirmationTokenDTO tokenDTO =  this.register(reg, role);
-       updateRating(tokenDTO.getUser().getId(), curr -> curr + 100);
-       updateStaffType(tokenDTO.getUser().getId(), reg.getStaffTypeId());
+       this.updateRating(tokenDTO.getUser().getId(), curr -> curr + 100);
+       this.updateStaffType(tokenDTO.getUser().getId(), reg.getStaffTypeId());
        return tokenDTO;
     }
     @Transactional
@@ -195,7 +195,7 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional
-    public UserInfoDTO updateStaffType(final UUID id, final Long typeId){
+    public UserInfoDTO updateStaffType(final Long id, final Long typeId){
         final Optional<UserEntity> found = this.getUser(id);
         if (found.isPresent()) {
             final UserEntity user = found.get();
