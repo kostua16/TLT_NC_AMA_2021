@@ -7,7 +7,7 @@
    <parent>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-parent</artifactId>
-      <version>2.6.7</version>
+      <version>2.7.0</version>
       <relativePath/>
       <!-- lookup parent from repository -->
     </parent>
@@ -39,15 +39,16 @@
     <servlet.jstl.version>1.2</servlet.jstl.version> <!-- TOMCAT 8 uses 1.2 version -->
     <servlet.jsf-api.version>2.3-pfd</servlet.jsf-api.version> <!-- TOMCAT 8 uses 1.2 version -->
     <servlet.jsf-impl.version>3.0.2</servlet.jsf-impl.version> <!-- TOMCAT 8 uses 1.2 version -->
-    <servlet.cdi.version>4.0.3.Final</servlet.cdi.version> <!-- TOMCAT 8 uses 1.2 version -->
+    <servlet.cdi.version>5.0.0.Final</servlet.cdi.version> <!-- TOMCAT 8 uses 1.2 version -->
     <tomcat.plugin.version>2.2</tomcat.plugin.version>
-    <pmd.version>6.44.0</pmd.version>
+    <pmd.version>6.45.0</pmd.version>
     <pmd.plugin.version>3.16.0</pmd.plugin.version>
     <war.plugin.version>3.3.2</war.plugin.version>
     <heroku.plugin.version>3.0.4</heroku.plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <pmd.report.format>xml</pmd.report.format>
+    <javadoc.build.version>3.3.1</javadoc.build.version>
   </properties>
 
 
@@ -209,8 +210,46 @@
           <artifactId>maven-war-plugin</artifactId>
           <version>${war.plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${javadoc.build.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <show>public</show>
+          <nohelp>true</nohelp>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${javadoc.build.version}</version>
+        <!--        <configuration>-->
+        <!--          &lt;!&ndash;          <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>&ndash;&gt;-->
+        <!--          <show>public</show>-->
+        <!--        </configuration>-->
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

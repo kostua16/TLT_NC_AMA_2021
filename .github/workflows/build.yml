@@ -67,6 +67,17 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
             await script({github, context})
+      ##############################################
+      # Publish documentation  #
+      ##############################################
+      - name: Publish Javadocs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ success() }}
+        with:
+          personal_token: ${{ secrets.GH_TKN }}
+          publish_dir: ./docs
+          enable_jekyll: true
+          commit_message: Updated docs for - ${{ github.event.head_commit.message }}
 
   Validate_commit_message:
     name: Lint Commit Message
@@ -75,7 +86,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4.1.11
+      - uses: wagoid/commitlint-github-action@v4.1.12
         with:
           helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
           configFile: .github/commitlint.config.js
