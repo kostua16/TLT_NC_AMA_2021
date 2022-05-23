@@ -67,6 +67,17 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/if_build_success.js`)
             await script({github, context})
+      ##############################################
+      # Publish documentation  #
+      ##############################################
+      - name: Publish Javadocs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ success() }}
+        with:
+          personal_token: ${{ secrets.GH_TKN }}
+          publish_dir: ./docs
+          enable_jekyll: true
+          commit_message: Updated docs for - ${{ github.event.head_commit.message }}
 
   Validate_commit_message:
     name: Lint Commit Message
