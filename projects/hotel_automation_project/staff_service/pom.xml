@@ -15,7 +15,7 @@
   <description>Staff service for hotel automation project</description>
   <packaging>jar</packaging>
   <properties>
-    <spring-boot-starter-mail.version>2.6.3</spring-boot-starter-mail.version>
+    <spring-boot-starter-mail.version>2.7.0</spring-boot-starter-mail.version>
     <app.name>staff</app.name>
     <app.main>nc.unc.ama.staff_service.StaffServiceApplication</app.main>
   </properties>
