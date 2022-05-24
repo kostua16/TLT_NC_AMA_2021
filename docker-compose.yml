@@ -111,5 +111,6 @@ services:
       DATABASE_PASS: test
       PUBLIC_HOST: localhost
       MAIL_HOST: maildev
+      CONFIRM_ADDR: ${GATEWAY_ADDR} #установить OKTETO SECRET с таким именем или выставить в https://gateway-kostua16.cloud.okteto.net/
 volumes:
   pg_data:
