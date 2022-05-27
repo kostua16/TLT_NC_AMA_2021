@@ -23,7 +23,7 @@
     <spring-cloud-openfeign-core.version>3.1.2</spring-cloud-openfeign-core.version>
     <http.client.version>4.5.13</http.client.version>
     <spring-security-test.version>5.5.3</spring-security-test.version>
-    <mockito-version>4.5.1</mockito-version>
+    <mockito-version>4.6.0</mockito-version>
     <junit-jupiter>5.7.2</junit-jupiter>
     <junit.version>4.13.2</junit.version>
     <javax.interceptor-api.version>1.2.2</javax.interceptor-api.version>
