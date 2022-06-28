@@ -86,7 +86,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4.1.12
+      - uses: wagoid/commitlint-github-action@v5.0.2
         with:
           helpUrl: https://github.com/kostua16/TLT_NC_AMA_2021/blob/main/CONTRIBUTING.MD
           configFile: .github/commitlint.config.js
